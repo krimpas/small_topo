@@ -9,6 +9,7 @@ from nornir.core.filter import F
 from nornir_utils.plugins.functions import print_result
 from nornir_utils.plugins.tasks.data import load_yaml
 
+
 # This is a mapping of section names to cerberus
 # validators, Each section corresponds to the
 # cerberus-like validator.
