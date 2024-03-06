@@ -83,7 +83,7 @@ class SectionValidator:
         Build the full pathnames for the configuration and schema YAML files
         and use them to fetch YAML data. The YAML contents are fetched using
         Nornir plugin load_yaml.
- 
+
         Parameters
         ----------
         task : Task)

@@ -13,7 +13,7 @@ load_dotenv()
 
 
 def main():
-    
+
     # Define directories and section
     data_directory = os.environ.get("YML_DIR")
     schema_directory = os.environ.get("SCHEMA_DIR")
