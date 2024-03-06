@@ -1,0 +1,11 @@
+---
+ospf:
+  rid: "0.0.0.4"
+  no_passives:
+    - name: "GigabitEthernet 0/1"
+  ttl_sec_all: true
+  nets:
+    - ip: "10.0.24.4"
+      area: "0.0.2.4"
+    - ip: "172.16.4.4"
+      area: "0.0.2.4"

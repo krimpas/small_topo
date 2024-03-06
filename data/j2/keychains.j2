@@ -1,0 +1,13 @@
+!
+{% for keychain in data['keychains']%}
+key chain {{keychain.chainname}}
+{% if keychain.description is defined %}
+ description {{ keychain.description }}
+{% endif %}
+{% for k in keychain['keys'] %}
+ key {{ k.keyid}}
+  key-string {{ k.key_string }}
+    cryptographic-algorithm {{ k.crypto_algorithm}}
+{% endfor %}
+!
+{% endfor %}

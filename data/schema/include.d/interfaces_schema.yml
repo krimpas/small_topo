@@ -1,0 +1,47 @@
+---
+interfaces:
+  type: "list"
+  schema:
+    type: "dict"
+    schema:
+      name:
+        type: "string"
+      ipv4:
+        type: "ipv4addr"
+      mask:
+        type: "netmask"
+      mtu:
+        min: 1000
+        max: 9000
+        type: integer
+        required: false
+      description:
+        type: string
+        required: false
+        minlength: 2
+        maxlength: 40
+      enabled:
+        type: boolean
+        required: true
+      ospf_config:
+        type: "dict"
+        schema:
+          area:
+            type: "ipv4addr"
+            required: false
+          net_type:
+            type: "ospf_net_type"
+            required: false
+          cost:
+            type: "integer"
+            min: 1
+            max: 1000
+            required: false
+          priority:
+            type: "integer"
+            min: 0
+            max: 255
+            required: false
+          key_chain:
+            type: "string"
+            required: false

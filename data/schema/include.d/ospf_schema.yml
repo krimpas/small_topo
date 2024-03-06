@@ -1,0 +1,34 @@
+---
+ospf:
+  type: "dict"
+  schema:
+    rid:
+      type: "ipv4addr"
+      required: true
+    ref_band:
+      type: integer
+      min: 1000
+      max: 10000
+      required: false
+    no_passives:
+      type: "list"
+      required: false
+      schema:
+        type: "dict"
+        schema:
+          name:
+            type: "string"
+    ttl_sec_all:
+      type: boolean
+      required: false
+    nets:
+      type: "list"
+      schema:
+        type: "dict"
+        schema:
+          ip:
+            type: "ipv4addr"
+            required: true
+          area:
+            type: "ipv4addr"
+            required: true

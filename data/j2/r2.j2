@@ -1,0 +1,43 @@
+!
+hostname r2
+!
+{% block services %}
+service timestamps debug datetime msec localtime show-timezone year
+service timestamps log datetime msec localtime show-timezone year
+service sequence-numbers
+{% endblock -%}
+!
+no ip domain lookup
+!
+ip domain name krimpas.net
+!
+username cisco privilege 15 password cisco
+!
+crypto key generate rsa modulus 2048
+!
+ip ssh version 2
+!
+ip scp server enable
+!
+{% block interfaces %}
+{% include 'interfaces.j2' ignore missing %}
+{% endblock %}
+!
+{% block ospf %}
+{% include 'ospf.j2' ignore missing %}
+{% endblock %}
+!
+{% block bgp %}
+{% endblock %}
+!
+{% block alias %}
+{% endblock %}
+!
+line con 0
+ logging synchronous
+ history size 100
+line vty 0 4
+ logging synchronous
+ history size 100
+ transport input ssh
+!

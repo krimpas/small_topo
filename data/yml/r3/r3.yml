@@ -1,0 +1,54 @@
+---
+interfaces:
+  - name: "GigabitEthernet 2"
+    ipv4: "10.0.0.3"
+    mask: "255.255.255.240"
+    mtu: 1500
+    description: "towards OSPF area 0"
+    enabled: true
+    ospf_config:
+      area: "0.0.0.0"
+      net_type: "broadcast"
+      priority: 0
+
+  - name: "GigabitEthernet 3"
+    ipv4: "10.0.35.3"
+    mask: "255.255.255.248"
+    mtu: 1500
+    description: "towards r5/OSPF area 0.0.3.5"
+    enabled: true
+    ospf_config:
+      area: "0.0.3.5"
+      net_type: "point-to-point"
+      key_chain: "area0.0.3.5"
+
+  - name: "Loopback 0"
+    ipv4: "172.16.3.3"
+    mask: "255.255.255.0"
+    enabled: true
+    ospf_config:
+      area: "0.0.0.3"
+      net_type: "point-to-point"
+ospf:
+  rid: "0.0.0.3"
+  no_passives:
+    - name: "GigabitEthernet 2"
+    - name: "GigabitEthernet 3"
+  ttl_sec_all: true
+  nets:
+    - ip: "10.0.0.3"
+      area: "0.0.0.0"
+    - ip: "10.0.35.3"
+      area: "0.0.3.5"
+    - ip: "172.16.3.3"
+      area: "0.0.0.3"
+keychains:
+  - chainname: area0.0.3.5
+    description: used for OSPF Area 0.0.3.5
+    keys:
+      - keyid: 1
+        key_string: area0.0.3.5
+        crypto_algorithm: hmac-sha-256
+      - keyid: 2
+        key_string: area0.0.3.5
+        crypto_algorithm: hmac-sha-256

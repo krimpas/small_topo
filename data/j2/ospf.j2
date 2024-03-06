@@ -1,0 +1,18 @@
+router ospf 1
+ no shutdown
+ auto-cost reference-bandwidth 10000
+ router-id {{ data['ospf'].rid }}
+ ispf
+ maximum-paths 16
+ passive-interface default
+{% if data['ospf'].ttl_sec_all is defined %}
+{% if data['ospf'].ttl_sec_all is true %}
+ ttl-security all-interfaces
+{%endif %}
+{%endif %}
+{% for p in data['ospf'].no_passives %}
+ no passive-interface {{ p.name }}
+{% endfor %}
+{% for n in data['ospf'].nets %}
+ network {{ n.ip }} 0.0.0.0 area {{ n.area }}
+{% endfor %}

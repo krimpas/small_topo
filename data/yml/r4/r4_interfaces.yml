@@ -1,0 +1,19 @@
+---
+interfaces:
+  - name: "GigabitEthernet 0/1"
+    ipv4: "10.0.24.4"
+    mask: "255.255.255.248"
+    mtu: 1500
+    description: "towards r2/OSPF Area 0.0.2.4"
+    enabled: true
+    ospf_config:
+      area: "0.0.2.4"
+      net_type: "point-to-point"
+
+  - name: "Loopback 0"
+    ipv4: "172.16.4.4"
+    mask: "255.255.255.0"
+    enabled: true
+    ospf_config:
+      area: "0.0.2.4"
+      net_type: "point-to-point"

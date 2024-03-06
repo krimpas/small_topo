@@ -1,0 +1,11 @@
+---
+keychains:
+  - chainname: area0.0.3.5
+    description: used for OSPF Area 0.0.3.5
+    keys:
+      - keyid: 1
+        key_string: area0.0.3.5
+        crypto_algorithm: hmac-sha-256
+      - keyid: 2
+        key_string: area0.0.3.5
+        crypto_algorithm: hmac-sha-256

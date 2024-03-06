@@ -1,0 +1,38 @@
+---
+interfaces:
+  - name: "GigabitEthernet 2"
+    ipv4: "10.0.0.2"
+    mask: "255.255.255.240"
+    mtu: 1500
+    description: "towards OSPF area 0"
+    enabled: true
+    ospf_config:
+      net_type: "broadcast"
+      priority: 254
+      cost: 10
+
+  - name: "GigabitEthernet 3"
+    ipv4: "10.0.24.2"
+    mask: "255.255.255.248"
+    mtu: 1500
+    description: "towards r4/OSPF Area 0.0.2.4"
+    enabled: true
+    ospf_config:
+      net_type: "point-to-point"
+
+  - name: "GigabitEthernet 4"
+    ipv4: "10.0.25.2"
+    mask: "255.255.255.248"
+    mtu: 1500
+    description: "towards r5/OSPF area 0.0.2.5"
+    enabled: true
+    ospf_config:
+      net_type: "point-to-point"
+
+  - name: "Loopback 0"
+    ipv4: "172.16.2.2"
+    mask: "255.255.255.0"
+    enabled: true
+    ospf_config:
+      area: "0.0.0.0"
+      net_type: "point-to-point"

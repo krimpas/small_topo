@@ -1,0 +1,34 @@
+{% for interface in data['interfaces'] %}
+interface {{ interface.name }}
+{% if interface.description is defined %}
+ description {{ interface.description }}
+{% endif %}
+{% if interface.ipv4 is defined %}
+ ip address {{ interface.ipv4 }} {{ interface.mask }}
+{% endif %}
+{% if interface.mtu is defined %}
+ mtu {{interface.mtu}}
+{% endif %}
+{% if interface.enabled is defined %}
+{% if interface.enabled is true %}
+ no shutdown{% else %} shutdown{% endif %}{% endif %}
+ 
+{% if interface.ospf_config is defined %}
+{% if interface.ospf_config.area is defined %}
+ ip ospf 1 area {{ interface.ospf_config.area }}
+{% endif %}
+{% if interface.ospf_config.net_type is defined %}
+ ip ospf network {{interface.ospf_config.net_type }}
+{% endif %}
+{% if interface.ospf_config.cost is defined %}
+ ip ospf cost {{interface.ospf_config.cost}}
+{% endif %}
+{% if interface.ospf_config.priority is defined %}
+ ip ospf priority {{interface.ospf_config.priority}}
+{% endif %}
+{% if interface.ospf_config.key_chain is defined %}
+ ip ospf authentication key-chain {{interface.ospf_config.key_chain}}
+{% endif %}{% endif %}
+!
+{% endfor %}
+

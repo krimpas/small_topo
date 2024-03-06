@@ -1,0 +1,28 @@
+---
+keychains:
+  type: "list"
+  schema:
+    type: "dict"
+    schema:
+      chainname:
+        type: "string"
+        required: true                  
+      description:
+        type: string
+        required: false
+        minlength: 2
+        maxlength: 40
+      keys:
+        type: "list"
+        schema:
+          type: "dict"
+          schema:
+            keyid:
+              type: "integer"
+              required: true
+            key_string:
+              type: "string"
+              required: true
+            crypto_algorithm:
+              type: "crypto_algorithm"
+              required: true
