@@ -91,10 +91,10 @@ class SectionValidator:
 
         Returns
         -------
-        Result : Object
+        Result : Object dict-like
             Returns 2 dictionaries attached to the Result object. The 1st is
             ['data'] and contains the configuration data dictionary and 2nd
-            ['schena'] contains the schema dictionary.
+            ['schema'] contains the schema dictionary.
 
         """
         # Build full pathname for data YAML file
@@ -125,7 +125,7 @@ class SectionValidator:
         """
         Performs validation of data against the loaded schema.
 
-        The sata and scema are loaded into the class members dictionaries.
+        The data and schema are loaded into the class members dictionaries.
         The validation is performed by using Cerberus-like classes.
 
         Parameters
@@ -135,11 +135,11 @@ class SectionValidator:
 
         Returns
         -------
-        Result : Object
+        Result : Object dict-like
             Returns 2 variables attached to the Result object. The 1st is
-            ['retcode'] which is True if validation succeded, otherwise False
-            and the 2nd ['errors'] is data dictionary containing the errors
-            occured, if any.
+            ['is_valid'] which is True if validation succeded, else False
+            and the 2nd ['validation_errors'] is dictionary containing the
+            errors occured, if any.
         """
 
         data_schema_result = self.load_data_and_schema(task)
@@ -147,6 +147,8 @@ class SectionValidator:
         self.schema = data_schema_result.result["schema"]
 
         v = section_to_validator_map[self.section](self.schema)
-        rc = v.validate(self.data)
+        retcode = v.validate(self.data)
 
-        return Result(host=task.host, result=dict(retcode=rc, errors=v.errors))
+        return Result(
+            host=task.host, result=dict(is_valid=retcode, validation_errors=v.errors)
+        )
