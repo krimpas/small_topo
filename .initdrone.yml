@@ -12,7 +12,7 @@ platform:
 
 trigger:
   repo:
-    - krimpas/smalltopo
+    - krimpas/small_topo
   branch:
     - dev_L3ifaces
 
