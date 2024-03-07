@@ -20,4 +20,4 @@ ENV SNAPSHOT_DIR = ${DATA_DIR}/snapshot
 # Install dependencies:
 COPY requirements.txt .
 RUN pip install -r requirements.txt
-RUN pip install yamllint
+RUN pip install yamllintß
