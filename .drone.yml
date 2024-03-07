@@ -43,7 +43,7 @@ steps:
     image: gkrimpas/small_topo:latest
     commands:
       - echo "Black on Python source code"
-      - black --check $CERBERUS_DIR 
+      - black $CERBERUS_DIR --check
 
   - name: Validating L3 interfaces YAML files
     image: gkrimpas/small_topo:latest
