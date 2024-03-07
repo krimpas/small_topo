@@ -6,7 +6,7 @@ from nornir import InitNornir
 from nornir.core.task import Task, Result
 from nornir_utils.plugins.functions import print_result, print_title
 from nornir.core.filter import F
-from code.cerberus.sectionvalidator import SectionValidator
+from sectionvalidator import SectionValidator
 from pprint import pprint
 
 load_dotenv()
