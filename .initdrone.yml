@@ -5,10 +5,6 @@ kind: pipeline
 type: docker
 name: Checking for errors in YAML and pythob source code
 
-platform:
-  os: linux
-  arch: amd64
-
 trigger:
   repo:
     - krimpas/small_topo
