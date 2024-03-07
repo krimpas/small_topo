@@ -75,6 +75,7 @@ class SectionValidator:
         self.data = None
         self.schema = None
 
+
     def load_data_and_schema(self, task: Task) -> Result:
         """
         Loads YAML data and schema from files using the Nornir load_yaml plugin.
@@ -152,3 +153,4 @@ class SectionValidator:
         return Result(
             host=task.host, result=dict(is_valid=retcode, validation_errors=v.errors)
         )
+        
