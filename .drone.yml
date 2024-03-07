@@ -41,6 +41,7 @@ steps:
   
   - name: Black formatter for Python code
     image: gkrimpas/small_topo:latest
+    commands:
       - black $CERBERUS_DIR --check
 
   - name: Validating L3 interfaces YAML files
