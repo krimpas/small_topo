@@ -9,7 +9,6 @@ platform:
   os: linux
   arch: amd64
 
-
 trigger:
   repo:
     - krimpas/small_topo

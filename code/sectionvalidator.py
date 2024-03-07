@@ -143,6 +143,7 @@ class SectionValidator:
         """
 
         data_schema_result = self.load_data_and_schema(task)
+        # save the data
         self.data = data_schema_result.result["data"]
         self.schema = data_schema_result.result["schema"]
 
