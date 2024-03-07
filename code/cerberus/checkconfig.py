@@ -1,3 +1,4 @@
+
 import os
 import logging
 import argparse
@@ -11,8 +12,8 @@ from pprint import pprint
 
 load_dotenv()
 
-def main():
 
+def main():
     # Define directories and section
     data_directory = os.environ.get("YML_DIR")
     schema_directory = os.environ.get("SCHEMA_DIR")

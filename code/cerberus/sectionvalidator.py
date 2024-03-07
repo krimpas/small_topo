@@ -1,3 +1,4 @@
+
 import os
 import logging
 import appvalidator
@@ -74,7 +75,6 @@ class SectionValidator:
         self.section = section
         self.data = None
         self.schema = None
-
 
     def load_data_and_schema(self, task: Task) -> Result:
         """
@@ -153,4 +153,3 @@ class SectionValidator:
         return Result(
             host=task.host, result=dict(is_valid=retcode, validation_errors=v.errors)
         )
-        
