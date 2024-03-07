@@ -62,4 +62,4 @@ steps:
     commands:
       - python $CERBERUS_DIR/checkconfig.py --section keychains
       - echo "End of OSPF keychains validation"
-    ß
+      
