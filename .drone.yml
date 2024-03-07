@@ -10,7 +10,6 @@ trigger:
     - krimpas/small_topo
   branch:
     - dev_L3ifaces
-    - main
 
 steps:
 
