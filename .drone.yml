@@ -39,6 +39,12 @@ steps:
       - echo "YAML SCHEMA data/CHECKING fot YAML error and warnings"
       - yamllint --list-files --format github --strict $SCHEMA_DIR
   
+  - name: Cerburus Python code Black
+    image: gkrimpas/small_topo:latest
+    commands:
+      - echo "Cerburus Python code Black for formmating and warnings"
+      - black $CERBERUS_DIR/ --check
+
   - name: Validating L3 interfaces YAML files
     image: gkrimpas/small_topo:latest
     commands:

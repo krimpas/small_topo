@@ -1,4 +1,3 @@
-
 import os
 import logging
 import appvalidator
@@ -55,7 +54,6 @@ class SectionValidator:
         Validates the configuraiton data against the schema using Nornir tasks,
 
     """
-
 
     def __init__(self, data_dir: str, schema_dir: str, section: str):
         """

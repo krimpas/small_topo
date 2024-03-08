@@ -1,4 +1,3 @@
-
 from cerberus import Validator
 from ipaddress import ip_address, ip_interface
 from dotenv import load_dotenv
