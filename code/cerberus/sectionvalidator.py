@@ -1,12 +1,7 @@
 import os
 import logging
 import appvalidator
-from pprint import pprint
-from dotenv import load_dotenv
-from nornir import InitNornir
 from nornir.core.task import Task, Result
-from nornir.core.filter import F
-from nornir_utils.plugins.functions import print_result
 from nornir_utils.plugins.tasks.data import load_yaml
 
 
@@ -85,8 +80,8 @@ class SectionValidator:
 
         Parameters
         ----------
-        task : Task)
-            The Nornir task used to run the loading of files
+        task : Task
+            The Nornir task used to run the loading of YAML files
 
         Returns
         -------
@@ -130,7 +125,7 @@ class SectionValidator:
         Parameters
         ----------
         task :Task
-            The Nornir task.
+            The Nornir task performing the schema validation process.
 
         Returns
         -------
@@ -145,7 +140,7 @@ class SectionValidator:
         # save the data
         self.data = data_schema_result.result["data"]
         self.schema = data_schema_result.result["schema"]
-
+        # Perform the actual validation
         v = section_to_validator_map[self.section](self.schema)
         retcode = v.validate(self.data)
 
