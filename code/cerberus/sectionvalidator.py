@@ -56,6 +56,7 @@ class SectionValidator:
 
     """
 
+
     def __init__(self, data_dir: str, schema_dir: str, section: str):
         """
         Initializes the SectionValidator object.
