@@ -1,4 +1,4 @@
-FROM python:3.11.8-slim
+FROM python:3.9.1-slim
 
 WORKDIR /drone/src
 
@@ -20,5 +20,3 @@ ENV SNAPSHOT_DIR=${DATA_DIR}/snapshot
 # Install dependencies:
 COPY requirements.txt .
 RUN pip install -r requirements.txt
-RUN pip install yamllint
-RUN pip install black
