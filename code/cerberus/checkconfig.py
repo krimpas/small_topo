@@ -6,13 +6,14 @@ from nornir import InitNornir
 from nornir.core.task import Task, Result
 from nornir_utils.plugins.functions import print_result, print_title
 from nornir.core.filter import F
-from sectionvalidator import SectionValidator
+from code.cerberus.sectionvalidator import SectionValidator
 from pprint import pprint
 
 load_dotenv()
 
 
 def main():
+
     # Define directories and section
     data_directory = os.environ.get("YML_DIR")
     schema_directory = os.environ.get("SCHEMA_DIR")
@@ -51,8 +52,8 @@ def main():
     print_result(result)
 
     for h in filtered_hosts.inventory.hosts.keys():
-        if not result[h].result["is_valid"]:
-            exit(13)
+        if not result[h].result["retcode"]:
+            exit(-123)
     print_title(f">>>|{sargs.section} YAML check: PASSED |<<<")
     return 0
 
