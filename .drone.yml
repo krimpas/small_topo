@@ -48,17 +48,17 @@ steps:
   - name: Validating L3 interfaces YAML files
     image: gkrimpas/small_topo:latest
     commands:
-      - python $CERBERUS_DIR/checkconfig.py --section interfaces
+      - python3 $CERBERUS_DIR/checkconfig.py --section interfaces
       - echo "End of L3 interfaces validation"
 
   - name: Validating OSPF settings YAML files
     image: gkrimpas/small_topo:latest
     commands:
-      - python $CERBERUS_DIR/checkconfig.py --section ospf
+      - python3 $CERBERUS_DIR/checkconfig.py --section ospf
       - echo "End of OSPF settings validation"
 
   - name: Validating OSPF keychains YAML files
     image: gkrimpas/small_topo:latest
     commands:
-      - python $CERBERUS_DIR/checkconfig.py --section keychains
+      - python3 $CERBERUS_DIR/checkconfig.py --section keychains
       - echo "End of OSPF keychains validation"
