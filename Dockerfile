@@ -1,4 +1,4 @@
-FROM python:3.11.8-slim
+FROM python:3.9.1-slim
 
 WORKDIR /drone/src
 
@@ -13,8 +13,10 @@ ENV CONFIG_DIR=${DATA_DIR}/snapshots/configs
 ENV NORNIR_CONFIG_DIR=${PROJECT_ROOT_DIR}/inv
 ENV NORNIR_CONFIG_FILE=${PROJECT_ROOT_DIR}/config.yml
 ENV CODE_DIR=${PROJECT_ROOT_DIR}/code
-
+ENV CERBERUS_DIR=${CODE_DIR}/cerberus
+ENV BATFISH_DIR=${CODE_DIR}/batfish
+ENV SNAPSHOT_DIR=${DATA_DIR}/snapshot
+#
 # Install dependencies:
 COPY requirements.txt .
 RUN pip install -r requirements.txt
-RUN pip install yamllint

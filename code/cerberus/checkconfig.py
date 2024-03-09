@@ -52,10 +52,8 @@ def main():
     print_result(result)
 
     for h in filtered_hosts.inventory.hosts.keys():
-        if not result[h].result["retcode"]:
-            pprint(f"|_host: {h} failed!!!!_|")
-            pprint(f"Cause: {result[h].result['errors']}")
-            exit(-123)
+        if not result[h].result["is_valid"]:
+            exit(123)
     print_title(f">>>|{sargs.section} YAML check: PASSED |<<<")
     return 0
 

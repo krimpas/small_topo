@@ -3,12 +3,7 @@ version: "3.4"
 
 kind: pipeline
 type: docker
-name: Checking for errors in YAML and pythob source code
-
-platform:
-  os: linux
-  arch: amd64
-
+name: Checking for errors in YAML and python source code
 
 trigger:
   repo:
@@ -24,7 +19,7 @@ steps:
       - echo "Hello, this is a Drone CI pipeline!"
   
   - name: Container info
-    image: gkrimpas/net_topo:latest
+    image: gkrimpas/small_topo:latest
     commands:
       - uname -v
       - pwd
@@ -33,38 +28,37 @@ steps:
       - env | grep DIR
 
   - name: Validating YAML RAW DATA files
-    image: gkrimpas/net_topo:latest
+    image: gkrimpas/small_topo:latest
     commands:
       - echo "YAML RAW data/CHECKING fot YAML error and warnings"
       - yamllint --list-files --format github --strict $YML_DIR/r*/
 
   - name: Validating YAML SCHEMA files
-    image: gkrimpas/net_topo:latest
+    image: gkrimpas/small_topo:latest
     commands:
       - echo "YAML SCHEMA data/CHECKING fot YAML error and warnings"
       - yamllint --list-files --format github --strict $SCHEMA_DIR
   
-  - name: Black formatter on Python source code
-    image: gkrimpas/net_topo:latest
+  - name: Cerburus Python code Black
+    image: gkrimpas/small_topo:latest
     commands:
-      - echo "Black on Python source code"
-      - black $CODE_DIR/ --check
+      - echo "Cerburus Python code Black for formmating and warnings"
+      - black $CERBERUS_DIR/ --check
 
   - name: Validating L3 interfaces YAML files
-    image: gkrimpas/net_topo:latest
+    image: gkrimpas/small_topo:latest
     commands:
-      - python code/checkconfig.py --section interfaces
+      - python3 $CERBERUS_DIR/checkconfig.py --section interfaces
       - echo "End of L3 interfaces validation"
 
   - name: Validating OSPF settings YAML files
-    image: gkrimpas/net_topo:latest
+    image: gkrimpas/small_topo:latest
     commands:
-      - python code/checkconfig.py --section ospf
+      - python3 $CERBERUS_DIR/checkconfig.py --section ospf
       - echo "End of OSPF settings validation"
 
   - name: Validating OSPF keychains YAML files
-    image: gkrimpas/net_topo:latest
+    image: gkrimpas/small_topo:latest
     commands:
-      - python code/checkconfig.py --section keychains
+      - python3 $CERBERUS_DIR/checkconfig.py --section keychains
       - echo "End of OSPF keychains validation"
-    

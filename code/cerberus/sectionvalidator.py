@@ -1,18 +1,12 @@
-import os
 import logging
 import appvalidator
-from pprint import pprint
 from dotenv import load_dotenv
-from nornir import InitNornir
 from nornir.core.task import Task, Result
-from nornir.core.filter import F
-from nornir_utils.plugins.functions import print_result
 from nornir_utils.plugins.tasks.data import load_yaml
 
 
-# This is a mapping of section names to cerberus
-# validators, Each section corresponds to the
-# cerberus-like validator.
+# This is a mapping of section names to cerberus validators,
+# Each section corresponds to the cerberus-like validator.
 
 section_to_validator_map = {
     "interfaces": appvalidator.L3ifacevalidator,
@@ -86,15 +80,15 @@ class SectionValidator:
 
         Parameters
         ----------
-        task : Task)
-            The Nornir task used to run the loading of files
+        task : Task
+            The Nornir task used to run the loading of YAML files
 
         Returns
         -------
-        Result : Object
+        Result : Object dict-like
             Returns 2 dictionaries attached to the Result object. The 1st is
             ['data'] and contains the configuration data dictionary and 2nd
-            ['schena'] contains the schema dictionary.
+            ['schema'] contains the schema dictionary.
 
         """
         # Build full pathname for data YAML file
@@ -125,28 +119,31 @@ class SectionValidator:
         """
         Performs validation of data against the loaded schema.
 
-        The sata and scema are loaded into the class members dictionaries.
+        The data and schema are loaded into the class members dictionaries.
         The validation is performed by using Cerberus-like classes.
 
         Parameters
         ----------
         task :Task
-            The Nornir task.
+            The Nornir task performing the schema validation process.
 
         Returns
         -------
-        Result : Object
+        Result : Object dict-like
             Returns 2 variables attached to the Result object. The 1st is
-            ['retcode'] which is True if validation succeded, otherwise False
-            and the 2nd ['errors'] is data dictionary containing the errors
-            occured, if any.
+            ['is_valid'] which is True if validation succeded, else False
+            and the 2nd ['validation_errors'] is dictionary containing the
+            errors occured, if any.
         """
 
         data_schema_result = self.load_data_and_schema(task)
+        # save the data
         self.data = data_schema_result.result["data"]
         self.schema = data_schema_result.result["schema"]
-
+        # Perform the actual validation
         v = section_to_validator_map[self.section](self.schema)
-        rc = v.validate(self.data)
+        retcode = v.validate(self.data)
 
-        return Result(host=task.host, result=dict(retcode=rc, errors=v.errors))
+        return Result(
+            host=task.host, result=dict(is_valid=retcode, validation_errors=v.errors)
+        )
