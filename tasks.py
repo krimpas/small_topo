@@ -21,4 +21,4 @@ def black(c, directory="."):
 
 @task
 def check(c, section='interfaces'):
-    c.run(f"python3 code/checkconfig.py --section {section}")
+    c.run(f"python3 code/cerberus/checkconfig.py --section {section}")
