@@ -11,6 +11,7 @@ from pprint import pprint
 
 load_dotenv()
 
+
 def main():
 
     # Define directories and section
