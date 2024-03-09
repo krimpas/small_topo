@@ -52,7 +52,7 @@ def main():
     print_result(result)
 
     for h in filtered_hosts.inventory.hosts.keys():
-        if not result[h].result["retcode"]:
+        if not result[h].result["is_valid"]:
             exit(-123)
     print_title(f">>>|{sargs.section} YAML check: PASSED |<<<")
     return 0
