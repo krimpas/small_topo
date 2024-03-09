@@ -6,7 +6,7 @@ keychains:
     schema:
       chainname:
         type: "string"
-        required: true                  
+        required: true
       description:
         type: string
         required: false

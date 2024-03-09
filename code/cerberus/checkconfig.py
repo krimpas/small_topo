@@ -9,9 +9,7 @@ from nornir.core.filter import F
 from sectionvalidator import SectionValidator
 from pprint import pprint
 
-ß
 load_dotenv()
-
 
 def main():
 
