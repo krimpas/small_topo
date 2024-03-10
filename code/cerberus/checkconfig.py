@@ -69,7 +69,8 @@ def main():
             ]
         )
 
-    print(x)
+    print(x.get_string(title=f"Config Validation/Section:{sargs.section}"))
+
     for h in filtered_hosts.inventory.hosts.keys():
         if not result[h].result["is_valid"]:
             exit(123)
