@@ -69,7 +69,6 @@ def main():
             ]
         )
 
-
     print(x)
     for h in filtered_hosts.inventory.hosts.keys():
         if not result[h].result["is_valid"]:
