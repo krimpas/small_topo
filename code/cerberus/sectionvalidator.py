@@ -3,6 +3,7 @@ import appvalidator
 from dotenv import load_dotenv
 from nornir.core.task import Task, Result
 from nornir_utils.plugins.tasks.data import load_yaml
+from prettytable import PrettyTable
 
 
 # This is a mapping of section names to cerberus validators,
