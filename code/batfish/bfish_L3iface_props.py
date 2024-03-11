@@ -2,7 +2,6 @@ import enum
 
 _COMMA = ","
 
-
 @enum.unique
 class BFISH_L3IFACE_PROPS(str, enum.Enum):
     """

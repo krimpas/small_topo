@@ -1,11 +1,10 @@
 from ipaddress import ip_network as ipnet
-from pybatfish.question import bfq
 from ipaddress import IPv4Interface
-from bfish_L3iface_props import BFISH_L3IFACE_PROPS, L3IFACE_TYPES
-
+from bfish_L3iface_props import BFISH_L3IFACE_PROPS,  L3IFACE_TYPES
+from bfish_init import bfish_init
 
 class L3InterfaceInfo:
-    def __init__(self, ifacetype: str = "", properties: str = "") -> None:
+    def __init__(self, node: str = "", properties: str = "", interfaces: str = "") -> None:
         """
         Initialzes the L3ifaces Dataframe with the results of the
         bfq.InterfaceProperties.
@@ -16,8 +15,13 @@ class L3InterfaceInfo:
 
         Returns: None
         """
+        self.session_bf = bfish_init()
         self.L3ifaces = (
-            bfq.interfaceProperties(interfaces=ifacetype, properties=properties)
+            self.session_bf.q.interfaceProperties(
+                nodes=node,
+                interfaces=interfaces,
+                properties=properties
+            )
             .answer()
             .frame()
         )
