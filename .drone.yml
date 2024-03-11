@@ -52,6 +52,12 @@ steps:
       - python3 $CERBERUS_DIR/checkconfig.py --section interfaces
       - echo "End of L3 interfaces validation"
 
+  - name: Validating L3 BatFish
+    image: gkrimpas/small_topo:latest
+    commands:
+      - python3 $BATFISH_DIR/L3check.py
+      - echo "End of L3 BatFish validation"
+
   - name: Validating OSPF settings YAML files
     image: gkrimpas/small_topo:latest
     commands:
