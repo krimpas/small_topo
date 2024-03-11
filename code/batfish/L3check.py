@@ -12,7 +12,7 @@ def main():
     print("\n")
     # variable2= f"Checking Loopback subnets"
     # print(f"|< {variable2:-^78} >|")
-    print(iface.check_L3_interface(anet="172.16.0.0/16", ifacetype="Loop"))
+    print(iface.check_L3_interface(anet="172.16.0.0/24", ifacetype="Loop"))
     print("\n")
 
 
