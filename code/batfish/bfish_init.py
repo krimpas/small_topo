@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 def bfish_init():
     """ """
     BFISH_HOST = os.environ.get("BATFISH_HOST")
