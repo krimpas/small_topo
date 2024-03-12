@@ -17,9 +17,9 @@ def bfish_init():
     SNAP_NAME = os.environ.get("BATFISH_NAME")
 
     print(f"BFISH_HOST={BFISH_HOST}")
-    print(F"BFISH_NET={BFISH_NET}")
-    print(F"SNAP_DIR={SNAP_DIR}")
-    print(F"SNAP_NAME={SNAP_NAME}")
+    print(f"BFISH_NET={BFISH_NET}")
+    print(f"SNAP_DIR={SNAP_DIR}")
+    print(f"SNAP_NAME={SNAP_NAME}")
 
     bf_session = Session(host=BFISH_HOST)
 
