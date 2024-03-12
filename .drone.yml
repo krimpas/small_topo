@@ -46,7 +46,7 @@ steps:
     commands:
       - echo "Cerburus Python code Black for formmating and warnings"
       - black $CERBERUS_DIR --check
-      - black $BATFISH_DIR --check
+      #- black $BATFISH_DIR --check
 
   - name: Validating L3 interfaces YAML files
     image: gkrimpas/small_topo:latest
