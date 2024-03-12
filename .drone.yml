@@ -40,7 +40,6 @@ steps:
     commands:
       - echo "YAML SCHEMA data/CHECKING fot YAML error and warnings"
       - yamllint --list-files --format github --strict $SCHEMA_DIR
-      - ping 192.168.1.2
   
   - name: Cerburus Python code Black
     image: gkrimpas/small_topo:latest

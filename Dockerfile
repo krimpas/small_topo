@@ -18,9 +18,9 @@ ENV BATFISH_DIR=${CODE_DIR}/batfish
 ENV SNAPSHOT_DIR=${DATA_DIR}/snapshot
 ENV BATFISH_DIR = ${CODE_DIR}/batfish
 ENV SNAPSHOT_DIR = ${DATA_DIR}/snapshot
-ENV BATFISH_NETWORK = "example"
-ENV BATFISH_HOST = "192.168.1.2"
-ENV BATFISH_NAME = "snapshot"
+ENV BATFISH_NETWORK =example
+ENV BATFISH_HOST=192.168.1.2
+ENV BATFISH_NAME=snapshot
 #
 # Install dependencies:
 COPY requirements.txt .
