@@ -27,7 +27,7 @@ steps:
       - ls -la code
       - env | grep DIR
       - env | grep BAT
-      - env | grep SNAP
+      - env
 
   - name: Validating YAML RAW DATA files
     image: gkrimpas/small_topo:latest
