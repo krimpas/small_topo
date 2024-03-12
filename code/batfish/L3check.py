@@ -5,12 +5,13 @@ from bfish_L3iface_props import BFISH_L3IFACE_PROPS, L3IFACE_TYPES
 
 def main():
 
-    load_questions()
 
     iface = L3InterfaceInfo(
         node="r1", properties=BFISH_L3IFACE_PROPS.select_properties()
     )
     print("\n")
+    load_questions()
+
     # variable=f"Checking Gigabit Ethernet subnets"
     # print(f"|< {variable:-^78} >|")
     print(iface.check_L3_interface(anet="10.0.0.0/29", ifacetype="Gig"))
