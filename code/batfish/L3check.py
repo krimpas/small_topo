@@ -4,11 +4,11 @@ from bfish_L3iface_props import BFISH_L3IFACE_PROPS, L3IFACE_TYPES
 
 def main():
 
-    iface = L3InterfaceInfo(properties=BFISH_L3IFACE_PROPS.select_properties())
+    iface = L3InterfaceInfo(node='r1', properties=BFISH_L3IFACE_PROPS.select_properties())
     print("\n")
     # variable=f"Checking Gigabit Ethernet subnets"
     # print(f"|< {variable:-^78} >|")
-    print(iface.check_L3_interface(anet="10.0.0.0/8", ifacetype="Gig"))
+    print(iface.check_L3_interface(anet="10.0.0.0/29", ifacetype="Gig"))
     print("\n")
     # variable2= f"Checking Loopback subnets"
     # print(f"|< {variable2:-^78} >|")

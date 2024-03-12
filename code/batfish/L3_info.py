@@ -42,7 +42,7 @@ class L3InterfaceInfo:
         return row.Active and row.Admin_Up
 
     @staticmethod
-    def L3_subnet_of(row, asupernet="172.16.0.0/16") -> bool:
+    def L3_subnet_of(row, asupernet="172.16.0.0/24") -> bool:
         """
         Checks if the supernet is a supernet of the interface IPv4 network.
         """
