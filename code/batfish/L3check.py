@@ -5,7 +5,6 @@ from bfish_L3iface_props import BFISH_L3IFACE_PROPS, L3IFACE_TYPES
 
 def main():
 
-
     iface = L3InterfaceInfo(
         node="r1", properties=BFISH_L3IFACE_PROPS.select_properties()
     )
