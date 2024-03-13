@@ -1,4 +1,3 @@
-import pandas as pd
 from pybatfish.client.session import Session
 from pybatfish.datamodel import *
 from pybatfish.datamodel.answer import *
