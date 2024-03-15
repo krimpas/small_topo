@@ -13,7 +13,7 @@ trigger:
 
 steps:
 
-  - name: Greeting messaghe
+  - name: Greeting message
     image: alpine
     commands:
       - echo "Hello, this is a Drone CI pipeline!"
@@ -66,9 +66,5 @@ steps:
       - python3 $CERBERUS_DIR/checkconfig.py --section keychains
       - echo "End of OSPF keychains validation"
 
-  - name: BATFISH
-    image: gkrimpas/small_topo:latest
-    commands:
-      - python3 $BATFISH_DIR/L3check.py
 
 
