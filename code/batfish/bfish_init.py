@@ -25,5 +25,5 @@ def bfish_init():
     bf_session.set_network(BFISH_NET)
 
     bf_session.init_snapshot(SNAP_DIR, name=SNAP_NAME, overwrite=True)
-
+    # return  bdsession
     return bf_session
