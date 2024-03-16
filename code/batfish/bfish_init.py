@@ -20,7 +20,6 @@ def bfish_init():
     print(f"SNAP_DIR={SNAP_DIR}")
     print(f"SNAP_NAME={SNAP_NAME}")
 
-
     bf_session = Session(host=BFISH_HOST)
 
     bf_session.set_network(BFISH_NET)
