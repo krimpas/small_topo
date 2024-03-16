@@ -66,5 +66,8 @@ steps:
       - python3 $CERBERUS_DIR/checkconfig.py --section keychains
       - echo "End of OSPF keychains validation"
 
-
+  - name: Validating batfish
+    image: gkrimpas/small_topo:latest
+    commands:
+      - python3 $BATFISH_DIR/L3check.py
 
