@@ -9,7 +9,7 @@ load_dotenv()
 
 
 def bfish_init():
-    """ mpal mpla mpla mpal """
+    """mpal mpla mpla mpal"""
     BFISH_HOST = os.environ.get("BATFISH_HOST")
     BFISH_NET = os.environ.get("BATFISH_NETWORK")
     SNAP_DIR = os.environ.get("SNAPSHOT_DIR")
