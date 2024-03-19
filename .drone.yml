@@ -13,7 +13,7 @@ trigger:
 
 steps:
 
-  - name: Greeting messaghe
+  - name: Greeting message
     image: alpine
     commands:
       - echo "Hello, this is a Drone CI pipeline!"
@@ -24,8 +24,10 @@ steps:
       - uname -v
       - pwd
       - date
-      - ls -la code
+      - ls -la 
       - env | grep DIR
+      - env | grep BAT
+      - env
 
   - name: Validating YAML RAW DATA files
     image: gkrimpas/small_topo:latest
@@ -43,7 +45,8 @@ steps:
     image: gkrimpas/small_topo:latest
     commands:
       - echo "Cerburus Python code Black for formmating and warnings"
-      - black $CERBERUS_DIR/ --check
+      - black $CERBERUS_DIR --check
+      - black $BATFISH_DIR --check
 
   - name: Validating L3 interfaces YAML files
     image: gkrimpas/small_topo:latest
@@ -62,3 +65,9 @@ steps:
     commands:
       - python3 $CERBERUS_DIR/checkconfig.py --section keychains
       - echo "End of OSPF keychains validation"
+
+  - name: Validating batfish
+    image: gkrimpas/small_topo:latest
+    commands:
+      - python3 $BATFISH_DIR/L3check.py
+

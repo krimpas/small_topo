@@ -19,6 +19,12 @@ def black(c, directory="."):
     """
     c.run(f"black {directory} --check --color")
 
+
 @task
 def check(c, section='interfaces'):
     c.run(f"python3 code/cerberus/checkconfig.py --section {section}")
+    
+
+@task
+def L3analysis(c):
+    c.run(f"python3 code/batfish/L3check.py")
