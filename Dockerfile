@@ -18,5 +18,6 @@ ENV BATFISH_DIR=${CODE_DIR}/batfish
 ENV SNAPSHOT_DIR=${DATA_DIR}/snapshot
 ENV BATFISH_HOST="batfish"
 # Install dependencies:
+
 COPY requirements.txt .
 RUN pip install -r requirements.txt

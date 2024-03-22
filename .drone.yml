@@ -70,4 +70,4 @@ steps:
     image: gkrimpas/small_topo:latest
     commands:
       - python3 $BATFISH_DIR/L3check.py
-
+  
