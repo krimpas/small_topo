@@ -25,10 +25,8 @@ steps:
       - pwd
       - date
       - ls -la 
-      - env | grep DIR
-      - env | grep BAT
-      - env
-
+      - cat .env
+  
   - name: Validating YAML RAW DATA files
     image: gkrimpas/small_topo:latest
     commands:
