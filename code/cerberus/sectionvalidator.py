@@ -47,7 +47,7 @@ class SectionValidator:
         Loads the data and schema data into dictionaries using Nornir tasks.
 
     validate_data_against_schema(task)
-        Validates the configuraiton data against the schema using Nornir tasks,
+        Validates the configuration data against the schema using Nornir tasks,
 
     """
 

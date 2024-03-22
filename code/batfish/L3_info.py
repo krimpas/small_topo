@@ -5,6 +5,8 @@ from bfish_init import bfish_init
 
 
 class L3InterfaceInfo:
+    """_summary_"""
+
     def __init__(
         self, node: str = "", properties: str = "", interfaces: str = ""
     ) -> None:
