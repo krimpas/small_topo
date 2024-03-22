@@ -1,6 +1,6 @@
 from pybatfish.question import load_questions
 from L3_info import L3InterfaceInfo
-from bfish_L3iface_props import BFISH_L3IFACE_PROPS, L3IFACE_TYPES
+from bfish_L3iface_props import BFISH_L3IFACE_PROPS
 
 
 def main():

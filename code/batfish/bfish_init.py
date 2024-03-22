@@ -1,7 +1,7 @@
 from pybatfish.client.session import Session
-from pybatfish.datamodel import *
-from pybatfish.datamodel.answer import *
-from pybatfish.datamodel.flow import *
+from pybatfish.datamodel import *  # noqa: F403
+from pybatfish.datamodel.answer import *  # noqa: F403
+from pybatfish.datamodel.flow import *  # noqa: F403
 import os
 from dotenv import load_dotenv
 
@@ -9,7 +9,7 @@ load_dotenv()
 
 
 def bfish_init():
-    """mpal mpla mpla mpal"""
+    """ """
     BFISH_HOST = os.environ.get("BATFISH_HOST")
     BFISH_NET = os.environ.get("BATFISH_NETWORK")
     SNAP_DIR = os.environ.get("SNAPSHOT_DIR")

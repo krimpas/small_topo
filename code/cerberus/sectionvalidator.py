@@ -75,9 +75,9 @@ class SectionValidator:
         """
         Loads YAML data and schema from files using the Nornir load_yaml plugin.
 
-        Build the full pathnames for the configuration and schema YAML files
-        and use them to fetch YAML data. The YAML contents are fetched using
-        Nornir plugin load_yaml.
+        Build the full path for the configuration and schema YAML files
+        and use them to fetch YAML data. The YAML contents are fetched
+        using Nornir plugin load_yaml.
 
         Parameters
         ----------
@@ -132,9 +132,9 @@ class SectionValidator:
         -------
         Result : Object dict-like
             Returns 2 variables attached to the Result object. The 1st is
-            ['is_valid'] which is True if validation succeded, else False
+            ['is_valid'] which is True if validation succeeds, else False
             and the 2nd ['validation_errors'] is dictionary containing the
-            errors occured, if any.
+            errors occurred, if any.
         """
 
         data_schema_result = self.load_data_and_schema(task)

@@ -28,7 +28,7 @@ def main():
         type=str,
         required=False,
         default="all",
-        help=f"Defines the configuration section",
+        help="Defines the configuration section",
     )
 
     sargs = parser.parse_args()
@@ -44,7 +44,7 @@ def main():
 
     # Run the validation task on all filtered hosts
     result = filtered_hosts.run(
-        name=f"YAML Valitation Config: {sargs.section}",
+        name=f"YAML Validation Config: {sargs.section}",
         task=val.validate_data_against_schema,
         severity_level=logging.INFO,
     )

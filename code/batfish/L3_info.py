@@ -1,6 +1,6 @@
 from ipaddress import ip_network as ipnet
 from ipaddress import IPv4Interface
-from bfish_L3iface_props import BFISH_L3IFACE_PROPS, L3IFACE_TYPES
+from bfish_L3iface_props import L3IFACE_TYPES
 from bfish_init import bfish_init
 
 
@@ -9,11 +9,11 @@ class L3InterfaceInfo:
         self, node: str = "", properties: str = "", interfaces: str = ""
     ) -> None:
         """
-        Initialzes the L3ifaces Dataframe with the results of the
+        Initializes the L3ifaces Dataframe with the results of the
         bfq.InterfaceProperties.
 
         Args:
-            ifacetype: The Type of Interface ('Loop', 'Giga', 'TenGig')
+            ifacetype: The Type of Interface ('Loop', 'Gig', 'TenGig')
             properties: The dataframe columns contained in the results
 
         Returns: None
@@ -101,8 +101,8 @@ class L3InterfaceInfo:
             (Loopback, Gigabit) Defaults to 'Loop'.
 
         Returns:
-            DataFrame: Returns the dataframe containg all interfaces satisfying
-            the ifacetype crierion but not all others
+            DataFrame: Returns the dataframe containing all interfaces satisfying
+            the ifacetype criterion but not all others
         """
 
         return self.L3ifaces[
