@@ -25,7 +25,7 @@ steps:
       - pwd
       - date
       - ls -la 
-      - cat .env
+      - env
   
   - name: Validating YAML RAW DATA files
     image: gkrimpas/small_topo:latest
