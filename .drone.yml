@@ -46,10 +46,10 @@ steps:
       - echo "YAML SCHEMA data/CHECKING fot YAML error and warnings"
       - yamllint --list-files --format github --strict $SCHEMA_DIR
   
-  - name: Cerburus Python code Black
+  - name: Cerberus Python code Black
     image: gkrimpas/small_topo:latest
     commands:
-      - echo "Cerburus Python code Black for formmating and warnings"
+      - echo "Cerberus Python code Black for formatting and warnings"
       - black $CERBERUS_DIR --check
       - black $BATFISH_DIR --check
 
