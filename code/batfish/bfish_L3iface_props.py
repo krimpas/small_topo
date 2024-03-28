@@ -17,11 +17,11 @@ class BFISH_L3IFACE_PROPS(str, enum.Enum):
     MTU = "MTU"
     PRIMARY_ADDRESS = "Primary_Address"
     PRIMARY_NETWORK = "Primary_Network"
-    SPEED = "Speed"
+    # SPEED = "Speed"
 
     @staticmethod
     def select_properties():
-        """All selected interface attibutes as a comma seperated string.
+        """All selected interface attributes as a comma separated string.
         Used as properties arg by batfish bfq.interfaceProperties()
         """
         return str(_COMMA.join(BFISH_L3IFACE_PROPS))
