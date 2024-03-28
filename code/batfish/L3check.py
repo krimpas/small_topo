@@ -7,7 +7,6 @@ def main():
     iface = L3InterfaceInfo(
         node="r5", properties=BFISH_L3IFACE_PROPS.select_properties()
     )
-    print("\n")
 
     # variable=f"Checking Gigabit Ethernet subnets"
     # print(f"|< {variable:-^78} >|")
