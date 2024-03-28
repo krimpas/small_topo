@@ -1,4 +1,3 @@
-from pybatfish.question import load_questions
 from L3_info import L3InterfaceInfo
 from bfish_L3iface_props import BFISH_L3IFACE_PROPS
 
@@ -9,7 +8,6 @@ def main():
         node="r1", properties=BFISH_L3IFACE_PROPS.select_properties()
     )
     print("\n")
-    load_questions()
 
     # variable=f"Checking Gigabit Ethernet subnets"
     # print(f"|< {variable:-^78} >|")
