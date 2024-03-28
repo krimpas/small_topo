@@ -15,15 +15,10 @@ def bfish_init():
     SNAP_DIR = os.environ.get("SNAPSHOT_DIR")
     SNAP_NAME = os.environ.get("BATFISH_NAME")
 
-    print(f"BFISH_HOST={BFISH_HOST}")
-    print(f"BFISH_NET={BFISH_NET}")
-    print(f"SNAP_DIR={SNAP_DIR}")
-    print(f"SNAP_NAME={SNAP_NAME}")
-
     bf_session = Session(host=BFISH_HOST)
 
     bf_session.set_network(BFISH_NET)
 
     bf_session.init_snapshot(SNAP_DIR, name=SNAP_NAME, overwrite=True)
-    # return  bdsession
+    # return  bf_session
     return bf_session
