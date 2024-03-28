@@ -32,7 +32,7 @@ steps:
       - pwd
       - date
       - ls -la 
-      - env
+      - env | grep BAT
   
   - name: Validating YAML RAW DATA files
     image: gkrimpas/small_topo:latest
@@ -74,6 +74,6 @@ steps:
   - name: Validating batfish
     image: gkrimpas/small_topo:latest
     commands:
-      - sleep 10
+      - sleep 4
       - python3 $BATFISH_DIR/L3check.py
   
