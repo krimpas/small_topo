@@ -15,8 +15,8 @@ services:
   - name: batfish
     image: batfish/batfish
     ports:
-      9996: 9996
-      9997: 9997
+      - 9996: 9996
+      - 9997: 9997
 
 steps:
 
