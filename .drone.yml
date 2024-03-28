@@ -29,7 +29,6 @@ steps:
     image: gkrimpas/small_topo:latest
     commands:
       - uname -v
-      - pwd
       - date
       - ls -la 
       - env | grep BAT
