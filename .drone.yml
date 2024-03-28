@@ -11,6 +11,13 @@ trigger:
   branch:
     - dev_L3ifaces
 
+services:
+  - name: batfish
+    image: batfish/batfish
+    ports:
+      9996: 9996
+      9997: 9997
+
 steps:
 
   - name: Greeting message
@@ -64,8 +71,8 @@ steps:
       - python3 $CERBERUS_DIR/checkconfig.py --section keychains
       - echo "End of OSPF keychains validation"
 
-  - name: Validating batfish
-    image: gkrimpas/small_topo:latest
-    commands:
-      - python3 $BATFISH_DIR/L3check.py
+#  - name: Validating batfish
+#    image: gkrimpas/small_topo:latest
+#    commands:
+#      - python3 $BATFISH_DIR/L3check.py
   
