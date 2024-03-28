@@ -5,7 +5,7 @@ from bfish_L3iface_props import BFISH_L3IFACE_PROPS
 def main():
 
     iface = L3InterfaceInfo(
-        node="r3", properties=BFISH_L3IFACE_PROPS.select_properties()
+        node="r2", properties=BFISH_L3IFACE_PROPS.select_properties()
     )
 
     # variable=f"Checking Gigabit Ethernet subnets"
