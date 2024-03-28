@@ -10,8 +10,10 @@ def main():
 
     # variable=f"Checking Gigabit Ethernet subnets"
     # print(f"|< {variable:-^78} >|")
+
     print(iface.check_L3_interface(anet="10.0.0.0/24", ifacetype="Gig"))
     print("\n")
+
     # variable2= f"Checking Loopback subnets"
     # print(f"|< {variable2:-^78} >|")
     print(iface.check_L3_interface(anet="172.16.0.0/24", ifacetype="Loop"))
