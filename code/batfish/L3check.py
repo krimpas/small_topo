@@ -1,22 +1,23 @@
+import os
+import logging
 from L3_info import L3InterfaceInfo
 from bfish_L3iface_props import BFISH_L3IFACE_PROPS
 from nornir import InitNornir
 from nornir.core.task import Task, Result
-from nornir_utils.plugins.functions import print_result, print_title
-import os
-import logging
+from nornir_utils.plugins.functions import print_result
 
-def exec_task (atask Task) -> Result:
+
+def exec_task(atask: Task) -> Result:
     #
     # Create the L3info object
-    device = L3InterfaceInfo(node=atask.host, properties=BFISH_L3IFACE_PROPS.select_properties())
-    
+    device = L3InterfaceInfo(
+        node=atask.host, properties=BFISH_L3IFACE_PROPS.select_properties()
+    )
+
     res = device.check_L3_interface(anet="10.0.0.0/28", ifacetype="Gig")
-    
-    return Result(
-        host=atask.host,
-        result=res.result
-        )
+
+    return Result(host=atask.host, result=res.result)
+
 
 def main():
     # Initialize Nornir
