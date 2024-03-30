@@ -30,7 +30,7 @@ def main():
     result = nr.run(
         name="L3 GigaBit Batfish checks",
         task=exec_task,
-        anet="10.0.0.0/16",
+        anet="10.0.0.0/8",
         ifacetype="Gig",
         severity_level=logging.INFO,
     )
