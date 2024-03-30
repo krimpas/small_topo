@@ -1,7 +1,8 @@
 from ipaddress import ip_network as ipnet
 from ipaddress import IPv4Interface
-from bfish_L3iface_props import L3IFACE_TYPES
+from bfish_L3iface_props import L3IFACE_TYPES, BFISH_L3IFACE_PROPS
 from bfish_init import bfish_init
+from nornir.core.task import Task, Result
 
 
 class L3InterfaceInfo:
