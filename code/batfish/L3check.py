@@ -19,7 +19,7 @@ def exec_task(atask: Task) -> Result:
 
     res = device.check_L3_interface(anet="10.0.0.0/28", ifacetype="Gig")
 
-    return Result(host=atask.host, result=res.result)
+    return Result(host=atask.host, result=res)
 
 
 def main():
