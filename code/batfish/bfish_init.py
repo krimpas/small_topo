@@ -4,7 +4,7 @@ from pybatfish.datamodel.answer import *  # noqa: F403
 from pybatfish.datamodel.flow import *  # noqa: F403
 import os
 from dotenv import load_dotenv
-import time
+import random
 
 load_dotenv()
 
@@ -17,7 +17,7 @@ def bfish_init():
     SNAP_NAME = os.environ.get("BATFISH_NAME")
 
     bf_session = Session(host=BFISH_HOST)
-    seconds = time.time()
+    seconds = random.randrange(1000)
     BFISH_NET = BFISH_NET + str(seconds)
     bf_session.set_network(BFISH_NET)
     SNAP_NAME = SNAP_NAME + str(seconds)
