@@ -34,7 +34,7 @@ def main():
     )
 
     # Print the results
-    print(result)
+    print_result(result.result)
 
 
 if __name__ == "__main__":
