@@ -8,16 +8,11 @@ def main():
         node="r2", properties=BFISH_L3IFACE_PROPS.select_properties()
     )
 
-    # variable=f"Checking Gigabit Ethernet subnets"
-    # print(f"|< {variable:-^78} >|")
-
     result = iface.check_L3_interface(anet="10.0.0.0/28", ifacetype="Gig")
     for i in range(result.shape[0]):
         print(result.iloc[i])
     print("\n")
 
-    # variable2= f"Checking Loopback subnets"
-    # print(f"|< {variable2:-^78} >|")
     result = iface.check_L3_interface(anet="172.16.0.0/24", ifacetype="Loop")
     for i in range(result.shape[0]):
         print(result.iloc[i])
