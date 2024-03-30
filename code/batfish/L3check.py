@@ -5,6 +5,9 @@ from bfish_L3iface_props import BFISH_L3IFACE_PROPS
 from nornir import InitNornir
 from nornir.core.task import Task, Result
 from nornir_utils.plugins.functions import print_result
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def exec_task(atask: Task) -> Result:
