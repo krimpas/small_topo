@@ -11,7 +11,7 @@ def exec_task(atask: Task) -> Result:
     #
     # Create the L3info object
     device = L3InterfaceInfo(
-        node=atask.host, properties=BFISH_L3IFACE_PROPS.select_properties()
+        node=atask.hostname, properties=BFISH_L3IFACE_PROPS.select_properties()
     )
 
     res = device.check_L3_interface(anet="10.0.0.0/28", ifacetype="Gig")
