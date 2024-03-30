@@ -1,22 +1,36 @@
 from L3_info import L3InterfaceInfo
 from bfish_L3iface_props import BFISH_L3IFACE_PROPS
+from nornir import InitNornir
+from nornir.core.task import Task, Result
+from nornir_utils.plugins.functions import print_result, print_title
+import os
+import logging
 
+def exec_task (atask Task) -> Result:
+    #
+    # Create the L3info object
+    device = L3InterfaceInfo(node=atask.host, properties=BFISH_L3IFACE_PROPS.select_properties())
+    
+    res = device.check_L3_interface(anet="10.0.0.0/28", ifacetype="Gig")
+    
+    return Result(
+        host=atask.host,
+        result=res.result
+        )
 
 def main():
+    # Initialize Nornir
+    nr = InitNornir(config_file=os.environ.get("NORNIR_CONFIG_FILE"))
 
-    iface = L3InterfaceInfo(
-        node="r2", properties=BFISH_L3IFACE_PROPS.select_properties()
+    # Run the validation task on all filtered hosts
+    result = nr.run(
+        name=f"L3 GigaBit Batfish checks",
+        task=exec_task,
+        severity_level=logging.INFO,
     )
 
-    result = iface.check_L3_interface(anet="10.0.0.0/28", ifacetype="Gig")
-    for i in range(result.shape[0]):
-        print(result.iloc[i])
-    print("\n")
-
-    result = iface.check_L3_interface(anet="172.16.0.0/24", ifacetype="Loop")
-    for i in range(result.shape[0]):
-        print(result.iloc[i])
-    print("\n")
+    # Print the results
+    print_result(result)
 
 
 if __name__ == "__main__":
