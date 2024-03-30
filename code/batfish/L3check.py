@@ -10,14 +10,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def exec_task(task: Task) -> Result:
+def exec_task(task: Task, anet: str = "", ifacetype: str = "") -> Result:
     #
     # Create the L3info object
     device = L3InterfaceInfo(
         node=f"{task.host.name}", properties=BFISH_L3IFACE_PROPS.select_properties()
     )
 
-    res = device.check_L3_interface(anet="10.0.0.0/28", ifacetype="Gig")
+    res = device.check_L3_interface(anet=anet, ifacetype=ifacetype)
 
     return Result(host=task.host, result=dict(is_valid=True, dfr=res))
 
@@ -30,6 +30,8 @@ def main():
     result = nr.run(
         name="L3 GigaBit Batfish checks",
         task=exec_task,
+        anet="10.0.0.0/16",
+        ifacetype="Gig",
         severity_level=logging.INFO,
     )
 
