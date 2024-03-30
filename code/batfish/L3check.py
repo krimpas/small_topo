@@ -10,16 +10,16 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def exec_task(atask: Task) -> Result:
+def exec_task(task: Task) -> Result:
     #
     # Create the L3info object
     device = L3InterfaceInfo(
-        node=f"{atask.host.name}", properties=BFISH_L3IFACE_PROPS.select_properties()
+        node=f"{task.host.name}", properties=BFISH_L3IFACE_PROPS.select_properties()
     )
 
     res = device.check_L3_interface(anet="10.0.0.0/28", ifacetype="Gig")
 
-    return Result(host=atask.host, result=res)
+    return Result(host=task.host, result=dict(is_valid=True, dfr=res))
 
 
 def main():
