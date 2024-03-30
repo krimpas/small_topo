@@ -28,7 +28,7 @@ def main():
 
     # Run the validation task on all filtered hosts
     result = nr.run(
-        name=f"L3 GigaBit Batfish checks",
+        name="L3 GigaBit Batfish checks",
         task=exec_task,
         severity_level=logging.INFO,
     )
