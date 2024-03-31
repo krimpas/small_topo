@@ -19,7 +19,7 @@ def exec_task(task: Task, anet: str = "", ifacetype: str = "") -> Result:
 
     res = device.check_L3_interface(anet=anet, ifacetype=ifacetype)
 
-    return Result(host=task.host, result=dict(is_valid=True, dfr=res))
+    return Result(host=task.host, result=dict(is_valid=True, ifacelist=res))
 
 
 def main():
