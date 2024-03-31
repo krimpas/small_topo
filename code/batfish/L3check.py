@@ -28,10 +28,21 @@ def main():
 
     # Run the validation task on all filtered hosts
     result = nr.run(
-        name="L3 GigaBit Batfish checks",
+        name="L3 Loopback Batfish checks",
         task=exec_task,
         anet="172.16.0.0/16",
         ifacetype="Loop",
+        severity_level=logging.INFO,
+    )
+
+    # Print the results
+    print_result(result)
+
+    result = nr.run(
+        name="L3 GigaBit Batfish checks",
+        task=exec_task,
+        anet="10.0.0.0/8",
+        ifacetype="Gig",
         severity_level=logging.INFO,
     )
 
