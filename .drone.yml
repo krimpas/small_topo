@@ -63,6 +63,5 @@ steps:
   - name: Validating batfish
     image: gkrimpas/small_topo:latest
     commands:
-      - sleep 2
       - python3 $BATFISH_DIR/L3check.py
   
