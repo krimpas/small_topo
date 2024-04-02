@@ -18,7 +18,6 @@ def exec_task(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> R
     device = L3InterfaceInfo(
         bf=bf,
         node=f"{task.host.name}",
-        bf=bf,
         properties=BFISH_L3IFACE_PROPS.select_properties(),
     )
 
