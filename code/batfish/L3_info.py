@@ -3,13 +3,14 @@ from ipaddress import IPv4Interface
 from bfish_L3iface_props import L3IFACE_TYPES, BFISH_L3IFACE_PROPS
 from bfish_init import bfish_init
 from nornir.core.task import Task, Result
+from pybatfish.client.session import Session
 
 
 class L3InterfaceInfo:
     """_summary_"""
 
     def __init__(
-        self, node: str = "", properties: str = "", interfaces: str = ""
+        self, bf: Session, node: str = "", properties: str = "", interfaces: str = ""
     ) -> None:
         """
         Initializes the L3ifaces Dataframe with the results of the
@@ -21,7 +22,7 @@ class L3InterfaceInfo:
 
         Returns: None
         """
-        self.session_bf = bfish_init()
+        self.session_bf = bf
         self.L3ifaces = (
             self.session_bf.q.interfaceProperties(
                 nodes=node, interfaces=interfaces, properties=properties
@@ -29,6 +30,11 @@ class L3InterfaceInfo:
             .answer()
             .frame()
         )
+
+    def num_of_ifaces(self, n_ifaces: int) -> bool:
+        if self.L3ifaces.shape[0] != n_ifaces:
+            return False
+        return True
 
     @staticmethod
     def L3_ifacetype(row, ifacetype=L3IFACE_TYPES.LOOP.value) -> bool:

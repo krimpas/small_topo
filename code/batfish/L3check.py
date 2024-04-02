@@ -6,15 +6,20 @@ from nornir import InitNornir
 from nornir.core.task import Task, Result
 from nornir_utils.plugins.functions import print_result
 from dotenv import load_dotenv
+from bfish_init import bfish_init
+from pybatfish.client.session import Session
 
 load_dotenv()
 
 
-def exec_task(task: Task, anet: str = "", ifacetype: str = "") -> Result:
+def exec_task(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> Result:
     #
     # Create the L3info object
     device = L3InterfaceInfo(
-        node=f"{task.host.name}", properties=BFISH_L3IFACE_PROPS.select_properties()
+        bf=bf,
+        node=f"{task.host.name}",
+        bf=bf,
+        properties=BFISH_L3IFACE_PROPS.select_properties(),
     )
 
     res = device.check_L3_interface(anet=anet, ifacetype=ifacetype)
@@ -25,11 +30,13 @@ def exec_task(task: Task, anet: str = "", ifacetype: str = "") -> Result:
 def main():
     # Initialize Nornir
     nr = InitNornir(config_file=os.environ.get("NORNIR_CONFIG_FILE"))
+    bf_session = bfish_init()
 
     # Run the validation task on all filtered hosts
     result = nr.run(
         name="L3 Loopback Batfish checks",
         task=exec_task,
+        bf=bf_session,
         anet="172.16.0.0/16",
         ifacetype="Loop",
         severity_level=logging.INFO,
