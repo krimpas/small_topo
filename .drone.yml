@@ -10,6 +10,8 @@ trigger:
     - krimpas/small_topo
   branch:
     - dev_L3ifaces
+  event:
+    - push
 
 services:
   - name: batfish
