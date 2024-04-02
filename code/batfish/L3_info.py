@@ -32,9 +32,10 @@ class L3InterfaceInfo:
         )
 
     def num_of_ifaces(self, n_ifaces: int) -> bool:
-        if self.L3ifaces.shape[0] != n_ifaces:
-            return False
-        return True
+        n = self.L3ifaces.shape[0]
+        if n != n_ifaces:
+            return False, n
+        return True, n
 
     @staticmethod
     def L3_ifacetype(row, ifacetype=L3IFACE_TYPES.LOOP.value) -> bool:

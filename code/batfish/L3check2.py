@@ -21,9 +21,9 @@ def exec_task2(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
         properties=BFISH_L3IFACE_PROPS.select_properties(),
     )
 
-    res = device.num_of_ifaces(n_ifaces=8)
+    status, n = device.num_of_ifaces(n_ifaces=8)
 
-    return Result(host=task.host, result=dict(is_valid=True, ifacelist=res))
+    return Result(host=task.host, result=dict(retcode=status, nifaces=n))
 
 
 def main():
