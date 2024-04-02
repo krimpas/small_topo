@@ -65,3 +65,7 @@ steps:
     commands:
       - python3 $BATFISH_DIR/L3check.py
   
+  - name: Validating num_of_ifaces
+    image: gkrimpas/small_topo:latest
+    commands:
+      - python3 $BATFISH_DIR/L3check2.py
