@@ -7,7 +7,7 @@ from pybatfish.client.session import Session
 
 
 class L3InterfaceInfo:
-    """_summary_"""
+    """"""
 
     def __init__(
         self, bf: Session, node: str = "", properties: str = "", interfaces: str = ""
