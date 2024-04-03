@@ -19,7 +19,6 @@ trigger:
     - dev_L3ifaces
 
 steps:
-
   - name: Container info
     image: gkrimpas/small_topo:latest
     commands:
