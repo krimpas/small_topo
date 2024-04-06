@@ -23,7 +23,12 @@ def exec_task(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> R
     )
 
     res = device.check_L3_interface(anet=anet, ifacetype=ifacetype)
-
+    dfprint(
+        df=res,
+        props=["#"] + [c for c in res.columns],
+        title="Checking L3 interfaces",
+    )
+    )
     return Result(host=task.host, result=dict(is_valid=True, ifacelist=res))
 
 
@@ -41,13 +46,6 @@ def main():
         ifacetype="Loop",
         severity_level=logging.INFO,
     )
-
-    if result:
-        dfprint(
-            df=result.ifacelist,
-            props=["#"] + [c for c in result.ifacelist.columns],
-            title="Checking for L3 interfaces!",
-        )
 
     # Print the results
     # print_result(result)
