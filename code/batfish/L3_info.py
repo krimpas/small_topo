@@ -32,6 +32,8 @@ class L3InterfaceInfo:
         )
         self.dups = self.session_bf.q.ipOwners(duplicatesOnly=True).answer().frame()
 
+        self.L3topo = self.session_bf.q.layer3Edges().answer().frame()
+
     def num_of_ifaces(self, n_ifaces: int) -> bool:
         n = self.L3ifaces.shape[0]
         if n != n_ifaces:
