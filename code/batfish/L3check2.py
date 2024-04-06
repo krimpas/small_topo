@@ -20,7 +20,7 @@ def dfprint(df: DataFrame, props: list, title: str = None) -> None:
     if df is not None:
         for row in df.itertuples():
             t.add_row(row)
-    print(t.get_string(title=title))
+    return t.get_string(title=title)
 
 
 def exec_task2(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> Result:
@@ -31,21 +31,20 @@ def exec_task2(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
         node=f"{task.host.name}",
     )
 
-    dups = device.dups
-    dfprint(
-        df=dups,
-        props=["#"] + [c for c in dups.columns],
-        title="Checking for duplicates IPv4 address in the topology!",
-    )
-    print("==============================================================")
+    # dups = device.dups
+    # dfprint(
+    #    df=dups,
+    #    props=["#"] + [c for c in dups.columns],
+    #    title="Checking for duplicates IPv4 address in the topology!",
+    # )
     topo = device.L3topo
-    dfprint(
+    data = dfprint(
         df=topo,
         props=["#"] + [c for c in topo.columns],
         title="Checking for L3 topology!",
     )
 
-    return Result(host=task.host, result=dict(retcode=True, result=dups))
+    return Result(host=task.host, result=dict(retcode=True, result=data))
 
 
 def main():
