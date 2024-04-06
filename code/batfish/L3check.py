@@ -42,7 +42,7 @@ def main():
         severity_level=logging.INFO,
     )
 
-    if result.ifacelist:
+    if result.result:
         dfprint(
             df=result.result.ifacelist,
             props=["#"] + [c for c in result.result.ifacelist.columns],
