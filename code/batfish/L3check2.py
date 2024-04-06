@@ -34,7 +34,7 @@ def exec_task2(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
     dups = device.dups
     dfprint(
         df=dups,
-        props=["#", +[c for c in dups.columns]],
+        props=[c for c in dups.columns],
         title="Checking for duplicates IPv4 address in the topology!",
     )
 
