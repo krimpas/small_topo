@@ -30,7 +30,7 @@ def exec_task(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> R
             title="Checking L3 interfaces" + "FAILED",
         )
         return Result(host=task.host, result=data)
-    return Result(host=task.host, result=None)
+    return Result(host=task.host, result=data)
 
 
 def main():

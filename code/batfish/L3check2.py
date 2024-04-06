@@ -20,7 +20,8 @@ def dfprint(df: DataFrame, props: list, title: str = None) -> None:
     if df is not None:
         for row in df.itertuples():
             t.add_row(row)
-    return t.get_string(title=title)
+        return t.get_string(title=title + "Status->FAILED")
+    return t.get_string(title=title + "Status->SUCCEEDED")
 
 
 def exec_task2(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> Result:
