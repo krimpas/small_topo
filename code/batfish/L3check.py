@@ -23,7 +23,6 @@ def exec_task(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> R
     )
 
     res = device.check_L3_interface(anet=anet, ifacetype=ifacetype)
-    
 
     return Result(host=task.host, result=dict(is_valid=True, ifacelist=res))
 
@@ -42,15 +41,16 @@ def main():
         ifacetype="Loop",
         severity_level=logging.INFO,
     )
-    if result.result['ifacelist']:
+
+    if result.ifacelist:
         dfprint(
-            df=result.result['ifacelist']
-            props=["#"] + [c for c in result.result['ifacelist'].columns],
+            df=result.ifacelist,
+            props=["#"] + [c for c in result.ifacelist.columns],
             title="Checking for L3 interfaces!",
         )
 
     # Print the results
-    #print_result(result)
+    # print_result(result)
 
     result = nr.run(
         name="L3 GigaBit Batfish checks",
