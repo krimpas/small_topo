@@ -23,11 +23,12 @@ def exec_task(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> R
     )
 
     res = device.check_L3_interface(anet=anet, ifacetype=ifacetype)
-    dfprint(
-        df=res,
-        props=["#"] + [c for c in res.columns],
-        title="Checking L3 interfaces",
-    )
+    if res:
+        dfprint(
+            df=res,
+            props=["#"] + [c for c in res.columns],
+            title="Checking L3 interfaces",
+        )
     return Result(host=task.host, result=dict(is_valid=True, ifacelist=res))
 
 
