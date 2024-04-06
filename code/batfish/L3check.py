@@ -48,7 +48,8 @@ def main():
     )
 
     # Print the results
-    print_result(result)
+    if not result.result.empty:
+        print_result(result)
 
     result = nr.run(
         name="L3 GigaBit Batfish checks",
@@ -60,7 +61,8 @@ def main():
     )
 
     # Print the results
-    print_result(result)
+    if not result.result.empty:
+        print_result(result)
 
 
 if __name__ == "__main__":
