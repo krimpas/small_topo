@@ -6,7 +6,7 @@ type: docker
 name: Checking for errors in YAML and python source code
 
 services:
-  - name: batfish
+  - name: Batfish Service startup
     image: batfish/batfish
     ports:
       - 9996: 9996
