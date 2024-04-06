@@ -24,12 +24,14 @@ def exec_task(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> R
 
     res = device.check_L3_interface(anet=anet, ifacetype=ifacetype)
     if not res.empty:
-        data = dfprint(
-            df=res,
-            props=["#"] + [c for c in res.columns],
-            title="Checking L3 interfaces" + "FAILED",
-        )
-        return Result(host=task.host, result=data)
+        title = "Checking L3 interfaces: FAILED!"
+    else:
+        title = "Checking L3 interfaces: SUCCEDED!"
+    data = dfprint(
+        f=res,
+        props=["#"] + [c for c in res.columns],
+        title=title,
+    )
     return Result(host=task.host, result=data)
 
 
