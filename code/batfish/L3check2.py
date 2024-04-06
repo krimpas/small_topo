@@ -37,6 +37,13 @@ def exec_task2(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
         props=["#"] + [c for c in dups.columns],
         title="Checking for duplicates IPv4 address in the topology!",
     )
+    print("==============================================================")
+    topo = device.L3topo
+    dfprint(
+        df=topo,
+        props=["#"] + [c for c in topo.columns],
+        title="Checking for L3 topology!",
+    )
 
     return Result(host=task.host, result=dict(retcode=True, result=dups))
 
@@ -55,7 +62,7 @@ def main():
     )
 
     # Print the results
-    print_result(result)
+    # print_result(result)
 
 
 if __name__ == "__main__":
