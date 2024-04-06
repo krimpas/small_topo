@@ -8,8 +8,19 @@ from nornir_utils.plugins.functions import print_result
 from dotenv import load_dotenv
 from bfish_init import bfish_init
 from pybatfish.client.session import Session
+from prettytable import PrettyTable
+from pandas.core.frame import DataFrame
 
 load_dotenv()
+
+
+def dfprint(df: DataFrame, props: list, title: str = None) -> None:
+    #
+    t = PrettyTable(props)
+    if df is not None:
+        for row in df.itertuples():
+            t.add_row(row)
+    print(t.get_string(title=title))
 
 
 def exec_task2(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> Result:
@@ -21,9 +32,13 @@ def exec_task2(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
     )
 
     dups = device.dups
-    print(dups)
+    dfprint(
+        df=dups,
+        props=["#"],  # + [c for c in res.columns],
+        title="Checking for duplicates IPv4 address in the topology!",
+    )
 
-    return Result(host=task.host, result=dict(retcode=True, data=dict(dups).values()))
+    return Result(host=task.host, result=dict(retcode=True, result=dups))
 
 
 def main():
