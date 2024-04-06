@@ -18,12 +18,11 @@ def exec_task2(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
     device = L3InterfaceInfo(
         bf=bf,
         node=f"{task.host.name}",
-        properties=BFISH_L3IFACE_PROPS.select_properties(),
     )
 
-    status, n = device.num_of_ifaces(n_ifaces=8)
+    dups = device.dups
 
-    return Result(host=task.host, result=dict(retcode=status, nifaces=n))
+    return Result(host=task.host, result=dict(dups))
 
 
 def main():
