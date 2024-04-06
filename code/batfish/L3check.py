@@ -44,8 +44,8 @@ def main():
 
     if result.ifacelist:
         dfprint(
-            df=result.ifacelist,
-            props=["#"] + [c for c in result.ifacelist.columns],
+            df=result.result.ifacelist,
+            props=["#"] + [c for c in result.result.ifacelist.columns],
             title="Checking for L3 interfaces!",
         )
 
