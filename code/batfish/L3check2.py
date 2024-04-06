@@ -21,8 +21,9 @@ def exec_task2(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
     )
 
     dups = device.dups
+    print(dups)
 
-    return Result(host=task.host, result=dict(dups))
+    return Result(host=task.host, result=dict(retcode=True, data=dict(dups).values()))
 
 
 def main():
