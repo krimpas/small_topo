@@ -48,7 +48,7 @@ def main():
     )
 
     # Print the results
-    if not result.result.empty:
+    if not result.empty:
         print_result(result)
 
     result = nr.run(
@@ -61,7 +61,7 @@ def main():
     )
 
     # Print the results
-    if not result.result.empty:
+    if not result.empty:
         print_result(result)
 
 
