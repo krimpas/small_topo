@@ -23,7 +23,7 @@ def exec_task(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> R
     )
 
     res = device.check_L3_interface(anet=anet, ifacetype=ifacetype)
-    if res:
+    if not res.empty:
         dfprint(
             df=res,
             props=["#"] + [c for c in res.columns],
