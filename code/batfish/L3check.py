@@ -8,6 +8,7 @@ from nornir_utils.plugins.functions import print_result
 from dotenv import load_dotenv
 from bfish_init import bfish_init
 from pybatfish.client.session import Session
+from L3check2 import dfprint
 
 load_dotenv()
 
@@ -22,6 +23,12 @@ def exec_task(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> R
     )
 
     res = device.check_L3_interface(anet=anet, ifacetype=ifacetype)
+    if res:
+        dfprint(
+            df=res,
+            props=["#"] + [c for c in res.columns],
+            title="Checking for L3 interfaces!",
+        )
 
     return Result(host=task.host, result=dict(is_valid=True, ifacelist=res))
 
