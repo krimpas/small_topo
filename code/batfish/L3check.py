@@ -48,7 +48,7 @@ def main():
     )
 
     # Print the results
-    # print_result(result)
+    print_result(result)
 
     result = nr.run(
         name="L3 GigaBit Batfish checks",
