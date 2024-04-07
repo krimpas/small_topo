@@ -34,12 +34,6 @@ class L3InterfaceInfo:
 
         self.L3topo = self.session_bf.q.layer3Edges().answer().frame()
 
-    def num_of_ifaces(self, n_ifaces: int) -> bool:
-        n = self.L3ifaces.shape[0]
-        if n != n_ifaces:
-            return False, n
-        return True, n
-
     @staticmethod
     def L3_ifacetype(row, ifacetype=L3IFACE_TYPES.LOOP.value) -> bool:
         """
