@@ -26,7 +26,7 @@ def exec_task(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> R
     if not res.empty:
         title = "Checking L3 interfaces: FAILED!"
     else:
-        title = "Checking L3 interfaces: SUCCEDED!"
+        title = "Checking L3 interfaces: SUCCEEDED!"
     data = dfprint(
         df=res,
         props=["#"] + [c for c in res.columns],
