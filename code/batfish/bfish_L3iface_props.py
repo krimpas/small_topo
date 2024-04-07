@@ -12,7 +12,7 @@ class BFISH_L3IFACE_PROPS(str, enum.Enum):
     ACTIVE = "Active"
     ADMIN_UP = "Admin_Up"
     ALL_PREFIXES = "All_Prefixes"
-    BANDWIDTH = "Bandwidth"
+    # BANDWIDTH = "Bandwidth"
     DESCRIPTION = "Description"
     MTU = "MTU"
     PRIMARY_ADDRESS = "Primary_Address"
