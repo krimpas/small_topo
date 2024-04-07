@@ -45,7 +45,7 @@ def main():
         name="L3 Loopback Batfish checks",
         task=exec_task,
         bf=bf_session,
-        anet="172.16.0.0/16",
+        anet="172.16.0.0/12",
         ifacetype="Loop",
         severity_level=logging.INFO,
     )
