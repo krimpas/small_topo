@@ -28,6 +28,7 @@ def exec_task(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> R
     else:
         title = "Checking L3 interfaces: SUCCEEDED!"
     data = dfprint(df=res, props=["#"] + [c for c in res.columns], title=title)
+
     return Result(host=task.host, result=data)
 
 
