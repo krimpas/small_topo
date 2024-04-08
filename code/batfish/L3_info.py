@@ -18,17 +18,37 @@ class L3InterfaceInfo:
     Attributes
     ----------
     bf: Session
-        The already open batfish Session object used to query the
+        An already open batfish Session object used to make queries the
         batfish service.
-    node: str
-        The  Node or router name used by Nornir (task.host.name)
-    ifacetype: str
-        The Type of Interface ('Loop', 'Gig', 'TenGig')
-    properties: str
-        The dataframe columns contained in the results
+
+    L3ifaces: Batfish Dataframe
+        Keeps the results (a dataframe) of the interfaceProperties()
+        batfish question for a given topology node.
 
     Methods
     -------
+    L3_ifacetype(row, ifacetype) -> bool
+        Checks if in the interface is physical ('Gig') or Loopback.
+
+    L3_iface_Active_Up(row) -> bool
+        Checks if the interface is Active and Up.
+
+    L3_subnet_of(row, asupernet) -> bool
+        Checks if the IPv4 address is subnet of the given network.
+
+    L3_iface_MTU(row, mtu) -> bool
+        Checks if the interface's MTU matches the given mtu.
+
+    only_one_prefix_per_L3interface(row) -> bool
+        Checks if only one IPv4 is configured on interface.
+
+    is_public_IPv4(row) -> bool
+        Checks if interface's IPv4 is a public IPv4.
+
+    L3_one_public_IPv4(self) -> bool
+        Checks if there is only one Public IPv4 address among all
+        interfaces of thr node.
+
     """
 
     def __init__(
