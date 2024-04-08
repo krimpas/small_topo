@@ -26,7 +26,7 @@ class SectionValidator:
     Loads the yaml files which are keeping in specific directories.
     For data yaml files the directory ${YML_DIR}/{device}
     For schema yaml files is the directory ${SCHEMA_DIR}/{device}
-    The class validates the yaml data against the relevanr schema yaml.
+    The class validates the yaml data against the relevant schema yaml.
 
     Attributes
     ----------

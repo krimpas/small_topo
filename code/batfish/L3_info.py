@@ -7,7 +7,29 @@ from pybatfish.client.session import Session
 
 
 class L3InterfaceInfo:
-    """"""
+    """
+    Class for keeping the information of all interfaces of a given node.
+
+    Performs the bf.q.interfaceProperties question to the batfish service
+    in order to fetch configuration info for all interfaces for the node
+    specified. This Class will be used by Nornir Task to pass the node as
+    task.host.name.
+
+    Attributes
+    ----------
+    bf: Session
+        The already open batfish Session object used to query the
+        batfish service.
+    node: str
+        The  Node or router name used by Nornir (task.host.name)
+    ifacetype: str
+        The Type of Interface ('Loop', 'Gig', 'TenGig')
+    properties: str
+        The dataframe columns contained in the results
+
+    Methods
+    -------
+    """
 
     def __init__(
         self, bf: Session, node: str = "", properties: str = "", interfaces: str = ""
