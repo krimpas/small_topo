@@ -13,14 +13,29 @@ class L3InterfaceInfo:
         self, bf: Session, node: str = "", properties: str = "", interfaces: str = ""
     ) -> None:
         """
-        Initializes the L3ifaces Dataframe with the results of the
-        bfq.InterfaceProperties.
+        Initializes the L3ifaces Dataframe with the interface info as a
+        result of the bf.q.interfaceProperties batfish question for the
+        given node.
 
-        Args:
-            ifacetype: The Type of Interface ('Loop', 'Gig', 'TenGig')
-            properties: The dataframe columns contained in the results
+        Queries by using the nornir (task.host.name) as node parameter.
+        The L3ifaces dataframe keeps the interface info of the specified
+        node.
 
-        Returns: None
+        Parameters
+        ----------
+        bf: Session
+            The already open batfish Session object used to query the
+            batfish service.
+        node: str
+            The  Node or router name used by Nornir (task.host.name)
+        ifacetype: str
+            The Type of Interface ('Loop', 'Gig', 'TenGig')
+        properties: str
+            The dataframe columns contained in the results
+
+        Returns
+        -------
+        None
         """
         self.session_bf = bf
         self.L3ifaces = (
