@@ -39,7 +39,7 @@ def exec_task2(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
         title="Checking for duplicates IPv4 address in the topology!",
     )
 
-    topo = device.L3topo
+    topo = device.L1topo
     data = dfprint(
         df=topo,
         props=["#"] + [c for c in topo.columns],

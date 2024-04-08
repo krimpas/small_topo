@@ -71,6 +71,10 @@ class L3InterfaceInfo:
 
         self.L3topo = self.session_bf.q.layer3Edges(nodes=node).answer().frame()
 
+        self.L1topo = (
+            self.session_bf.q.userProvidedLayer1Edges(nodes=node).answer().frame()
+        )
+
     @staticmethod
     def L3_ifacetype(row, ifacetype=L3IFACE_TYPES.LOOP.value) -> bool:
         """
