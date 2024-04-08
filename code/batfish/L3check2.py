@@ -46,7 +46,7 @@ def exec_task2(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
         title="Checking for L3 topology!",
     )
 
-    return Result(host=task.host, result=dict(data=data))
+    return Result(host=task.host, result=data)
 
 
 def main():
