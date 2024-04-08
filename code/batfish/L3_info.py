@@ -22,8 +22,8 @@ class L3InterfaceInfo:
         batfish service.
 
     L3ifaces: Batfish Dataframe
-        Keeps the results (a dataframe) of the interfaceProperties()
-        batfish question for a given topology node.
+        Keeps the results (dataframe) of the interfaceProperties batfish
+        question for a given topology node.
 
     Methods
     -------
@@ -94,7 +94,20 @@ class L3InterfaceInfo:
     @staticmethod
     def L3_ifacetype(row, ifacetype=L3IFACE_TYPES.LOOP.value) -> bool:
         """
-        Checks if the interface type starts with the argument ifacetype
+        Checks if the interface type starts with the argument ifacetype.
+
+        Parameters
+        ----------
+        row: Dataframe row
+            Represents an interface of the specific node.
+
+        ifacetype: str
+            Indicates if the interface is Loopback or Physical.
+
+        Returns
+        -------
+        bool
+            True if a match otherwise False.
         """
         return row.Interface.interface.startswith(ifacetype)
 
@@ -102,6 +115,17 @@ class L3InterfaceInfo:
     def L3_iface_Active_Up(row) -> bool:
         """
         Checks if an interface is both Admin_Up and Active.
+
+        Parameters
+        ----------
+        row: Dataframe row
+            Represents an interface of the specific node.
+
+        Returns
+        -------
+        bool
+            True if a match otherwise False.
+
         """
         return row.Active and row.Admin_Up
 
@@ -109,6 +133,21 @@ class L3InterfaceInfo:
     def L3_subnet_of(row, asupernet="172.16.0.0/24") -> bool:
         """
         Checks if the supernet is a supernet of the interface IPv4 network.
+
+        Parameters
+        ----------
+        row: Dataframe row
+            Represents an interface of the specific node.
+
+        asupernet: str
+            Indicates the network prefix.
+
+        Returns
+        -------
+        bool
+            True if the IPv4 of the interface is subnet of the asupernet,
+            otherwise False.
+
         """
         return ipnet(asupernet).supernet_of(ipnet(row.Primary_Network))
 
