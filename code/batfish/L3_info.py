@@ -69,7 +69,7 @@ class L3InterfaceInfo:
         )
         self.dups = self.session_bf.q.ipOwners(duplicatesOnly=True).answer().frame()
 
-        self.L3topo = self.session_bf.q.layer3Edges().answer().frame()
+        self.L3topo = self.session_bf.q.layer3Edges(nodes=node).answer().frame()
 
     @staticmethod
     def L3_ifacetype(row, ifacetype=L3IFACE_TYPES.LOOP.value) -> bool:

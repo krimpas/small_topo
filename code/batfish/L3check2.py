@@ -46,7 +46,7 @@ def exec_task2(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
         title="Checking for L3 topology!",
     )
 
-    return Result(host=task.host, result=dict(dups=dups))
+    return Result(host=task.host, result=dict(data=data))
 
 
 def main():
@@ -56,7 +56,7 @@ def main():
 
     # Run the validation task on all filtered hosts
     result = nr.run(
-        name="L3 Loopback Batfish checks",
+        name="L3 Topology Batfish checks",
         task=exec_task2,
         bf=bf_session,
         severity_level=logging.INFO,
