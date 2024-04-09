@@ -49,6 +49,10 @@ class L3InterfaceInfo:
         Checks if there is only one Public IPv4 address among all
         interfaces of thr node.
 
+    check_L3_interface(self, anet, ifacetype) -> DataFrame
+        Performs a sequence of validation checks common on all
+        interfaces of the node.
+
     """
 
     def __init__(
