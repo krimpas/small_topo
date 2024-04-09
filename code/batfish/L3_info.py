@@ -262,7 +262,7 @@ class L3InterfaceInfo:
         return self.L3ifaces[
             self.L3ifaces.apply(
                 lambda row: self.L3_ifacetype(row, ifacetype=ifacetype)
-                and (
+                and not (
                     self.L3_subnet_of(row, asupernet=anet)
                     and self.L3_iface_Active_Up(row)
                 )
