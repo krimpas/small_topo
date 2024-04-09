@@ -155,28 +155,73 @@ class L3InterfaceInfo:
     def L3_iface_MTU(row, mtu=1500) -> bool:
         """
         Compares the interface MTU configured against the MTU argument.
+
+        Parameters
+        ----------
+        row: Dataframe row
+            Represents an interface of the specific node.
+
+        mtu: integer
+            Indicates the MTU size.
+
+        Returns
+        -------
+        bool
+            True if configured MTU matches mtu argument, otherwise False.
+
         """
         return row.MTU == mtu
 
     @staticmethod
     def only_one_prefix_per_L3interface(row) -> bool:
         """
-        The All_Prefixes list must be of length 1
+        Checks that only one IPv4 prefix configured i.e (All_Prefixes
+        list must be of length 1)
+
+        Parameters
+        ----------
+        row: Dataframe row
+            Represents an interface of the specific node.
+
+        Returns
+        -------
+        bool
+            True if only 1 IPv4 prefix configured, otherwise False.
         """
         return len(row.All_Prefixes) <= 1
 
     @staticmethod
     def is_public_IPv4(row) -> bool:
         """
-        Checks if the interface configured IPv4 address is public or not.
+        Checks if interface IPv4 address configured is public.
+
+        Parameters
+        ----------
+        row: Dataframe row
+            Represents an interface of the specific node.
+
+        Returns
+        -------
+        bool
+            True if IPv4 prefix configured is public, else False.
         """
+
         return IPv4Interface(row.Primary_Address).ip.is_global
 
     @property
     def L3_one_public_IPv4(self) -> bool:
         """
-        Checks if between configured IPv4 address, there is only one IPv4
-        address which is Public or Global
+        Checks if between all configured IPv4 addresses in the node,
+        there is only one IPv4 address which is Public or Global.
+
+        Returns
+        -------
+        retcode: bool
+            True if only one public IPv4 prefix is configured in the node,
+            else False.
+
+        one_public: Batfish Dataframe
+            The dataframe of the Public IPv4 address if any, or empty.
         """
         one_public = self.L3ifaces[
             self.L3ifaces.apply(
