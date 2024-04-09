@@ -237,20 +237,26 @@ class L3InterfaceInfo:
     ):
         """
         Summarizes all Design Conditions required
+
         Checks if:
         1. the interface type starts with the argument ifacetype
         2. the supernet is a supernet of the interface IPv4 network.
         3. the interface is both Admin_Up and Active.
 
-        Args:
-            anet (str, optional): Represents the supernet of the interface
-            IPv4 address. Defaults to '172.16.0.0/16'.
-            ifacetype (str, optional): Represents the interface type as:
-            (Loopback, Gigabit) Defaults to 'Loop'.
+        Parameters
+        ----------
+        anet (str, optional)
+            Represents the supernet of the interface IPv4 address.
+            Defaults to '172.16.0.0/16'.
+        ifacetype (str, optional)
+            Represents the interface type as: (Loopback, Gigabit).
+            Defaults to 'Loop'.
 
-        Returns:
-            DataFrame: Returns the dataframe containing all interfaces satisfying
-            the ifacetype criterion but not all others
+        Returns
+        -------
+            L3ifaces: Batfish DataFrame
+                Returns the dataframe of all interfaces satisfying the
+                ifacetype criterion but not all others
         """
 
         return self.L3ifaces[
