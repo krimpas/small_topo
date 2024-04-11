@@ -1,8 +1,6 @@
 from ipaddress import ip_network as ipnet
 from ipaddress import IPv4Interface
-from bfish_L3iface_props import L3IFACE_TYPES, BFISH_L3IFACE_PROPS
-from bfish_init import bfish_init
-from nornir.core.task import Task, Result
+from bfish_L3iface_props import L3IFACE_TYPES
 from pybatfish.client.session import Session
 
 
@@ -12,14 +10,14 @@ class L3InterfaceInfo:
 
     Performs the bf.q.interfaceProperties question to the batfish service
     in order to fetch configuration info for all interfaces for the node
-    specified. This Class will be used by Nornir Task to pass the node as
-    task.host.name.
+    specified. This Class will be used by Nornir Task to receive the node
+    as an argument (task.host.name).
 
     Attributes
     ----------
     bf: Session
-        An already open batfish Session object used to make queries the
-        batfish service.
+        An already open batfish Session object used to query the batfish
+        service.
 
     L3ifaces: Batfish Dataframe
         Keeps the results (dataframe) of the interfaceProperties batfish
@@ -91,7 +89,7 @@ class L3InterfaceInfo:
             .answer()
             .frame()
         )
-        self.dups = self.session_bf.q.ipOwners(duplicatesOnly=True).answer().frame()
+        self.dups = self.L3ifaces[self.L3ifaces.duplicated("Primary_Address")]
 
         self.L3topo = self.session_bf.q.layer3Edges(nodes=node).answer().frame()
 
