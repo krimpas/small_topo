@@ -53,6 +53,25 @@ def exec_task2(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
     return Result(host=task.host, result=data)
 
 
+def exec_task3(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> Result:
+    #
+    # Create the L3info object
+    device = L3InterfaceInfo(
+        bf=bf,
+        node=f"{task.host.name}",
+        properties=BFISH_L3IFACE_PROPS.select_properties(),
+    )
+
+    dups = device.duplicates
+    atab = dfprint(
+        df=dups,
+        props=["#"] + [c for c in dups.columns],
+        title="Checking for duplicates IPv4 address in the topology!",
+    )
+
+    return Result(host=task.host, result=atab)
+
+
 def main():
     # Initialize Nornir
     nr = InitNornir(config_file=os.environ.get("NORNIR_CONFIG_FILE"))
@@ -62,6 +81,16 @@ def main():
     result = nr.run(
         name="L3 Topology Batfish checks",
         task=exec_task2,
+        bf=bf_session,
+        severity_level=logging.INFO,
+    )
+
+    # Print the results
+    print_result(result)
+
+    result = nr.run(
+        name="L3 Batfish checks for duplicates",
+        task=exec_task3,
         bf=bf_session,
         severity_level=logging.INFO,
     )
