@@ -26,7 +26,7 @@ class L3InterfaceInfo:
     Methods
     -------
     L3_ifacetype(row, ifacetype) -> bool
-        Checks if in the interface is physical ('Gig') or Loopback.
+        Checks if in the interface is physical (i.e 'Gig') or Loopback.
 
     L3_iface_Active_Up(row) -> bool
         Checks if the interface is Active and Up.
@@ -82,6 +82,7 @@ class L3InterfaceInfo:
         None
         """
         self.session_bf = bf
+        #
         self.L3ifaces = (
             self.session_bf.q.interfaceProperties(
                 nodes=node, interfaces=interfaces, properties=properties
@@ -89,7 +90,8 @@ class L3InterfaceInfo:
             .answer()
             .frame()
         )
-        self.dups = self.L3ifaces[self.L3ifaces.duplicated("Primary_Address")]
+        #
+        self.duplicates = self.L3ifaces[self.L3ifaces.duplicated("Primary_Address")]
 
         self.L3topo = self.session_bf.q.layer3Edges(nodes=node).answer().frame()
 

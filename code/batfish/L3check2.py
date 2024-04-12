@@ -32,7 +32,7 @@ def exec_task2(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
         node=f"{task.host.name}",
     )
 
-    dups = device.dups
+    dups = device.duplicates
     t = dfprint(
         df=dups,
         props=["#"] + [c for c in dups.columns],
