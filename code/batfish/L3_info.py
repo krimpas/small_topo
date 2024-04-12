@@ -23,6 +23,14 @@ class L3InterfaceInfo:
         Keeps the results (dataframe) of the interfaceProperties batfish
         question for a given topology node.
 
+    duplicates: Batfish Dataframe
+        keeps the dataframe of duplicate IPv4 addresses in the specified
+        node, if any.
+
+    L3topo: Batfish Dataframe
+        Keeps the dataframe of L3 topology elements of the specified node,
+        as a result of bf.q.layer3Edges batfish question.
+
     Methods
     -------
     L3_ifacetype(row, ifacetype) -> bool
@@ -68,12 +76,12 @@ class L3InterfaceInfo:
         Parameters
         ----------
         bf: Session
-            The already open batfish Session object used to query the
+            The already opened batfish Session object used to query the
             batfish service.
         node: str
             The  Node or router name used by Nornir (task.host.name)
         ifacetype: str
-            The Type of Interface ('Loop', 'Gig', 'TenGig')
+            The Type of Interface ('Loop', 'Gig', 'TenGig', 'Loopback')
         properties: str
             The dataframe columns contained in the results
 
@@ -92,7 +100,7 @@ class L3InterfaceInfo:
         )
         #
         self.duplicates = self.L3ifaces[
-            self.L3ifaces.duplicated("Primary_Address", keep=False)
+            self.L3ifaces.duplicated("Primary_Address","Primary_Network" keep=False)
         ]
 
         self.L3topo = self.session_bf.q.layer3Edges(nodes=node).answer().frame()
