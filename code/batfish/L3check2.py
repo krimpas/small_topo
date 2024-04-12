@@ -10,6 +10,7 @@ from bfish_init import bfish_init
 from pybatfish.client.session import Session
 from prettytable import PrettyTable
 from pandas.core.frame import DataFrame
+from bfish_L3iface_props import BFISH_L3IFACE_PROPS
 
 load_dotenv()
 
@@ -28,8 +29,7 @@ def exec_task2(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
     #
     # Create the L3info object
     device = L3InterfaceInfo(
-        bf=bf,
-        node=f"{task.host.name}",
+        bf=bf, node=f"{task.host.name}", properties=BFISH_L3IFACE_PROPS
     )
 
     dups = device.duplicates
