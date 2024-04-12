@@ -29,7 +29,9 @@ def exec_task2(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
     #
     # Create the L3info object
     device = L3InterfaceInfo(
-        bf=bf, node=f"{task.host.name}", properties=BFISH_L3IFACE_PROPS
+        bf=bf,
+        node=f"{task.host.name}",
+        properties=BFISH_L3IFACE_PROPS.select_properties(),
     )
 
     dups = device.duplicates
