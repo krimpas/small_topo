@@ -64,6 +64,7 @@ def exec_task3(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
 
 
 def main():
+
     # Initialize Nornir
     nr = InitNornir(config_file=os.environ.get("NORNIR_CONFIG_FILE"))
     bf_session = bfish_init()
