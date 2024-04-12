@@ -100,7 +100,7 @@ class L3InterfaceInfo:
         )
         #
         self.duplicates = self.L3ifaces[
-            self.L3ifaces.duplicated("Primary_Address", "Primary_Network", keep=False)
+            self.L3ifaces.duplicated(["Primary_Address", "Primary_Network"], keep=False)
         ]
 
         self.L3topo = self.session_bf.q.layer3Edges(nodes=node).answer().frame()
