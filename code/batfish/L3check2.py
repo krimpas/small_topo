@@ -34,15 +34,6 @@ def exec_task2(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
         properties=BFISH_L3IFACE_PROPS.select_properties(),
     )
 
-    dups = device.duplicates
-    atab = dfprint(
-        df=dups,
-        props=["#"] + [c for c in dups.columns],
-        title="Checking for duplicates IPv4 address in the topology!",
-    )
-
-    print(atab)
-
     topo = device.L3topo
     data = dfprint(
         df=topo,
