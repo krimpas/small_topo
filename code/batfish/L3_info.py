@@ -186,6 +186,12 @@ class L3InterfaceInfo:
         """
         return row.MTU == mtu
 
+    @property
+    def L3_fetch_duplicates(self):
+        return self.L3ifaces[
+            self.L3ifaces.duplicated(["Primary_Address", "Primary_Network"], keep=False)
+        ]
+
     @staticmethod
     def only_one_prefix_per_L3interface(row) -> bool:
         """
