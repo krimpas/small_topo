@@ -182,7 +182,6 @@ class L3InterfaceInfo:
         -------
         bool
             True if configured MTU matches mtu argument, otherwise False.
-
         """
         return row.MTU == mtu
 
