@@ -28,7 +28,7 @@ class L3InterfaceInfo:
         node, if any.
 
     L3topo: Batfish Dataframe
-        Keeps the dataframe of L3 topology elements of the specified node,
+        Keeps the dataframe L3 topology elements of the specified node,
         as a result of bf.q.layer3Edges batfish question.
 
     Methods
@@ -268,9 +268,9 @@ class L3InterfaceInfo:
 
         Returns
         -------
-            L3ifaces: Batfish DataFrame
-                Returns the dataframe of all interfaces satisfying the
-                ifacetype criterion but not all others
+        L3ifaces: Batfish DataFrame
+            Returns the dataframe of all interfaces satisfying the
+            ifacetype criterion but not all others
         """
 
         return self.L3ifaces[
