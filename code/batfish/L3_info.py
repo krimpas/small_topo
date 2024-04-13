@@ -188,6 +188,13 @@ class L3InterfaceInfo:
 
     @property
     def L3_fetch_duplicates(self):
+        """
+        Calculates the duplicates IPv4 address configured on the node
+
+        Returns
+        -------
+            Dataframe : Contains all duplicates or empty.
+        """
         return self.L3ifaces[
             self.L3ifaces.duplicated(["Primary_Address", "Primary_Network"], keep=False)
         ]
