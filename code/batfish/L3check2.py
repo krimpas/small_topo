@@ -11,6 +11,7 @@ from pybatfish.client.session import Session
 from prettytable import PrettyTable
 from pandas.core.frame import DataFrame
 from bfish_L3iface_props import BFISH_L3IFACE_PROPS
+import pandas as pd
 
 load_dotenv()
 
@@ -72,7 +73,9 @@ def exec_task4(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
         properties=BFISH_L3IFACE_PROPS.select_properties(),
     )
 
-    topo = device.L3topo
+    df_inner = pd.merge(device.L3topo, device.L3ifaces, on="Interface", how="inner")
+
+    topo = df_inner
     atab = dfprint(
         df=dups,
         props=["#"] + [c for c in topo.columns],
