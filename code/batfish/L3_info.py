@@ -1,4 +1,4 @@
-from ipaddress import ip_network as ipnet
+from ipaddress import ip_network
 from ipaddress import IPv4Interface
 from bfish_L3iface_props import L3IFACE_TYPES
 from pybatfish.client.session import Session
@@ -28,8 +28,8 @@ class L3InterfaceInfo:
         node, if any.
 
     L3topo: Batfish Dataframe
-        Keeps the dataframe L3 topology elements of the specified node,
-        as a result of bf.q.layer3Edges batfish question.
+        Keeps the dataframe L3 topology elements of the specified node as
+        a result of bf.q.layer3Edges batfish question.
 
     Methods
     -------
@@ -44,6 +44,9 @@ class L3InterfaceInfo:
 
     L3_iface_MTU(row, mtu) -> bool
         Checks if the interface's MTU matches the given mtu.
+
+    L3_fetch_duplicates(self)-> DataFrame
+        Calculates the duplicates IPv4 address configured on the node
 
     only_one_prefix_per_L3interface(row) -> bool
         Checks if only one IPv4 is configured on interface.
@@ -163,7 +166,7 @@ class L3InterfaceInfo:
             otherwise False.
 
         """
-        return ipnet(asupernet).supernet_of(ipnet(row.Primary_Network))
+        return ip_network(asupernet).supernet_of(ip_network(row.Primary_Network))
 
     @staticmethod
     def L3_iface_MTU(row, mtu=1500) -> bool:
