@@ -77,7 +77,7 @@ def exec_task4(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
 
     topo = df_inner
     atab = dfprint(
-        df=dups,
+        df=topo,
         props=["#"] + [c for c in topo.columns],
         title="Checking for duplicates IPv4 address in the topology!",
     )
