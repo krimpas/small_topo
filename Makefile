@@ -7,13 +7,13 @@ activate:
 	source venv/bin/activate
 
 black:
-	@echo "+-------------------------------+"
-	@echo "| Checking Cerberus Python Code |"
-	@echo "+-------------------------------+"
+	@echo "+----------------------------+"
+	@echo "| Black Cerberus Python Code |"
+	@echo "+----------------------------+"
 	black ${CERBERUS_DIR} --check
-	@echo "+-------------------------------+"
-	@echo "| Checking Batfish Python Code  |"
-	@echo "+-------------------------------+"
+	@echo "+----------------------------+"
+	@echo "| Black Batfish Python Code  |"
+	@echo "+----------------------------+"
 	black ${BATFISH_DIR} --check
 
 lint:
@@ -27,25 +27,25 @@ lint:
 	yamllint --list-files --format github --strict ${SCHEMA_DIR}
 
 config:
-	@echo "+------------------------------+"
-	@echo "| Validating L3 interfaces     |"
-	@echo "+------------------------------+"
+	@echo "+----------------------------+"
+	@echo "| Cerberus L3 interfaces     |"
+	@echo "+----------------------------+"
 	python3 ${CERBERUS_DIR}/checkconfig.py --section interfaces
-	@echo "+---------------------+"
-	@echo "| Validating OSPF     |"
-	@echo "+---------------------+"
+	@echo "+-------------------+"
+	@echo "| Cerberus OSPF     |"
+	@echo "+-------------------+"
 	python3 ${CERBERUS_DIR}/checkconfig.py --section ospf
-	@echo "+------------------------------+"
-	@echo "| Validating OSPF Keychains    |"
-	@echo "+------------------------------+"
+	@echo "+----------------------------+"
+	@echo "| Cerberus OSPF Keychains    |"
+	@echo "+----------------------------+"
 	python3 ${CERBERUS_DIR}/checkconfig.py --section keychains
 
 batfish:
 	@echo "+----------------------------------+"
-	@echo "| Batishing Node L3 interfaces     |"
+	@echo "| BatFishing Node L3 interfaces     |"
 	@echo "+----------------------------------+"
 	python3 ${BATFISH_DIR}/L3check.py
 	@echo "+----------------------------------+"
-	@echo "| Batishing Overall L3 Topology    |"
+	@echo "| BatFishing Overall L3 Topology    |"
 	@echo "+----------------------------------+"
 	python3 ${BATFISH_DIR}/L3check2.py
