@@ -41,8 +41,11 @@ config:
 	python3 ${CERBERUS_DIR}/checkconfig.py --section keychains
 
 batfish:
-	@echo "+-----------------------------+"
-	@echo "| Batishing L3 interfaces     |"
-	@echo "+-----------------------------+"
+	@echo "+----------------------------------+"
+	@echo "| Batishing Node L3 interfaces     |"
+	@echo "+----------------------------------+"
 	python3 ${BATFISH_DIR}/L3check.py
+	@echo "+----------------------------------+"
+	@echo "| Batishing Overall L3 Topology    |"
+	@echo "+----------------------------------+"
 	python3 ${BATFISH_DIR}/L3check2.py
