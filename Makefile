@@ -42,10 +42,13 @@ config:
 
 batfish:
 	@echo "+----------------------------------+"
-	@echo "| BatFishing Node L3 interfaces     |"
+	@echo "| BatFishing Node L3 interfaces    |"
 	@echo "+----------------------------------+"
 	python3 ${BATFISH_DIR}/L3check.py
 	@echo "+----------------------------------+"
-	@echo "| BatFishing Overall L3 Topology    |"
+	@echo "| BatFishing Overall L3 Topology   |"
 	@echo "+----------------------------------+"
 	python3 ${BATFISH_DIR}/L3check2.py
+	@echo "+------------------+"
+	@echo "| END OF BATFISH   |"
+	@echo "+------------------+"
