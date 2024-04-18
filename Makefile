@@ -45,4 +45,4 @@ batfish:
 	@echo "| Batishing L3 interfaces     |"
 	@echo "+-----------------------------+"
 	python3 ${BATFISH_DIR}/L3check.py
-	python3 $BATFISH_DIR/L3check2.py
+	python3 ${BATFISH_DIR}/L3check2.py
