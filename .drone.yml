@@ -3,7 +3,7 @@ version: "3.4"
 
 kind: pipeline
 type: docker
-name: Checking for errors in YAML and python source code
+name: NetDevOps CI/CD Pipeline
 
 services:
   - name: batfish
