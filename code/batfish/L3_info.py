@@ -6,7 +6,7 @@ from pybatfish.client.session import Session
 
 class L3InterfaceInfo:
     """
-    Class for keeping the information of all interfaces of a given node.
+    Keeps the information of all L3 interfaces of a given network node.
 
     Performs the bf.q.interfaceProperties question to the batfish service
     in order to fetch configuration info for all interfaces for the node

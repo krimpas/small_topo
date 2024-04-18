@@ -29,31 +29,13 @@ steps:
   - name: Validating YAML RAW DATA files
     image: gkrimpas/small_topo:latest
     commands:
-      - echo "YAML RAW data/CHECKING fot YAML error and warnings"
-      - yamllint --list-files --format github --strict $YML_DIR/r*/
-      - echo "YAML SCHEMA data/CHECKING fot YAML error and warnings"
-      - yamllint --list-files --format github --strict $SCHEMA_DIR
-      - echo "Cerberus Python code Black for formatting and warnings"
-      - black $CERBERUS_DIR --check
-      - black $BATFISH_DIR --check
+      - make black
+      - make lint
 
   - name: Validating L3 interfaces YAML files
     image: gkrimpas/small_topo:latest
     commands:
-      - python3 $CERBERUS_DIR/checkconfig.py --section interfaces
-      - echo "End of L3 interfaces validation"
-
-  - name: Validating OSPF settings YAML files
-    image: gkrimpas/small_topo:latest
-    commands:
-      - python3 $CERBERUS_DIR/checkconfig.py --section ospf
-      - echo "End of OSPF settings validation"
-
-  - name: Validating OSPF keychains YAML files
-    image: gkrimpas/small_topo:latest
-    commands:
-      - python3 $CERBERUS_DIR/checkconfig.py --section keychains
-      - echo "End of OSPF keychains validation"
+      - make config
 
   - name: Validating batfish
     image: gkrimpas/small_topo:latest
