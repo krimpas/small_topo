@@ -16,7 +16,7 @@ black:
 	@echo "+----------------------------+"
 	black ${BATFISH_DIR} --check
 
-lint:
+lint: black
 	@echo "+------------------------------+"
 	@echo "| Linting YAML CONF data files |"
 	@echo "+------------------------------+"
@@ -26,7 +26,7 @@ lint:
 	@echo "+----------------------------+"
 	yamllint --list-files --format github --strict ${SCHEMA_DIR}
 
-config:
+config: lint
 	@echo "+----------------------------+"
 	@echo "| Cerberus L3 interfaces     |"
 	@echo "+----------------------------+"
