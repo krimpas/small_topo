@@ -26,16 +26,16 @@ steps:
       - ls -la 
       - env | grep BAT
   
-  - name: Black & YamlLint YAML DATA & SCHEMA files
-    image: gkrimpas/small_topo:latest
-    commands:
-      - make black
-      - make lint
+#  - name: Black & YamlLint YAML DATA & SCHEMA files
+#    image: gkrimpas/small_topo:latest
+#    commands:
+#      - make black
+#      - make lint
 
-  - name: Cerberizing L3 / OSPF YAML files
-    image: gkrimpas/small_topo:latest
-    commands:
-      - make config
+#  - name: Cerberizing L3 / OSPF YAML files
+#    image: gkrimpas/small_topo:latest
+#    commands:
+#      - make config
 
   - name: Batfishing L3 / OSPF YAML files
     image: gkrimpas/small_topo:latest

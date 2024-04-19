@@ -40,7 +40,7 @@ config: lint
 	@echo "+----------------------------+"
 	python3 ${CERBERUS_DIR}/checkconfig.py --section keychains
 
-batfish:
+batfish: config
 	@echo "+----------------------------------+"
 	@echo "| BatFishing Node L3 interfaces    |"
 	@echo "+----------------------------------+"
