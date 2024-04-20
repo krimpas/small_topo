@@ -2,6 +2,7 @@ from ipaddress import ip_network
 from ipaddress import IPv4Interface
 from bfish_L3iface_props import L3IFACE_TYPES
 from pybatfish.client.session import Session
+import pandas as pd
 
 
 class L3InterfaceInfo:
@@ -107,6 +108,17 @@ class L3InterfaceInfo:
         ]
 
         self.L3topo = self.session_bf.q.layer3Edges(nodes=node).answer().frame()
+
+    def L3_check_topo_ifaces(self):
+
+        if self.L3ifaces.shape[0] != self.L3topo.shape[0]:
+            return False
+
+        joined_frame = pd.merge(self.L3topo, self.L3ifaces, on="Interface", how="inner")
+        if joined_frame.shape[0] != self.L3topo.shape[0]:
+            return False
+
+        return True
 
     @staticmethod
     def L3_ifacetype(row, ifacetype=L3IFACE_TYPES.LOOP.value) -> bool:

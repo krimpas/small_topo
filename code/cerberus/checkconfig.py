@@ -10,6 +10,30 @@ from sectionvalidator import SectionValidator
 from pprint import pprint
 from prettytable import PrettyTable
 
+
+def echo_total_check_result(nr, result, section):
+
+    x = PrettyTable()
+
+    x.field_names = ["Host", "is_valid", "validation_errors", "Status"]
+
+    for h in nr.inventory.hosts.keys():
+        if not result[h].result["is_valid"]:
+            status = "FAILED"
+        else:
+            status = "PASSED"
+        x.add_row(
+            [
+                h,
+                result[h].result["is_valid"],
+                result[h].result["validation_errors"],
+                status,
+            ]
+        )
+
+    return x.get_string(title=f"Config Section:{section}")
+
+
 load_dotenv()
 
 
@@ -52,24 +76,8 @@ def main():
     # Print the results
     print_result(result)
 
-    x = PrettyTable()
-    status = "FAILED"
-    x.field_names = ["Host", "is_valid", "validation_errors", "Status"]
-    for h in filtered_hosts.inventory.hosts.keys():
-        if not result[h].result["is_valid"]:
-            status = "FAILED"
-        else:
-            status = "PASSED"
-        x.add_row(
-            [
-                h,
-                result[h].result["is_valid"],
-                result[h].result["validation_errors"],
-                status,
-            ]
-        )
-
-    print(x.get_string(title=f"Config Validation/Section:{sargs.section}"))
+    res = echo_total_check_result(filtered_hosts, result, sargs.section)
+    print(res)
 
     for h in filtered_hosts.inventory.hosts.keys():
         if not result[h].result["is_valid"]:
