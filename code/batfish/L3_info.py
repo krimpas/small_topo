@@ -34,7 +34,7 @@ class L3InterfaceInfo:
 
     Methods
     -------
-    L3_check_topo_ifaces(self) -> bool
+    L3_check_topo_ifaces(self)
         Checks if L3 Topo and node interfaces match each other.
 
     L3_ifacetype(row, ifacetype) -> bool
@@ -119,18 +119,18 @@ class L3InterfaceInfo:
 
         Returns
         -------
-        bool
-            True if a match otherwise False.
+        Batfish Dataframe
+            L3topo or joined_frame
         """
         if self.L3ifaces.shape[0] != self.L3topo.shape[0]:
-            return False
+            return self.L3topo
 
         joined_frame = pd.merge(self.L3topo, self.L3ifaces, on="Interface", how="inner")
 
         if joined_frame.shape[0] != self.L3topo.shape[0]:
-            return False
+            return self.L3ifaces
 
-        return True
+        return joined_frame
 
     @staticmethod
     def L3_ifacetype(row, ifacetype=L3IFACE_TYPES.LOOP.value) -> bool:
