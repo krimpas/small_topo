@@ -16,7 +16,7 @@ black:
 	@echo "+----------------------------+"
 	black ${BATFISH_DIR} --check
 
-lint: black
+lint:
 	@echo "+------------------------------+"
 	@echo "| Linting YAML CONF data files |"
 	@echo "+------------------------------+"
@@ -26,7 +26,7 @@ lint: black
 	@echo "+----------------------------+"
 	yamllint --list-files --format github --strict ${SCHEMA_DIR}
 
-config: lint
+config:
 	@echo "+----------------------------+"
 	@echo "| Cerberus L3 interfaces     |"
 	@echo "+----------------------------+"
@@ -40,7 +40,7 @@ config: lint
 	@echo "+----------------------------+"
 	python3 ${CERBERUS_DIR}/checkconfig.py --section keychains
 
-batfish: config
+batfish:
 	@echo "+----------------------------------+"
 	@echo "| BatFishing Node L3 interfaces    |"
 	@echo "+----------------------------------+"

@@ -40,4 +40,7 @@ steps:
   - name: Batfishing L3 / OSPF YAML files
     image: gkrimpas/small_topo:latest
     commands:
+      - make black
+      - make lint
+      - make config
       - make batfish
