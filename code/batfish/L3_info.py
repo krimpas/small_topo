@@ -34,6 +34,9 @@ class L3InterfaceInfo:
 
     Methods
     -------
+    L3_check_topo_ifaces(self) -> bool
+        Checks if L3 Topo and node interfaces match each other.
+
     L3_ifacetype(row, ifacetype) -> bool
         Checks if in the interface is physical (i.e 'Gig') or Loopback.
 
@@ -109,12 +112,21 @@ class L3InterfaceInfo:
 
         self.L3topo = self.session_bf.q.layer3Edges(nodes=node).answer().frame()
 
-    def L3_check_topo_ifaces(self):
+    def L3_check_topo_ifaces(self) -> bool:
+        """
+        Checks if the number and names of node physical interfaces matches
+        the number and names of interfaces belonging in the L3 topology.
 
+        Returns
+        -------
+        bool
+            True if a match otherwise False.
+        """
         if self.L3ifaces.shape[0] != self.L3topo.shape[0]:
             return False
 
         joined_frame = pd.merge(self.L3topo, self.L3ifaces, on="Interface", how="inner")
+
         if joined_frame.shape[0] != self.L3topo.shape[0]:
             return False
 
