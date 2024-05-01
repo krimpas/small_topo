@@ -82,3 +82,6 @@ batfish:
 lint: yamllint black
 
 conf: lint config
+	@echo "+----------------------------------+"
+	@echo "| This is the END!                 |"
+	@echo "+----------------------------------+"
