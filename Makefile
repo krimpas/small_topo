@@ -82,9 +82,3 @@ batfish:
 lint: yamllint black
 
 conf: lint config
-
-L3: lint
-	@echo "+----------------------------------+"
-	@echo "| Cerberus SECTION: ${SECTION}     |"
-	@echo "+----------------------------------+"
-	python3 ${CERBERUS_DIR}/checkconfig.py --section ${SECTION}
