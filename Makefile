@@ -88,4 +88,3 @@ L3: lint
 	@echo "| Cerberus SECTION: ${SECTION}     |"
 	@echo "+----------------------------------+"
 	python3 ${CERBERUS_DIR}/checkconfig.py --section ${SECTION}
-	@echo "The end"
