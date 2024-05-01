@@ -1,6 +1,6 @@
 import os
 import logging
-from L3_info import L3InterfaceInfo
+from l3info import L3InterfaceInfo
 from bfish_L3iface_props import BFISH_L3IFACE_PROPS
 from nornir import InitNornir
 from nornir.core.task import Task, Result
@@ -22,7 +22,7 @@ def exec_task(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> R
         properties=BFISH_L3IFACE_PROPS.select_properties(),
     )
 
-    res = device.check_L3_interface(anet=anet, ifacetype=ifacetype)
+    res = device.check_layer3_interface(anet=anet, ifacetype=ifacetype)
     if not res.empty:
         title = "Checking L3 interfaces: FAILED!"
     else:

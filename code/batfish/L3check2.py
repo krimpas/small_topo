@@ -1,6 +1,6 @@
 import os
 import logging
-from L3_info import L3InterfaceInfo
+from l3info import L3InterfaceInfo
 from bfish_L3iface_props import BFISH_L3IFACE_PROPS
 from nornir import InitNornir
 from nornir.core.task import Task, Result
@@ -35,7 +35,7 @@ def exec_task2(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
         properties=BFISH_L3IFACE_PROPS.select_properties(),
     )
 
-    topo = device.L3topo
+    topo = device.layer3_topo
     data = dfprint(
         df=topo,
         props=["#"] + [c for c in topo.columns],
