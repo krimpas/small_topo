@@ -2,7 +2,7 @@
     Algos module consists of all the basic algorithms and their implementation
 """
 
-from __future__ import print_function
+# from __future__ import print_function
 
 __all__ = []
 __version__ = "0.0.1"
@@ -45,35 +45,35 @@ class L3InterfaceInfo:
 
     Methods
     -------
-    L3_check_topo_ifaces(self)
+    layer3_check_topo_ifaces(self)
         Checks if L3 Topo and node interfaces match each other.
 
-    L3_ifacetype(row, ifacetype) -> bool
+    layer3_ifacetype(row, ifacetype) -> bool
         Checks if in the interface is physical (i.e 'Gig') or Loopback.
 
-    L3_iface_Active_Up(row) -> bool
+    layer3_iface_Active_Up(row) -> bool
         Checks if the interface is Active and Up.
 
-    L3_subnet_of(row, asupernet) -> bool
+    layer3_subnet_of(row, asupernet) -> bool
         Checks if the IPv4 address is subnet of the given network.
 
-    L3_iface_MTU(row, mtu) -> bool
+    layer3_iface_MTU(row, mtu) -> bool
         Checks if the interface's MTU matches the given mtu.
 
-    L3_fetch_duplicates(self)-> DataFrame
+    layer3_fetch_duplicates(self)-> DataFrame
         Calculates the duplicates IPv4 address configured on the node
 
-    only_one_prefix_per_L3interface(row) -> bool
+    only_one_prefix_per_layer3_interface(row) -> bool
         Checks if only one IPv4 is configured on interface.
 
     is_public_IPv4(row) -> bool
         Checks if interface's IPv4 is a public IPv4.
 
-    L3_one_public_IPv4(self) -> bool
+    layer3_one_public_IPv4(self) -> bool
         Checks if there is only one Public IPv4 address among all
         interfaces of thr node.
 
-    check_L3_interface(self, anet, ifacetype) -> DataFrame
+    check_layer3_interface(self, anet, ifacetype) -> DataFrame
         Performs a sequence of validation checks common on all
         interfaces of the node.
 
@@ -317,8 +317,7 @@ class L3InterfaceInfo:
                 axis=1,
             )
         ]
-        one = one_public.count().Interface == 1
-        retcode = bool(one)
+        retcode = one_public.count().Interface == 1
         return retcode, one_public
 
     def check_layer3_interface(
