@@ -33,6 +33,7 @@ def exec_task(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> R
 
 
 def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
+    """mplah"""
 
     device = NodeL3InterfaceInfo(
         bf=bf,
