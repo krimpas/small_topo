@@ -32,6 +32,21 @@ def exec_task(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> R
     return Result(host=task.host, result=data)
 
 
+def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
+
+    device = NodeL3InterfaceInfo(
+        bf=bf,
+        node=f"{task.host.name}",
+        properties=BFISH_L3IFACE_PROPS.select_properties(),
+    )
+    method_name = getattr(device, func_name, None)
+
+    res = method_name(**kwargs)
+    data = dfprint(df=res, props=["#"] + [c for c in res.columns], title="exec_checks")
+
+    return Result(host=task.host, result=data)
+
+
 def main():
     # Initialize Nornir
     nr = InitNornir(config_file=os.environ.get("NORNIR_CONFIG_FILE"))
@@ -40,8 +55,9 @@ def main():
     # Run the validation task on all filtered hosts
     result = nr.run(
         name="L3 Loopback Batfish checks",
-        task=exec_task,
+        task=exec_checks,
         bf=bf_session,
+        func_name="check_layer3_interface",
         anet="172.16.0.0/12",
         ifacetype="Loop",
         severity_level=logging.INFO,
