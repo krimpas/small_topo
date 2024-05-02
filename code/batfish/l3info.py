@@ -1,5 +1,12 @@
 """
-    Algos module consists of all the basic algorithms and their implementation
+The l3iface module consists of 2 Batfish related classes. These classes are
+used for the offline Validation checks of Layer 3 interfaces.
+
+Class L3InterfaceInfo
+Used for L3 interface validation checks for each node of the topology.
+
+Class L3TopoInterfaceInfo
+Used for L3 interface validation checks for all nodes of the topology.
 """
 
 # from __future__ import print_function
@@ -9,8 +16,7 @@ __version__ = "0.0.1"
 __author__ = "Krimpas George"
 
 
-from ipaddress import ip_network
-from ipaddress import IPv4Interface
+from ipaddress import IPv4Interface, ip_network
 from bfish_L3iface_props import L3IFACE_TYPES
 from pybatfish.client.session import Session
 import pandas as pd
