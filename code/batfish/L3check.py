@@ -69,9 +69,10 @@ def main():
     print_result(result)
 
     result = nr.run(
-        name="L3 GigaBit Batfish checks",
-        task=exec_task,
+        name="L3 Loopback Batfish checks",
+        task=exec_checks,
         bf=bf_session,
+        func_name="check_layer3_interface",
         anet="10.0.0.0/12",
         ifacetype="Gig",
         severity_level=logging.INFO,
