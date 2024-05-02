@@ -1,6 +1,6 @@
 import os
 import logging
-from l3info import L3InterfaceInfo
+from l3info import NodeL3InterfaceInfo
 from bfish_L3iface_props import BFISH_L3IFACE_PROPS
 from nornir import InitNornir
 from nornir.core.task import Task, Result
@@ -16,7 +16,7 @@ load_dotenv()
 def exec_task(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> Result:
     #
     # Create the L3info object
-    device = L3InterfaceInfo(
+    device = NodeL3InterfaceInfo(
         bf=bf,
         node=f"{task.host.name}",
         properties=BFISH_L3IFACE_PROPS.select_properties(),

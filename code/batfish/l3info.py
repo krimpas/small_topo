@@ -1,17 +1,26 @@
 """
-The l3iface module consists of 2 Batfish related classes. These classes are
-used for the offline Validation checks of Layer 3 interfaces.
+Name:
+-----
+    l3ifaces.py\n
 
-Class L3InterfaceInfo
-Used for L3 interface validation checks for each node of the topology.
+Description:
+------------
+    Consists of 2 Batfish related classes used for the offline Validation\n
+    checks of Layer 3 interfaces.
 
-Class L3TopoInterfaceInfo
-Used for L3 interface validation checks for all nodes of the topology.
+Classes:
+--------
+    L3InterfaceInfo\n
+    L3TopoInterfaceInfo\n
+
+Misc variables:
+---------------
+    __all__\n
+    __version__\n
+    __author__\n
 """
 
-# from __future__ import print_function
-
-__all__ = []
+__all__ = ["L3InterfaceInfo"]
 __version__ = "0.0.1"
 __author__ = "Krimpas George"
 
@@ -24,12 +33,12 @@ import pandas as pd
 
 class L3InterfaceInfo:
     """
-    Keeps the information of all L3 interfaces of a given network node.
+    Keeps the information of all L3 interfaces of a given network node. \n
 
-    Performs the bf.q.interfaceProperties question to the batfish service
-    in order to fetch configuration info for all interfaces for the node
-    specified. This Class will be used by Nornir Task to receive the node
-    as an argument (task.host.name).
+    Performs the bf.q.interfaceProperties question to the batfish service \n
+    in order to fetch configuration info for all interfaces for the node \n
+    specified. This Class will be used by Nornir Task to receive the node \n
+    as an argument (task.host.name). \n
 
     Attributes
     ----------
