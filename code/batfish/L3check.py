@@ -43,6 +43,7 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
     method_name = getattr(device, func_name, None)
 
     res = method_name(**kwargs)
+
     data = dfprint(df=res, props=["#"] + [c for c in res.columns], title="exec_checks")
 
     return Result(host=task.host, result=data)
