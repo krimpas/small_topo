@@ -73,7 +73,7 @@ def exec_task4(task: Task, bf: Session, anet: str = "", ifacetype: str = "") -> 
         properties=BFISH_L3IFACE_PROPS.select_properties(),
     )
 
-    df_inner = device.L3_check_topo_ifaces()
+    df_inner = device.layer3_check_topo_ifaces()
 
     topo = df_inner
     atab = dfprint(

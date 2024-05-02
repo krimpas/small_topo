@@ -80,8 +80,3 @@ batfish:
 	python3 ${BATFISH_DIR}/L3check2.py
 
 lint: yamllint black
-
-conf: lint config
-	@echo "+----------------------------------+"
-	@echo "| This is the END!                 |"
-	@echo "+----------------------------------+"
