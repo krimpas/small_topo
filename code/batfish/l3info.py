@@ -10,8 +10,8 @@ Description:
 
 Classes:
 --------
-    L3InterfaceInfo\n
-    L3TopoInterfaceInfo\n
+    NodeL3InterfaceInfo\n
+    TopoL3InterfaceInfo\n
 
 Misc variables:
 ---------------
@@ -20,7 +20,7 @@ Misc variables:
     __author__\n
 """
 
-__all__ = ["L3InterfaceInfo"]
+__all__ = ["NodeL3InterfaceInfo"]
 __version__ = "0.0.1"
 __author__ = "Krimpas George"
 
@@ -31,7 +31,7 @@ from pybatfish.client.session import Session
 import pandas as pd
 
 
-class L3InterfaceInfo:
+class NodeL3InterfaceInfo:
     """
     Keeps the information of all L3 interfaces of a given network node. \n
 
