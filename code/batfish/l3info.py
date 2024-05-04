@@ -376,7 +376,7 @@ class NodeL3InterfaceInfo:
 
     def call_method_by_name(self, name, **kwargs):
         """
-        Performs dynamic calls tp any class method by using the
+        Performs dynamic calls to any class method by using the
         method name and any arguments needed.
 
         Parameters
@@ -384,7 +384,7 @@ class NodeL3InterfaceInfo:
         name: (str, mandatory)
             The method name as string
         kwargs: (dict, optional)
-            The method parameters valeus dict if any.
+            The method parameters values dict if any.
 
         Returns
         -------
