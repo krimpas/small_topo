@@ -73,7 +73,7 @@ batfish:
 	@echo "+----------------------------------+"
 	@echo "| BatFishing Node L3 interfaces    |"
 	@echo "+----------------------------------+"
-	python3 ${BATFISH_DIR}/L3check.py
+	python3 ${BATFISH_DIR}/layer3check.py
 	@echo "+----------------------------------+"
 	@echo "| BatFishing Overall L3 Topology   |"
 	@echo "+----------------------------------+"
