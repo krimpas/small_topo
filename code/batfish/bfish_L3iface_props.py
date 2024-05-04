@@ -18,6 +18,7 @@ class BFISH_L3IFACE_PROPS(str, enum.Enum):
     PRIMARY_ADDRESS = "Primary_Address"
     PRIMARY_NETWORK = "Primary_Network"
     # SPEED = "Speed"
+    VRF = "VRF"
 
     @staticmethod
     def select_properties():
