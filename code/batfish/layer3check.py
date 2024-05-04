@@ -35,7 +35,7 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
 
 
 def main():
-    """This is the main fumction which executes all the Nornir Tasks."""
+    """This is the main function which executes all the Nornir Tasks."""
     # Initialize Nornir
     nr = InitNornir(config_file=os.environ.get("NORNIR_CONFIG_FILE"))
     bf_session = bfish_init()
@@ -58,9 +58,7 @@ def main():
         name="L3 Loopback Batfish checks",
         task=exec_checks,
         bf=bf_session,
-        func_name="check_layer3_interface",
-        anet="10.0.0.0/12",
-        ifacetype="Gig",
+        func_name="lookup_layer3_interface",
         severity_level=logging.INFO,
     )
 

@@ -183,6 +183,27 @@ class NodeL3InterfaceInfo:
         return row.Interface.interface.startswith(ifacetype)
 
     @staticmethod
+    def layer3_interface(row, interface_name: str = "GigabitEthernet2") -> bool:
+        """
+        Fetches if an interface with name interface_name exists in the
+        dataframe.
+
+        Parameters
+        ----------
+        row: Dataframe row
+            Represents an interface of the specific node.
+
+        interface_name: str
+            The name of the interface (i.e GigabitEthernet2)
+
+        Returns
+        -------
+        bool
+            True if the interface exists, otherwise False.
+        """
+        return row.Interface.interface == interface_name
+
+    @staticmethod
     def layer3_iface_active_up(row) -> bool:
         """
         Checks if an interface is both Admin_Up and Active.
@@ -370,6 +391,38 @@ class NodeL3InterfaceInfo:
                     and self.layer3_iface_active_up(row)
                 )
                 and self.only_one_prefix_per_layer3_interface(row),
+                axis=1,
+            )
+        ]
+
+    def lookup_layer3_interface(self, interface_name: str = "GigabitEthernet2"):
+        """
+        Summarizes all Design Conditions required
+
+        Checks if:
+        1. the interface type starts with the argument ifacetype
+        2. the supernet is a supernet of the interface IPv4 network.
+        3. the interface is both Admin_Up and Active.
+
+        Parameters
+        ----------
+        anet (str, optional)
+            Represents the supernet of the interface IPv4 address.
+            Defaults to '172.16.0.0/16'.
+        ifacetype (str, optional)
+            Represents the interface type as: (Loopback, Gigabit).
+            Defaults to 'Loop'.
+
+        Returns
+        -------
+        layer3_ifaces: Batfish DataFrame
+            Returns the dataframe of all interfaces satisfying the
+            ifacetype criterion but not all others
+        """
+
+        return self.layer3_ifaces[
+            self.layer3_ifaces.apply(
+                lambda row: self.layer3_interface(row, interface_name=interface_name),
                 axis=1,
             )
         ]
