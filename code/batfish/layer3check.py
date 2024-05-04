@@ -27,7 +27,7 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
         properties=BFISH_L3IFACE_PROPS.select_properties(),
     )
 
-    res = getattr(device, func_name, None)(**kwargs)
+    res = device.call_method_by_name(func_name, **kwargs)
 
     data = dfprint(df=res, props=["#"] + list(res.columns), title="exec_checks")
 
