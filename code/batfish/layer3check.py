@@ -29,7 +29,7 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
 
     res = device.call_method_by_name(func_name, **kwargs)
 
-    data = dfprint(df=res, props=["#"] + list(res.columns), title="exec_checks")
+    data = dfprint(df=res, props=["#"] + list(res.columns), title=func_name)
 
     return Result(host=task.host, result=data)
 
@@ -55,7 +55,7 @@ def main():
     print_result(result)
 
     result = nr.run(
-        name="L3 Loopback Batfish checks",
+        name="Fetching Interfaces",
         task=exec_checks,
         bf=bf_session,
         func_name="lookup_layer3_interface",
