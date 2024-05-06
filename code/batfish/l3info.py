@@ -139,7 +139,7 @@ class NodeL3InterfaceInfo:
         ]
         self.layer3_topo = self.session_bf.q.layer3Edges(nodes=node).answer().frame()
         self.all_configured = (
-            self.session.bf.q.nodeProperties(nodes=node, properties="Interfaces")
+            self.session_bf.q.nodeProperties(nodes=node, properties="Interfaces")
             .answer()
             .frame()
         )
