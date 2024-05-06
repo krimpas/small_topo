@@ -138,6 +138,11 @@ class NodeL3InterfaceInfo:
             )
         ]
         self.layer3_topo = self.session_bf.q.layer3Edges(nodes=node).answer().frame()
+        self.all_configured = (
+            self.session.bf.q.nodeProperties(nodes=node, properties="Interfaces")
+            .answer()
+            .frame()
+        )
 
     def layer3_check_topo_ifaces(self) -> bool:
         """
@@ -417,6 +422,9 @@ class NodeL3InterfaceInfo:
 
     def all_layer3_interfaces(self):
         return self.layer3_ifaces
+
+    def all_node_configured_interfaces(self):
+        return self.all_configured
 
     def call_method_by_name(self, name, **kwargs):
         """

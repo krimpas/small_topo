@@ -76,6 +76,17 @@ def main():
     # Print the results
     print_result(result)
 
+    result = nr.run(
+        name="Node Interfaces",
+        task=exec_checks,
+        bf=bf_session,
+        func_name="all_node_configured_interfaces",
+        severity_level=logging.INFO,
+    )
+
+    # Print the results
+    print_result(result)
+
 
 if __name__ == "__main__":
     main()
