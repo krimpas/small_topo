@@ -102,25 +102,25 @@ def main():
     # Print the results
     print_result(result)
 
-    result = nr.run(
-        name="L3 Batfish checks for duplicates",
-        task=exec_task3,
-        bf=bf_session,
-        severity_level=logging.INFO,
-    )
+    # result = nr.run(
+    #    name="L3 Batfish checks for duplicates",
+    #    task=exec_task3,
+    #    bf=bf_session,
+    #    severity_level=logging.INFO,
+    # )
 
     # Print the results
-    print_result(result)
+    # print_result(result)
 
-    result = nr.run(
-        name="L3 Batfish checks for L3 Topology",
-        task=exec_task4,
-        bf=bf_session,
-        severity_level=logging.INFO,
-    )
+    # result = nr.run(
+    #    name="L3 Batfish checks for L3 Topology",
+    #    task=exec_task4,
+    #    bf=bf_session,
+    #    severity_level=logging.INFO,
+    # )
 
     # Print the results
-    print_result(result)
+    # print_result(result)
 
 
 if __name__ == "__main__":

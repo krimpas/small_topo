@@ -77,6 +77,6 @@ batfish:
 	@echo "+----------------------------------+"
 	@echo "| BatFishing Overall L3 Topology   |"
 	@echo "+----------------------------------+"
-#	python3 ${BATFISH_DIR}/L3check2.py
+	python3 ${BATFISH_DIR}/L3check2.py
 
 lint: yamllint black
