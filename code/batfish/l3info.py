@@ -29,6 +29,7 @@ from ipaddress import IPv4Interface, ip_network, ip_interface
 from bfish_L3iface_props import L3IFACE_TYPES
 from pybatfish.client.session import Session
 import pandas as pd
+from layer3check import ifaces
 
 
 class NodeL3InterfaceInfo:
@@ -124,6 +125,8 @@ class NodeL3InterfaceInfo:
         """
         self.session_bf = bf
         #
+        self.node = node
+
         self.layer3_ifaces = (
             self.session_bf.q.interfaceProperties(
                 nodes=node, interfaces=interfaces, properties=properties
@@ -138,11 +141,38 @@ class NodeL3InterfaceInfo:
             )
         ]
         self.layer3_topo = self.session_bf.q.layer3Edges(nodes=node).answer().frame()
+
         self.all_configured = (
             self.session_bf.q.nodeProperties(nodes=node, properties="Interfaces")
             .answer()
             .frame()
         )
+
+    def node_configured(self):
+        """ """
+        return self.all_configured["Interfaces"]
+
+    def missing_and_unexpected(self):
+
+        reference_set = set(ifaces[self.node])
+
+        unexpected_interfaces = self.all_configured["Interfaces"].map(
+            lambda x: set(x) - reference_set
+        )
+
+        missing_set = self.all_configured["Interfaces"].map(
+            lambda x: reference_set - set(x)
+        )
+
+        diff_df = pd.concat(
+            [
+                self.all_configured["Interfaces"],
+                unexpected_interfaces.rename("Unexpected"),
+                missing_set.rename("Missing"),
+            ],
+            axis=1,
+        )
+        return diff_df
 
     def layer3_check_topo_ifaces(self) -> bool:
         """
