@@ -162,7 +162,7 @@ class NodeL3InterfaceInfo:
 
     def missing_and_unexpected(self):
 
-        reference_set = set(ifaces[self.node])
+        reference_set = set(list(ifaces[self.node]))
 
         unexpected_interfaces = self.all_configured["Interfaces"].map(
             lambda x: set(x) - reference_set
