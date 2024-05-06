@@ -25,7 +25,7 @@ __version__ = "0.0.1"
 __author__ = "Krimpas George"
 
 
-from ipaddress import IPv4Interface, ip_network
+from ipaddress import IPv4Interface, ip_network, ip_interface
 from bfish_L3iface_props import L3IFACE_TYPES
 from pybatfish.client.session import Session
 import pandas as pd
@@ -137,7 +137,6 @@ class NodeL3InterfaceInfo:
                 ["Primary_Address", "Primary_Network"], keep=False
             )
         ]
-
         self.layer3_topo = self.session_bf.q.layer3Edges(nodes=node).answer().frame()
 
     def layer3_check_topo_ifaces(self) -> bool:
@@ -397,27 +396,16 @@ class NodeL3InterfaceInfo:
 
     def lookup_layer3_interface(self, interface_name: str = "GigabitEthernet2"):
         """
-        Summarizes all Design Conditions required
-
-        Checks if:
-        1. the interface type starts with the argument ifacetype
-        2. the supernet is a supernet of the interface IPv4 network.
-        3. the interface is both Admin_Up and Active.
+        Lookup a specific interface by using its name
 
         Parameters
         ----------
-        anet (str, optional)
-            Represents the supernet of the interface IPv4 address.
-            Defaults to '172.16.0.0/16'.
-        ifacetype (str, optional)
-            Represents the interface type as: (Loopback, Gigabit).
-            Defaults to 'Loop'.
-
+        interface_name (str, optional)
+            Represents the name of the interface
         Returns
         -------
         layer3_ifaces: Batfish DataFrame
-            Returns the dataframe of all interfaces satisfying the
-            ifacetype criterion but not all others
+            Returns the dataframe of the interface specified,
         """
 
         return self.layer3_ifaces[
@@ -426,6 +414,9 @@ class NodeL3InterfaceInfo:
                 axis=1,
             )
         ]
+
+    def all_layer3_interfaces(self):
+        return self.layer3_ifaces
 
     def call_method_by_name(self, name, **kwargs):
         """

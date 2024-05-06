@@ -65,6 +65,17 @@ def main():
     # Print the results
     print_result(result)
 
+    result = nr.run(
+        name="All Interfaces",
+        task=exec_checks,
+        bf=bf_session,
+        func_name="all_layer3_interfaces",
+        severity_level=logging.INFO,
+    )
+
+    # Print the results
+    print_result(result)
+
 
 if __name__ == "__main__":
     main()
