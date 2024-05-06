@@ -12,7 +12,7 @@ interfaces:
       priority: 255
       cost: 9
 
-  - name: "GigabitEthernet4"
+  - name: "GigabitEthernet 4"
     ipv4: "10.123.34.1"
     mask: "255.255.255.224"
     mtu: 1500
