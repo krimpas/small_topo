@@ -29,7 +29,6 @@ from ipaddress import IPv4Interface, ip_network, ip_interface
 from bfish_L3iface_props import L3IFACE_TYPES
 from pybatfish.client.session import Session
 import pandas as pd
-from layer3check import ifaces
 
 
 class NodeL3InterfaceInfo:
