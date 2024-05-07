@@ -176,9 +176,9 @@ class NodeL3InterfaceInfo:
 
         diff_df = pd.DataFrame(
             {
-                "Configured": self.all_configured["Interfaces"].to_list(),
-                "Unexpected": unexpected_interfaces.to_list(),
-                "Missing": missing_set.to_list(),
+                "Configured": self.all_configured["Interfaces"],
+                "Unexpected": unexpected_interfaces,
+                "Missing": missing_set,
             },
             columns=["Configured", "Unexpected", "Missing"],
         )
