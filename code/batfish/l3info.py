@@ -171,7 +171,7 @@ class NodeL3InterfaceInfo:
         )
 
         missing_set = self.all_configured["Interfaces"].map(
-            lambda x: list(reference_set - set(x))
+            lambda x: list(set(reference_set) - set(x))
         )
 
         diff_df = pd.DataFrame(
