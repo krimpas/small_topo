@@ -180,6 +180,9 @@ class NodeL3InterfaceInfo:
 
         # Concatenate DataFrames horizontally
         diff_df = pd.concat([confed, unexpected, missing], axis=1)
+        indicator = "NA"
+        diff_df.fillna(indicator, inplace=True)
+
         return diff_df
 
     def layer3_check_topo_ifaces(self) -> bool:
