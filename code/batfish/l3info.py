@@ -174,7 +174,7 @@ class NodeL3InterfaceInfo:
             lambda x: reference_set - set(x)
         )
 
-        diff_df = pd.concat(
+        diff_df = pd.DataFrame(
             [
                 self.all_configured["Interfaces"].to_list(),
                 unexpected_interfaces.rename("Unexpected").to_list(),
