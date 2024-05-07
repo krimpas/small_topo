@@ -29,7 +29,7 @@ from ipaddress import IPv4Interface, ip_network, ip_interface
 from bfish_L3iface_props import L3IFACE_TYPES
 from pybatfish.client.session import Session
 import pandas as pd
-
+import numpy as np
 
 ifaces = {
     "r1": ["GigabitEthernet2", "GigabitEthernet4", "Loopback0"],
@@ -174,12 +174,12 @@ class NodeL3InterfaceInfo:
             lambda x: list(set(reference_set) - set(x))
         )
 
-        confed = pd.DataFrame({"confed": self.all_configured["Interfaces"]})
-        unexpected = pd.DataFrame({"unexpected": unexpected_interfaces})
-        missing = pd.DataFrame({"missing": missing_set})
+        diff_df = pd.DataFrame(
+            "confed": self.all_configured["Interfaces"],
+            "unexpected": unexpected_interfaces,
+            "missing": missing_set
+        )
 
-        # Concatenate DataFrames horizontally
-        diff_df = pd.concat([confed, unexpected, missing], axis=1)
         indicator = "NA"
         diff_df.fillna(indicator, inplace=True)
 
