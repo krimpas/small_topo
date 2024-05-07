@@ -156,13 +156,15 @@ class NodeL3InterfaceInfo:
             .frame()
         )
 
-    def node_configured(self):
-        """ """
-        return self.all_configured["Interfaces"]
-
     def missing_and_unexpected(self):
+        """
+        Calculates the missing and unexpected interfaces found
 
-        reference_set = set(list(ifaces[self.node]))
+        Returns:
+            Dataframe: contains interfaces of source of truth,
+            missing and unexpected
+        """
+        reference_set = set(ifaces[self.node])
 
         unexpected_interfaces = self.all_configured["Interfaces"].map(
             lambda x: set(x) - reference_set
@@ -174,9 +176,9 @@ class NodeL3InterfaceInfo:
 
         diff_df = pd.concat(
             [
-                self.all_configured["Interfaces"],
-                unexpected_interfaces.rename("Unexpected"),
-                missing_set.rename("Missing"),
+                self.all_configured["Interfaces"].to_list(),
+                unexpected_interfaces.rename("Unexpected").to_list(),
+                missing_set.rename("Missing").to_list(),
             ],
             axis=1,
         )
