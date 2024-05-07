@@ -174,16 +174,12 @@ class NodeL3InterfaceInfo:
             lambda x: list(set(reference_set) - set(x))
         )
 
-        diff_df = pd.DataFrame(
-            list(
-                zip(
-                    self.all_configured["Interfaces"],
-                    unexpected_interfaces,
-                    missing_set,
-                )
-            ),
-            columns=["Configured", "Unexpected", "Missing"],
-        )
+        confed = pd.DataFrame({"confed": self.all_configured["Interfaces"]})
+        unexpected = pd.DataFrame({"unexpected": unexpected_interfaces})
+        missing = pd.DataFrame({"missing": missing_set})
+
+        # Concatenate DataFrames horizontally
+        diff_df = pd.concat([confed, unexpected, missing], axis=1)
         return diff_df
 
     def layer3_check_topo_ifaces(self) -> bool:
