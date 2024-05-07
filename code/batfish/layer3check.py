@@ -41,18 +41,18 @@ def main():
     bf_session = bfish_init()
 
     # Run the validation task on all filtered hosts
-    result = nr.run(
-        name="L3 Loopback Batfish checks",
-        task=exec_checks,
-        bf=bf_session,
-        func_name="check_layer3_interface",
-        anet="172.16.0.0/12",
-        ifacetype="Loop",
-        severity_level=logging.INFO,
-    )
+    # result = nr.run(
+    #     name="L3 Loopback Batfish checks",
+    #     task=exec_checks,
+    #     bf=bf_session,
+    #     func_name="check_layer3_interface",
+    #     anet="172.16.0.0/12",
+    #     ifacetype="Loop",
+    #     severity_level=logging.INFO,
+    # )
 
     # Print the results
-    print_result(result)
+    # print_result(result)
 
     result = nr.run(
         name="Fetching Interfaces",
