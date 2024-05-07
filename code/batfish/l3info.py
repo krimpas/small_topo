@@ -179,7 +179,7 @@ class NodeL3InterfaceInfo:
                 "Configured": self.all_configured["Interfaces"].to_list(),
                 "Unexpected": unexpected_interfaces.to_list(),
                 "Missing": missing_set.to_list(),
-            ,
+            },
             columns=["Configured", "Unexpected", "Missing"],
         )
         return diff_df
