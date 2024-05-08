@@ -29,8 +29,8 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
 
     res = device.call_method_by_name(func_name, **kwargs)
 
-    # data = dfprint(df=res, props=["#"] + list(res.columns), title=func_name)
-    data = res
+    data = dfprint(df=res, props=["#"] + list(res.columns), title=func_name)
+
     return Result(host=task.host, result=data)
 
 
@@ -74,7 +74,7 @@ def main():
     )
 
     # Print the results
-    print_result(result.result)
+    print_result(result)
 
     result = nr.run(
         name="Node Interfaces",
@@ -85,7 +85,7 @@ def main():
     )
 
     # Print the results
-    print_result(result.result)
+    print_result(result)
 
     result = nr.run(
         name="Missing and Unexpected Interfaces",
@@ -96,7 +96,7 @@ def main():
     )
 
     # Print the results
-    print_result(result.result)
+    print_result(result)
 
 
 if __name__ == "__main__":
