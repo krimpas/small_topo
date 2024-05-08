@@ -74,7 +74,7 @@ def main():
     )
 
     # Print the results
-    print_result(result)
+    print_result(result.result)
 
     result = nr.run(
         name="Node Interfaces",
@@ -85,7 +85,7 @@ def main():
     )
 
     # Print the results
-    print_result(result)
+    print_result(result.result)
 
     result = nr.run(
         name="Missing and Unexpected Interfaces",
@@ -96,7 +96,7 @@ def main():
     )
 
     # Print the results
-    print_result(result)
+    print_result(result.result)
 
 
 if __name__ == "__main__":
