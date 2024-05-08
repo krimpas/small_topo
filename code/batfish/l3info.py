@@ -179,7 +179,8 @@ class NodeL3InterfaceInfo:
                 pd.Series(self.all_configured["Interfaces"]),
                 pd.Series(unexpected_interfaces),
                 pd.Series(missing_set),
-            }
+            },
+            axis=0,
         )
 
         indicator = "NA"

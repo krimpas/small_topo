@@ -63,7 +63,7 @@ def main():
     # )
 
     # Print the results
-    print_result(result)
+    # print_result(result)
 
     result = nr.run(
         name="All Interfaces",
