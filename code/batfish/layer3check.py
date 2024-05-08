@@ -29,8 +29,8 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
 
     res = device.call_method_by_name(func_name, **kwargs)
 
-    data = dfprint(df=res, props=["#"] + list(res.columns), title=func_name)
-
+    # data = dfprint(df=res, props=["#"] + list(res.columns), title=func_name)
+    data = res
     return Result(host=task.host, result=data)
 
 
@@ -54,13 +54,13 @@ def main():
     # Print the results
     # print_result(result)
 
-    result = nr.run(
-        name="Fetching Interfaces",
-        task=exec_checks,
-        bf=bf_session,
-        func_name="lookup_layer3_interface",
-        severity_level=logging.INFO,
-    )
+    # result = nr.run(
+    #    name="Fetching Interfaces",
+    #    task=exec_checks,
+    #    bf=bf_session,
+    #    func_name="lookup_layer3_interface",
+    #    severity_level=logging.INFO,
+    # )
 
     # Print the results
     print_result(result)

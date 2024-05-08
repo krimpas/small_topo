@@ -167,18 +167,18 @@ class NodeL3InterfaceInfo:
         reference_set = ifaces[self.node]
 
         unexpected_interfaces = self.all_configured["Interfaces"].map(
-            lambda x: list(set(x) - set(reference_set))
+            lambda x: set(x) - set(reference_set)
         )
 
         missing_set = self.all_configured["Interfaces"].map(
-            lambda x: list(set(reference_set) - set(x))
+            lambda x: set(reference_set) - set(x)
         )
 
-        diff_df = pd.DataFrame(
+        diff_df = pd.concat(
             {
-                "confed": list(self.all_configured["Interfaces"]),
-                "unexpected": list(unexpected_interfaces),
-                "missing": list(missing_set),
+                pd.Series(self.all_configured["Interfaces"]),
+                pd.Series(unexpected_interfaces),
+                pd.Series(missing_set),
             }
         )
 
