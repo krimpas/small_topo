@@ -174,13 +174,14 @@ class NodeL3InterfaceInfo:
             lambda x: set(reference_set) - set(x)
         )
 
-        diff_df = pd.concat(
+        diff_df = pd.DataFrame(
             [
-                {"configured": pd.DataFrame(self.all_configured["Interfaces"])},
-                {"Unexpected": pd.DataFrame(unexpected_interfaces)},
-                {"Missing": pd.DataFrame(missing_set)},
+                pd.Series(
+                    {"configured": pd.DataFrame(self.all_configured["Interfaces"])}
+                ),
+                pd.Series({"Unexpected": pd.DataFrame(unexpected_interfaces)}),
+                pd.Series({"Missing": pd.DataFrame(missing_set)}),
             ],
-            axis=1,
         )
 
         indicator = "NA"
