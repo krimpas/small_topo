@@ -176,11 +176,13 @@ class NodeL3InterfaceInfo:
 
         diff_df = pd.DataFrame(
             [
-                pd.Series(
+                pd.Series.from_dict(
                     {"configured": pd.DataFrame(self.all_configured["Interfaces"])}
                 ),
-                pd.Series({"Unexpected": pd.DataFrame(unexpected_interfaces)}),
-                pd.Series({"Missing": pd.DataFrame(missing_set)}),
+                pd.Series.from_dict(
+                    {"Unexpected": pd.DataFrame(unexpected_interfaces)}
+                ),
+                pd.Series.from_dict({"Missing": pd.DataFrame(missing_set)}),
             ],
         )
 
