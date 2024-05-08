@@ -180,7 +180,7 @@ class NodeL3InterfaceInfo:
                 pd.DataFrame(unexpected_interfaces),
                 pd.DataFrame(missing_set),
             ],
-            axis=0,
+            axis=1,
         )
 
         indicator = "NA"
