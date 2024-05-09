@@ -28,7 +28,6 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
     )
 
     res = device.call_method_by_name(func_name, **kwargs)
-
     data = dfprint(df=res, props=["#"] + list(res.columns), title=func_name)
 
     return Result(host=task.host, result=data)
@@ -39,31 +38,6 @@ def main():
     # Initialize Nornir
     nr = InitNornir(config_file=os.environ.get("NORNIR_CONFIG_FILE"))
     bf_session = bfish_init()
-
-    # Run the validation task on all filtered hosts
-    # result = nr.run(
-    #     name="L3 Loopback Batfish checks",
-    #     task=exec_checks,
-    #     bf=bf_session,
-    #     func_name="check_layer3_interface",
-    #     anet="172.16.0.0/12",
-    #     ifacetype="Loop",
-    #     severity_level=logging.INFO,
-    # )
-
-    # Print the results
-    # print_result(result)
-
-    # result = nr.run(
-    #    name="Fetching Interfaces",
-    #    task=exec_checks,
-    #    bf=bf_session,
-    #    func_name="lookup_layer3_interface",
-    #    severity_level=logging.INFO,
-    # )
-
-    # Print the results
-    # print_result(result)
 
     result = nr.run(
         name="All Interfaces",
@@ -88,10 +62,21 @@ def main():
     print_result(result)
 
     result = nr.run(
-        name="Missing and Unexpected Interfaces",
+        name="Unexpected Interfaces",
         task=exec_checks,
         bf=bf_session,
-        func_name="missing_and_unexpected",
+        func_name="unexpected",
+        severity_level=logging.INFO,
+    )
+
+    # Print the results
+    print_result(result)
+
+    result = nr.run(
+        name="Missing Interfaces",
+        task=exec_checks,
+        bf=bf_session,
+        func_name="missing",
         severity_level=logging.INFO,
     )
 
