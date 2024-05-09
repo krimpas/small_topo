@@ -170,7 +170,7 @@ class NodeL3InterfaceInfo:
             lambda x: set(x) - set(reference_set)
         )
 
-        diff_df = pd.DataFrame.from_dict({"Unexpected": unexpected_interfaces})
+        diff_df = pd.DataFrame(unexpected_interfaces)
 
         return diff_df
 
@@ -188,7 +188,7 @@ class NodeL3InterfaceInfo:
             lambda x: set(reference_set) - set(x)
         )
 
-        diff_df = pd.DataFrame.from_dict({"Missing": missing_interfaces})
+        diff_df = pd.DataFrame(missing_interfaces)
 
         return diff_df
 
