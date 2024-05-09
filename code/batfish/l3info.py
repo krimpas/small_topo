@@ -185,9 +185,6 @@ class NodeL3InterfaceInfo:
             axis=1,
         )
 
-        indicator = "NA"
-        diff_df.fillna(indicator, inplace=True)
-
         return diff_df
 
     def layer3_check_topo_ifaces(self) -> bool:
