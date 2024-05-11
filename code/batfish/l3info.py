@@ -164,13 +164,13 @@ class NodeL3InterfaceInfo:
             Dataframe: contains interfaces of source of truth,
             missing and unexpected
         """
-        reference_set = ifaces[self.node]
+        reference_set = set(ifaces[self.node])
 
         unexpected_interfaces = self.all_configured["Interfaces"].map(
-            lambda x: x - reference_set
+            lambda x: set(x) - reference_set
         )
-
-        diff_df = pd.DataFrame(unexpected_interfaces)
+        unexpected = unexpected_interfaces[unexpected_interfaces["Interfaces"]]
+        diff_df = unexpected.to_list()
 
         return diff_df
 
@@ -182,13 +182,14 @@ class NodeL3InterfaceInfo:
             Dataframe: contains interfaces of source of truth,
             missing
         """
-        reference_set = ifaces[self.node]
+        reference_set = set(ifaces[self.node])
 
         missing_interfaces = self.all_configured["Interfaces"].map(
-            lambda x: reference_set - x
+            lambda x: reference_set - set(x)
         )
 
-        diff_df = pd.DataFrame(missing_interfaces)
+        missing = missing_interfaces[missing_interfaces["Interface"]]
+        diff_df = missing.to_list()
 
         return diff_df
 
