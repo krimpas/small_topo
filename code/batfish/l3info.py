@@ -169,7 +169,7 @@ class NodeL3InterfaceInfo:
         unexpected_interfaces = self.all_configured["Interfaces"].map(
             lambda x: set(x) - reference_set
         )
-        unexpected = unexpected_interfaces[unexpected_interfaces["Interfaces"]]
+        unexpected = unexpected_interfaces["Interfaces"]
         diff_df = unexpected.to_list()
 
         return diff_df
@@ -188,7 +188,7 @@ class NodeL3InterfaceInfo:
             lambda x: reference_set - set(x)
         )
 
-        missing = missing_interfaces[missing_interfaces["Interface"]]
+        missing = missing_interfaces["Interface"]
         diff_df = missing.to_list()
 
         return diff_df
