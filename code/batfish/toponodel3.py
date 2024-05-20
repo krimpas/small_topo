@@ -134,7 +134,7 @@ class L3TopoNode:
         sot_interfaces = pd.DataFrame({"Interfaces": ifacelist[self.node]})
         # Calculate the Unexpected configured interfaces
         missing_ifaces = actual_interfaces[
-            not sot_interfaces.Interfaces.isin(actual_interfaces.Interfaces)
+            sot_interfaces.Interfaces.isin(actual_interfaces.Interfaces) == False
         ]
 
         self.layer3_missing = missing_ifaces
