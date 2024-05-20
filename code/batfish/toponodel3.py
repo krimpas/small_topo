@@ -103,7 +103,7 @@ class L3TopoNode:
             configuration
         """
         # fetch the list of configured interfaces
-        configured = self.layer3_configured.iloc[0, 1].to_list()
+        configured = self.layer3_configured.iloc[0, 1].values.tolist()
         # create a list of interfaces based on actual configuration
         actual_interfaces = pd.DataFrame({"Interfaces": configured})
         # create a dataframe of interfaces based on SoT
