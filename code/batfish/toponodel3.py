@@ -139,3 +139,25 @@ class L3TopoNode:
 
         self.layer3_missing = missing_ifaces
         return missing_ifaces
+
+    def call_method_by_name(self, name, **kwargs):
+        """
+        Performs dynamic calls to any class method by using the
+        method name and any arguments needed.
+
+        Parameters
+        ----------
+        name: (str, mandatory)
+            The method name as string
+        kwargs: (dict, optional)
+            The method parameters values dict if any.
+
+        Returns
+        -------
+        res (Dataframe)
+        """
+        res = None
+        method = getattr(self, name, None)
+        if method:
+            res = method(**kwargs)
+        return res
