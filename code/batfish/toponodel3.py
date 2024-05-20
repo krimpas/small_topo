@@ -161,3 +161,7 @@ class L3TopoNode:
         if method:
             res = method(**kwargs)
         return res
+
+    def myprint(self):
+
+        return self.layer3_configured.iloc[0, 0]

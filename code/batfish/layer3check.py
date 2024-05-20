@@ -51,8 +51,7 @@ def main():
         name="Unexpected Interfaces",
         task=exec_checks,
         bf=bf_session,
-        func_name="unexpected",
-        nodedict=ifaces,
+        func_name="myprint",
         severity_level=logging.INFO,
     )
 
