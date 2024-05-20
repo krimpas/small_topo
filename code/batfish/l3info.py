@@ -25,11 +25,12 @@ __version__ = "0.0.1"
 __author__ = "Krimpas George"
 
 
-from ipaddress import IPv4Interface, ip_network, ip_interface
+from ipaddress import IPv4Interface, ip_network
 from bfish_L3iface_props import L3IFACE_TYPES
 from pybatfish.client.session import Session
 import pandas as pd
-import numpy as np
+from typing import Dict
+
 
 ifaces = {
     "r1": ["GigabitEthernet2", "GigabitEthernet4", "Loopback0"],
@@ -156,42 +157,47 @@ class NodeL3InterfaceInfo:
             .frame()
         )
 
-    def unexpected(self):
+    def unexpected(self, nodedict: Dict):
         """
-        Calculates the missing and unexpected interfaces found
+        Calculates the unexpected interfaces found in the actual
+        configuration.
 
         Returns:
             Dataframe: contains interfaces of source of truth,
             missing and unexpected
         """
-        reference_set = set(ifaces[self.node])
+        # fetch the list of configured interfaces
+        configured = self.all_configured.iloc[0, 0]
+        # create a list of interfaces based on actual configuration
+        actual_interfaces = pd.DataFrame(dict(Interfaces=configured))
+        # create a dataframe of interfaces based on SoT
+        sot_interfaces = pd.DataFrame(dict(Interfaces=nodedict[self.node]))
+        # Calculate the Unexpected configured interfaces
+        unexpected_ifaces = actual_interfaces[
+            not actual_interfaces.Interfaces.isin(sot_interfaces.Interfaces)
+        ]
+        return unexpected_ifaces
 
-        unexpected_interfaces = self.all_configured["Interfaces"].map(
-            lambda x: set(x) - reference_set
-        )
-        unexpected = unexpected_interfaces["Interfaces"]
-        diff_df = unexpected.to_list()
-
-        return diff_df
-
-    def missing(self):
+    def missing(self, ifacelist: Dict):
         """
-        Calculates the missing interfaces found
+        Calculates the missing interfaces defined in the SoT but not
+        in the actual configuration.
 
         Returns:
             Dataframe: contains interfaces of source of truth,
             missing
         """
-        reference_set = set(ifaces[self.node])
-
-        missing_interfaces = self.all_configured["Interfaces"].map(
-            lambda x: reference_set - set(x)
-        )
-
-        missing = missing_interfaces["Interface"]
-        diff_df = missing.to_list()
-
-        return diff_df
+        # fetch the list of configured interfaces
+        configured = self.all_configured.iloc[0, 0]
+        # create a list of interfaces based on actual configuration
+        actual_interfaces = pd.DataFrame(dict(Interfaces=configured))
+        # create a dataframe of interfaces based on SoT
+        sot_interfaces = pd.DataFrame(dict(Interfaces=ifacelist[self.node]))
+        # Calculate the Unexpected configured interfaces
+        missing_ifaces = actual_interfaces[
+            not sot_interfaces.Interfaces.isin(actual_interfaces.Interfaces)
+        ]
+        return missing_ifaces
 
     def layer3_check_topo_ifaces(self) -> bool:
         """
@@ -468,12 +474,6 @@ class NodeL3InterfaceInfo:
                 axis=1,
             )
         ]
-
-    def all_layer3_interfaces(self):
-        return self.layer3_ifaces
-
-    def all_node_configured_interfaces(self):
-        return self.all_configured
 
     def call_method_by_name(self, name, **kwargs):
         """
