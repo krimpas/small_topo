@@ -164,4 +164,4 @@ class L3TopoNode:
 
     def myprint(self):
 
-        return self.layer3_configured.get_value(0, "Interfaces")
+        return self.layer3_configured._get_value(0, "Interfaces")
