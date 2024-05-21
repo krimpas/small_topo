@@ -39,7 +39,9 @@ def exec_checks(
 
     res = device.call_method_by_name(func_name, **kwargs)
     data = dfprint(
-        df=res, props=["#"] + list(res.columns), title=title + f"Host={task.host.name}"
+        df=res,
+        props=["#"] + list(res.columns),
+        title=f"Host=[{task.host.name}]/" + title,
     )
     # print(res)
     return Result(host=task.host, result=data)
