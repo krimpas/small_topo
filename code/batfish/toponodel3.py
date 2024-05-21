@@ -161,6 +161,7 @@ class L3TopoNode:
 
     def set_sot(self):
         """pass"""
+
         pass
 
     def call_method_by_name(self, name, **kwargs):
