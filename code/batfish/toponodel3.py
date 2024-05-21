@@ -125,6 +125,7 @@ class L3TopoNode:
 
         self.layer3_unexpected = unexpected_ifaces
 
+        print(unexpected_ifaces)
         return unexpected_ifaces
 
     def missing(self, ifacelist: Dict):
