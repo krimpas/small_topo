@@ -27,7 +27,9 @@ ifaces = {
 load_dotenv()
 
 
-def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
+def exec_checks(
+    task: Task, bf: Session, func_name: str = "", title: str = "", **kwargs
+) -> Result:
     """mplah"""
 
     device = L3TopoNode(
@@ -36,7 +38,7 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
     )
 
     res = device.call_method_by_name(func_name, **kwargs)
-    data = dfprint(df=res, props=["#"] + list(res.columns), title=func_name)
+    data = dfprint(df=res, props=["#"] + list(res.columns), title=title)
     # print(res)
     return Result(host=task.host, result=data)
 
@@ -48,11 +50,12 @@ def main():
     bf_session = bfish_init()
 
     result = nr.run(
-        name="Erroneous Interfaces",
+        name="Erroneous L3 Interface Configuration",
         task=exec_checks,
         bf=bf_session,
         func_name="layer3_erroneous",
         nodedict=ifaces,
+        title="Erroneous L3 Interface Configuration",
         severity_level=logging.INFO,
     )
 
