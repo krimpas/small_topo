@@ -48,22 +48,11 @@ def main():
     bf_session = bfish_init()
 
     result = nr.run(
-        name="Unexpected Interfaces",
+        name="Erroneous Interfaces",
         task=exec_checks,
         bf=bf_session,
-        func_name="unexpected",
+        func_name="layer3_erroneous",
         nodedict=ifaces,
-        severity_level=logging.INFO,
-    )
-
-    print_result(result)
-
-    result = nr.run(
-        name="Missing Interfaces",
-        task=exec_checks,
-        bf=bf_session,
-        func_name="missing",
-        ifacelist=ifaces,
         severity_level=logging.INFO,
     )
 

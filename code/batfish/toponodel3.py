@@ -127,7 +127,7 @@ class L3TopoNode:
 
         return unexpected_ifaces
 
-    def missing(self, ifacelist: Dict):
+    def missing(self, nodedict: Dict = None):
         """
         Calculates the missing interfaces defined in the SoT but not
         in the actual configuration.
@@ -141,7 +141,7 @@ class L3TopoNode:
         # create a list of interfaces based on actual configuration
         actual_interfaces = pd.DataFrame({"Interfaces": configured})
         # create a dataframe of interfaces based on SoT
-        sot_interfaces = pd.DataFrame({"Interfaces": ifacelist[self.node]})
+        sot_interfaces = pd.DataFrame({"Interfaces": nodedict[self.node]})
         # Calculate the Unexpected configured interfaces
         missing_ifaces = pd.merge(
             sot_interfaces,
@@ -158,6 +158,34 @@ class L3TopoNode:
         )
         self.layer3_missing = missing_ifaces
         return missing_ifaces
+
+    def layer3_erroneous(self, nodedict: Dict = None):
+        """builds a Dataframe"""
+
+        tmp_sot = pd.DataFrame({"Interfaces": nodedict[self.node]})
+        tmp_sot.rename(columns={"Interfaces": "SoT"})
+        tmp_sot = tmp_sot.reset_index(drop=True)
+
+        tmp_actual = pd.DataFrame(
+            {"Interfaces": self.layer3_configured.iloc[0]["Interfaces"]}
+        )
+        tmp_actual.rename(columns={"Interfaces": "Actual"})
+        tmp_actual = tmp_actual.reset_index(drop=True)
+
+        tmp_unexpected = self.unexpected(nodedict=nodedict)
+        tmp_unexpected.rename(columns={"Interfaces": "Unexpected"})
+        tmp_unexpected = tmp_unexpected.reset_index(drop=True)
+
+        tmp_missing = self.missing(nodedict=nodedict)
+        tmp_missing.rename(columns={"Interfaces": "Missing"})
+        tmp_missing = tmp_missing.reset_index(drop=True)
+
+        tmp_erroneous = pd.concat(
+            [tmp_sot, tmp_actual, tmp_unexpected, tmp_missing], axis=1
+        )
+        tmp_erroneous.fillna("", inplace=True)
+
+        return tmp_erroneous
 
     def call_method_by_name(self, name, **kwargs):
         """
