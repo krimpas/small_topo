@@ -159,10 +159,6 @@ class L3TopoNode:
         self.layer3_missing = missing_ifaces
         return missing_ifaces
 
-    def set_sot(self):
-        """pass"""
-
-        pass
 
     def call_method_by_name(self, name, **kwargs):
         """
@@ -185,7 +181,3 @@ class L3TopoNode:
         if method:
             res = method(**kwargs)
         return res
-
-    def myprint(self):
-
-        return self.layer3_configured._get_value(0, "Interfaces")
