@@ -57,7 +57,6 @@ def main():
     )
 
     # Print the results
-    print(result)
 
 
 if __name__ == "__main__":
