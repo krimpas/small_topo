@@ -58,8 +58,8 @@ def main():
         task=exec_checks,
         bf=bf_session,
         func_name="layer3_erroneous",
-        nodedict=ifaces,
         title="Erroneous L3 Interface Configuration",
+        nodedict=ifaces,
         severity_level=logging.INFO,
     )
 
