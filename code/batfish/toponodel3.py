@@ -125,7 +125,6 @@ class L3TopoNode:
 
         self.layer3_unexpected = unexpected_ifaces
 
-        print(unexpected_ifaces)
         return unexpected_ifaces
 
     def missing(self, ifacelist: Dict):
@@ -138,16 +137,25 @@ class L3TopoNode:
             missing
         """
         # fetch the list of configured interfaces
-        configured = self.layer3_configured.iloc[0, 0]
+        configured = self.layer3_configured.iloc[0]["Interfaces"]
         # create a list of interfaces based on actual configuration
         actual_interfaces = pd.DataFrame({"Interfaces": configured})
         # create a dataframe of interfaces based on SoT
         sot_interfaces = pd.DataFrame({"Interfaces": ifacelist[self.node]})
         # Calculate the Unexpected configured interfaces
-        missing_ifaces = actual_interfaces[
-            sot_interfaces.Interfaces.isin(actual_interfaces.Interfaces) == False
-        ]
+        missing_ifaces = pd.merge(
+            sot_interfaces,
+            actual_interfaces[["Interfaces"]],
+            on="Interfaces",
+            how="left",
+            indicator=True,
+        )
 
+        missing_ifaces = (
+            missing_ifaces[missing_ifaces["_merge"] == "left_only"]
+            .drop(columns=["_merge"])
+            .reset_index(drop=True)
+        )
         self.layer3_missing = missing_ifaces
         return missing_ifaces
 
