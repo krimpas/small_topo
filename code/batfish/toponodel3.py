@@ -164,21 +164,21 @@ class L3TopoNode:
 
         tmp_sot = pd.DataFrame({"Interfaces": nodedict[self.node]})
         tmp_sot.rename(columns={"Interfaces": "SoT"}, inplace=True)
-        tmp_sot = tmp_sot.reset_index(drop=True)
+        # tmp_sot = tmp_sot.reset_index(drop=True)
 
         tmp_actual = pd.DataFrame(
             {"Interfaces": self.layer3_configured.iloc[0]["Interfaces"]}
         )
         tmp_actual.rename(columns={"Interfaces": "Actual"}, inplace=True)
-        tmp_actual = tmp_actual.reset_index(drop=True)
+        # tmp_actual = tmp_actual.reset_index(drop=True)
 
         tmp_unexpected = self.unexpected(nodedict=nodedict)
         tmp_unexpected.rename(columns={"Interfaces": "Unexpected"}, inplace=True)
-        tmp_unexpected = tmp_unexpected.reset_index(drop=True)
+        # tmp_unexpected = tmp_unexpected.reset_index(drop=True)
 
         tmp_missing = self.missing(nodedict=nodedict)
         tmp_missing.rename(columns={"Interfaces": "Missing"}, inplace=True)
-        tmp_missing = tmp_missing.reset_index(drop=True)
+        # tmp_missing = tmp_missing.reset_index(drop=True)
 
         tmp_erroneous = pd.concat(
             [tmp_sot, tmp_actual, tmp_unexpected, tmp_missing], axis=1
