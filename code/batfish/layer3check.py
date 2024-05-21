@@ -36,9 +36,9 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
     )
 
     res = device.call_method_by_name(func_name, **kwargs)
-    # data = dfprint(df=res, props=["#"] + list(res.columns), title=func_name)
-    print(res)
-    return Result(host=task.host, result=res)
+    data = dfprint(df=res, props=["#"] + list(res.columns), title=func_name)
+    # print(res)
+    return Result(host=task.host, result=data)
 
 
 def main():
@@ -56,7 +56,7 @@ def main():
         severity_level=logging.INFO,
     )
 
-    # print_result(result)
+    print_result(result)
 
 
 if __name__ == "__main__":
