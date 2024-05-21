@@ -30,7 +30,7 @@ from pybatfish.client.session import Session
 
 class L3TopoNode:
     """
-    Keeps the information of all L3 interfaces of a given network node. \n
+    Keeps the  L3 interfaces of a given network node. \n
 
     Performs the bf.q.interfaceProperties question to the batfish service \n
     in order to fetch configuration info for all interfaces for the node \n
