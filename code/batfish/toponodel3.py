@@ -187,6 +187,9 @@ class L3TopoNode:
 
         return tmp_erroneous
 
+    def echo_topo(self):
+        return self.layer3_topo
+
     def call_method_by_name(self, name, **kwargs):
         """
         Performs dynamic calls to any class method by using the
