@@ -110,8 +110,8 @@ class L3TopoNode:
         sot_interfaces = pd.DataFrame({"Interfaces": nodedict[self.node]})
         # Calculate the Unexpected configured interfaces
         unexpected_ifaces = actual_interfaces[
-            ~actual_interfaces.Interfaces.isin(nodedict[self.node])
-        ]
+            ~actual_interfaces["Interfaces"].isin(sot_interfaces["Interfaces"])
+        ].reset_index(drop=True)
 
         self.layer3_unexpected = unexpected_ifaces
 
