@@ -125,8 +125,6 @@ class L3TopoNode:
 
         self.layer3_unexpected = unexpected_ifaces
 
-        return unexpected_ifaces
-
     def missing(self, ifacelist: Dict):
         """
         Calculates the missing interfaces defined in the SoT but not
@@ -157,7 +155,6 @@ class L3TopoNode:
             .reset_index(drop=True)
         )
         self.layer3_missing = missing_ifaces
-        return missing_ifaces
 
     def call_method_by_name(self, name, **kwargs):
         """
