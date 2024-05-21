@@ -58,6 +58,17 @@ def main():
 
     print_result(result)
 
+    result = nr.run(
+        name="Missing Interfaces",
+        task=exec_checks,
+        bf=bf_session,
+        func_name="missing",
+        ifacelist=ifaces,
+        severity_level=logging.INFO,
+    )
+
+    print_result(result)
+
 
 if __name__ == "__main__":
     main()
