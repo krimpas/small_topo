@@ -159,7 +159,6 @@ class L3TopoNode:
         self.layer3_missing = missing_ifaces
         return missing_ifaces
 
-
     def call_method_by_name(self, name, **kwargs):
         """
         Performs dynamic calls to any class method by using the
