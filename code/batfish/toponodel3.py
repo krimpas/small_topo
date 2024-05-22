@@ -112,7 +112,7 @@ class L3NodeConf:
 
     def _build_sot(self, source_of_truth: List = None):
         """ """
-        return pd.DataFrame({"Interfaces": source_of_truth)
+        return pd.DataFrame({"Interfaces": source_of_truth})
 
     def _build_erroneous_layer3(self, left_df: pd.DataFrame, right_df: pd.DataFrame):
         """ """
