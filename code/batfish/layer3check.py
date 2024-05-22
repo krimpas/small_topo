@@ -34,7 +34,7 @@ def exec_checks(
 
     device = L3TopoNode(bf=bf, node=f"{task.host.name}")
 
-    dfs = L3NodeConf(sot=ifaces, actual_df=device.actual)
+    dfs = L3NodeConf(sot=ifaces[device.node], actual_df=device.actual)
 
     res = dfs.call_method_by_name(func_name, **kwargs)
 

@@ -23,7 +23,7 @@ __all__ = ["L3TopoNode"]
 __version__ = "0.0.1"
 __author__ = "Krimpas George"
 
-from typing import Dict
+from typing import Dict, List
 import pandas as pd
 from pybatfish.client.session import Session
 
@@ -96,7 +96,7 @@ class L3TopoNode:
 class L3NodeConf:
     """ """
 
-    def __init__(self, sot: Dict, actual_df: pd.DataFrame):
+    def __init__(self, sot: List, actual_df: pd.DataFrame):
         """ """
         self.layer3_actual = actual_df
 
@@ -110,9 +110,9 @@ class L3NodeConf:
             left_df=self.layer3_sot, right_df=self.layer3_actual
         )
 
-    def _build_sot(self, source_of_truth: Dict = None):
+    def _build_sot(self, source_of_truth: List = None):
         """ """
-        return pd.DataFrame({"Interfaces": source_of_truth[self.node]})
+        return pd.DataFrame({"Interfaces": source_of_truth)
 
     def _build_erroneous_layer3(self, left_df: pd.DataFrame, right_df: pd.DataFrame):
         """ """
