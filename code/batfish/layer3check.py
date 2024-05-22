@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 from bfish_init import bfish_init
 from pybatfish.client.session import Session
 from L3check2 import dfprint
-from toponodel3 import L3TopoNode
+from toponodel3 import L3TopoNode, L3NodeConf
 
 ifaces = {
     "r1": ["GigabitEthernet2", "GigabitEthernet4", "Loopback0"],
@@ -32,13 +32,12 @@ def exec_checks(
 ) -> Result:
     """mplah"""
 
-    device = L3TopoNode(
-        bf=bf,
-        node=f"{task.host.name}",
-        sot=ifaces,
-    )
+    device = L3TopoNode(bf=bf, node=f"{task.host.name}")
 
-    res = device.call_method_by_name(func_name, **kwargs)
+    dfs = L3NodeConf(sot=ifaces, actual_df=device.actual)
+
+    res = dfs.call_method_by_name(func_name, **kwargs)
+
     data = dfprint(
         df=res,
         props=["#"] + list(res.columns),

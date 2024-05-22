@@ -30,21 +30,24 @@ from pybatfish.client.session import Session
 
 class L3TopoNode:
     """
-    Keeps the  L3 interfaces of a given network node. \n
+    Keeps the L3 configured interface names of a given network node. \n
 
-    Performs the bf.q.interfaceProperties question to the batfish service \n
-    in order to fetch configuration info for all interfaces for the node \n
-    specified. This Class will be used by Nornir Task to receive the node \n
-    as an argument (task.host.name). \n
+    Performs the bf.q.nodeProperties question to the batfish service \n
+    in order to fetch all interface names as s list of strings for the\n
+    node specified. This Class will be used by. \n
 
     Attributes
     ----------
     bf: Session
-        An already open batfish Session object used to query the batfish
+        An already open batfish Session object used to query the batfish\n
         service.
 
+    node: str
+        The name of the device as Nornir Task Host Name to receive\n
+        (task.host.name)
+
     layer3_topo: Batfish Dataframe
-        Keeps the dataframe L3 topology elements of the specified node as
+        Keeps the dataframe L3 topology elements of the specified node as\n
         a result of bf.q.layer3Edges batfish question.
 
     Methods
@@ -52,15 +55,12 @@ class L3TopoNode:
 
     """
 
-    def __init__(self, bf: Session, node: str = "", sot: Dict = {}) -> None:
+    def __init__(self, bf: Session, node: str = "") -> None:
         """
-        Initializes the layer3_ifaces Dataframe with the interface info as a
-        result of the bf.q.nodeProperties batfish question for the
-        given node.
-
-        Queries by using the nornir (task.host.name) as node parameter.
-        The layer3_ifaces dataframe keeps the interface info of the specified
-        node.
+        Initializes the actual Dataframe with all interface names\n
+        as a result of the bf.q.nodeProperties batfish question for the\n
+        given node. The node parameter derived by using the Nornir\n
+        (task.host.name).\n
 
         Parameters
         ----------
@@ -68,7 +68,11 @@ class L3TopoNode:
             The already opened batfish Session object used to query the
             batfish service.
         node: str
-            The  Node or router name used by Nornir (task.host.name)
+            The  Node or router name used by Nornir (task.host.name).
+        configured: List[str]
+            A list of interface names as strings
+        actual: DataFrame
+            Dataframe derived from the list of interface names (configured)
 
         Returns
         -------
@@ -78,15 +82,23 @@ class L3TopoNode:
         #
         self.node = node
 
-        self.layer3_configured = (
+        self.configured = (
             self.session_bf.q.nodeProperties(nodes=node, properties="Interfaces")
             .answer()
             .frame()
         )
 
-        self.layer3_actual = pd.DataFrame(
+        self.actual = pd.DataFrame(
             {"Interfaces": self.layer3_configured.iloc[0]["Interfaces"]}
         )
+
+
+class L3NodeConf:
+    """ """
+
+    def __init__(self, sot: Dict, actual_df: pd.DataFrame):
+        """ """
+        self.layer3_actual = actual_df
 
         self.layer3_sot = self._build_sot(source_of_truth=sot)
 
@@ -98,7 +110,7 @@ class L3TopoNode:
             left_df=self.layer3_sot, right_df=self.layer3_actual
         )
 
-    def _build_sot(self, source_of_truth: dict = None):
+    def _build_sot(self, source_of_truth: Dict = None):
         """ """
         return pd.DataFrame({"Interfaces": source_of_truth[self.node]})
 
