@@ -46,9 +46,11 @@ class L3TopoNode:
         The name of the device as Nornir Task Host Name to receive\n
         (task.host.name)
 
-    layer3_topo: Batfish Dataframe
-        Keeps the dataframe L3 topology elements of the specified node as\n
-        a result of bf.q.layer3Edges batfish question.
+    configured: List[str]
+        A list of interface names as strings
+
+    actual: DataFrame
+        Dataframe derived from the list of interface names (configured)
 
     Methods
     -------
@@ -69,10 +71,6 @@ class L3TopoNode:
             batfish service.
         node: str
             The  Node or router name used by Nornir (task.host.name).
-        configured: List[str]
-            A list of interface names as strings
-        actual: DataFrame
-            Dataframe derived from the list of interface names (configured)
 
         Returns
         -------
@@ -93,7 +91,7 @@ class L3TopoNode:
         )
 
 
-class L3NodeConf:
+class L3InterfacesNode:
     """ """
 
     def __init__(self, sot: List, actual_df: pd.DataFrame):
