@@ -52,7 +52,7 @@ class L3TopoNode:
 
     """
 
-    def __init__(self, bf: Session, node: str = "") -> None:
+    def __init__(self, bf: Session, node: str = "", sot: Dict = {}) -> None:
         """
         Initializes the layer3_ifaces Dataframe with the interface info as a
         result of the bf.q.nodeProperties batfish question for the
@@ -69,10 +69,6 @@ class L3TopoNode:
             batfish service.
         node: str
             The  Node or router name used by Nornir (task.host.name)
-        ifacetype: str
-            The Type of Interface ('Loop', 'Gig', 'TenGig', 'Loopback')
-        properties: str
-            The dataframe columns contained in the results
 
         Returns
         -------
@@ -82,98 +78,61 @@ class L3TopoNode:
         #
         self.node = node
 
-        self.layer3_topo = self.session_bf.q.layer3Edges(nodes=node).answer().frame()
-
         self.layer3_configured = (
             self.session_bf.q.nodeProperties(nodes=node, properties="Interfaces")
             .answer()
             .frame()
         )
 
-        self.layer3_unexpected = None
-        self.layer3_missing = None
-
-    def unexpected(self, nodedict: Dict = None):
-        """
-        Calculates the unexpected interfaces found in the actual
-        configuration.
-
-        Returns:
-            Dataframe: contains unexpected interfaces found in the
-            configuration
-        """
-        # fetch the list of configured interfaces
-        configured = self.layer3_configured.iloc[0]["Interfaces"]
-        # create a list of interfaces based on actual configuration
-        actual_interfaces = pd.DataFrame({"Interfaces": configured})
-        # create a dataframe of interfaces based on SoT
-        sot_interfaces = pd.DataFrame({"Interfaces": nodedict[self.node]})
-        # Calculate the Unexpected configured interfaces
-        unexpected_ifaces = pd.merge(
-            actual_interfaces,
-            sot_interfaces[["Interfaces"]],
-            on="Interfaces",
-            how="left",
-            indicator=True,
-        )
-
-        unexpected_ifaces = (
-            unexpected_ifaces[unexpected_ifaces["_merge"] == "left_only"]
-            .drop(columns=["_merge"])
-            .reset_index(drop=True)
-        )
-
-        self.layer3_unexpected = unexpected_ifaces
-
-        return unexpected_ifaces
-
-    def missing(self, nodedict: Dict = None):
-        """
-        Calculates the missing interfaces defined in the SoT but not
-        in the actual configuration.
-
-        Returns:
-            Dataframe: contains interfaces of source of truth,
-            missing
-        """
-        # fetch the list of configured interfaces
-        configured = self.layer3_configured.iloc[0]["Interfaces"]
-        # create a list of interfaces based on actual configuration
-        actual_interfaces = pd.DataFrame({"Interfaces": configured})
-        # create a dataframe of interfaces based on SoT
-        sot_interfaces = pd.DataFrame({"Interfaces": nodedict[self.node]})
-        # Calculate the Unexpected configured interfaces
-        missing_ifaces = pd.merge(
-            sot_interfaces,
-            actual_interfaces[["Interfaces"]],
-            on="Interfaces",
-            how="left",
-            indicator=True,
-        )
-
-        missing_ifaces = (
-            missing_ifaces[missing_ifaces["_merge"] == "left_only"]
-            .drop(columns=["_merge"])
-            .reset_index(drop=True)
-        )
-        self.layer3_missing = missing_ifaces
-        return missing_ifaces
-
-    def layer3_erroneous(self, nodedict: Dict = None):
-        """builds a Dataframe"""
-
-        tmp_sot = pd.DataFrame({"Interfaces": nodedict[self.node]})
-        tmp_sot.rename(columns={"Interfaces": "SoT"}, inplace=True)
-
-        tmp_actual = pd.DataFrame(
+        self.layer3_actual = pd.DataFrame(
             {"Interfaces": self.layer3_configured.iloc[0]["Interfaces"]}
         )
+
+        self.layer3_sot = self._build_sot(source_of_truth=sot)
+
+        self.layer3_unexpected = self._build_erroneous_layer3(
+            left_df=self.layer3_actual, right_df=self.layer3_sot
+        )
+
+        self.layer3_missing = self._build_erroneous_layer3(
+            left_df=self.layer3_sot, right_df=self.layer3_actual
+        )
+
+    def _build_sot(self, source_of_truth: dict = None):
+        """ """
+        return pd.DataFrame({"Interfaces": source_of_truth[self.node]})
+
+    def _build_erroneous_layer3(self, left_df: pd.DataFrame, right_df: pd.DataFrame):
+        """ """
+        erroneous_ifaces = pd.merge(
+            left_df,
+            right_df[["Interfaces"]],
+            on="Interfaces",
+            how="left",
+            indicator=True,
+        )
+
+        erroneous_ifaces = (
+            erroneous_ifaces[erroneous_ifaces["_merge"] == "left_only"]
+            .drop(columns=["_merge"])
+            .reset_index(drop=True)
+        )
+
+        return erroneous_ifaces
+
+    def layer3_erroneous(self):
+        """builds a Dataframe"""
+
+        tmp_sot = self.layer3_sot
+        tmp_sot.rename(columns={"Interfaces": "SoT"}, inplace=True)
+
+        tmp_actual = self.layer3_actual
         tmp_actual.rename(columns={"Interfaces": "Actual"}, inplace=True)
 
-        tmp_unexpected = self.unexpected(nodedict=nodedict)
+        tmp_unexpected = self.layer3_unexpected
         tmp_unexpected.rename(columns={"Interfaces": "Unexpected"}, inplace=True)
 
-        tmp_missing = self.missing(nodedict=nodedict)
+        tmp_missing = self.layer3_missing
         tmp_missing.rename(columns={"Interfaces": "Missing"}, inplace=True)
 
         tmp_erroneous = pd.concat(
@@ -182,9 +141,6 @@ class L3TopoNode:
         tmp_erroneous.fillna("", inplace=True)
 
         return tmp_erroneous
-
-    def echo_topo(self):
-        return self.layer3_topo
 
     def call_method_by_name(self, name, **kwargs):
         """

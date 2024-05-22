@@ -35,6 +35,7 @@ def exec_checks(
     device = L3TopoNode(
         bf=bf,
         node=f"{task.host.name}",
+        sot=ifaces,
     )
 
     res = device.call_method_by_name(func_name, **kwargs)
@@ -59,7 +60,6 @@ def main():
         bf=bf_session,
         func_name="layer3_erroneous",
         title="Erroneous L3 Interface Configuration",
-        nodedict=ifaces,
         severity_level=logging.INFO,
     )
 
