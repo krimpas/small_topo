@@ -89,7 +89,7 @@ class L3TopoNode:
         )
 
         self.actual = pd.DataFrame(
-            {"Interfaces": self.layer3_configured.iloc[0]["Interfaces"]}
+            {"Interfaces": self.configured.iloc[0]["Interfaces"]}
         )
 
 
