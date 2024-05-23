@@ -64,16 +64,7 @@ def main():
         severity_level=logging.INFO,
     )
 
-    # print_result(result, vars=["data", "stats"])
-
-    stats_summary = [result[h].result["stats"] for h in nr.inventory.hosts.keys()]
-    summary = pd.merge(stats_summary, axis=0)
-
-    errstats = dfprint(
-        df=summary, props=["#"] + list(summary.columns), title=f"SUMMARY"
-    )
-
-    print(errstats)
+    print_result(result, vars=["data", "stats"])
 
 
 if __name__ == "__main__":
