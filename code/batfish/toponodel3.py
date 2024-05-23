@@ -270,7 +270,7 @@ class TopoNodeL3Interface:
 
     def layer3_check(self):
         """ """
-        return self.layer3_erroneous, self.layer3_statistics
+        return self.layer3_erroneous(), self.layer3_statistics()
 
     def call_method_by_name(self, name, **kwargs):
         """

@@ -36,11 +36,11 @@ def exec_checks(
 
     dfs = TopoNodeL3Interface(sot=ifaces[device.node], actual_df=device.actual)
 
-    res, stats = dfs.call_method_by_name(func_name, **kwargs)
+    erroneous, stats = dfs.call_method_by_name(func_name, **kwargs)
 
-    data = dfprint(
-        df=res,
-        props=["#"] + list(res.columns),
+    erroneous_data = dfprint(
+        df=erroneous,
+        props=["#"] + list(erroneous.columns),
         title=f"Host=[{task.host.name}]/" + title,
     )
 
@@ -49,7 +49,7 @@ def exec_checks(
         props=["#"] + list(stats.columns),
         title=f"Host=[{task.host.name}]/" + title,
     )
-    return Result(host=task.host, statistics=errstats, result=data)
+    return Result(host=task.host, data=erroneous_data, stats=errstats)
 
 
 def main():
@@ -67,7 +67,7 @@ def main():
         severity_level=logging.INFO,
     )
 
-    print_result(result)
+    print_result(result, vars=[data, stats])
 
 
 if __name__ == "__main__":
