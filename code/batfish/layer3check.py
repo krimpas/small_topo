@@ -45,12 +45,7 @@ def exec_checks(
     )
     stats.insert(0, "Device", [f"{task.host.name}"], True)
 
-    errstats = dfprint(
-        df=stats,
-        props=["#"] + list(stats.columns),
-        title=f"Host=[{task.host.name}]/" + title,
-    )
-    return Result(host=task.host, data=erroneous_data, stats=errstats)
+    return Result(host=task.host, data=erroneous_data, stats=stats)
 
 
 def main():
@@ -67,9 +62,18 @@ def main():
         title="Erroneous L3 Interface Configuration",
         severity_level=logging.INFO,
     )
-
+    
     print_result(result, vars=["data", "stats"])
+    
+    stats_summary = [result[h]['stats'] for h in nr.inventory.hosts.keys()]
+    summary=pd.merge(stats_summary, axis=0)
+    
+    errstats = dfprint(
+        df=summary,
+        props=["#"] + list(summary.columns),
+        title=f"SUMMARY"
 
-
+    print(errstats)
+    
 if __name__ == "__main__":
     main()
