@@ -50,7 +50,7 @@ def exec_checks(
     #    props=["#"] + list(erroneous.columns),
     #    title=f"Host=[{task.host.name}]/" + title,
     # )
-    return Result(host=task.host, data=erroneous, stats=stats)
+    return Result(host=task.host, data=erroneous, statistics=stats)
 
 
 def main():
@@ -68,7 +68,7 @@ def main():
         severity_level=logging.INFO,
     )
 
-    print_result(result, vars=["data", "stats"])
+    print_result(result, vars=["data", "statistics"])
 
 
 if __name__ == "__main__":
