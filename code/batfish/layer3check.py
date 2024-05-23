@@ -71,7 +71,8 @@ def main():
     print(result["r1"][0].data)
 
     print(result["r1"][0].statistics)
-    # print_result(result, vars=["data", "statistics"])
+    print("---------------------------------------")
+    print_result(result, vars=["data", "statistics"])
 
 
 if __name__ == "__main__":
