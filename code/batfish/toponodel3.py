@@ -238,7 +238,6 @@ class TopoNodeL3Interface:
             status = "FAILED"
 
         stats = {
-            "name": ["Batfish_L3_Interface_Check"],
             "retcode": [errorcode],
             "Unexpected": [self.layer3_unexpected.shape[0]],
             "Missing": [self.layer3_missing.shape[0]],
