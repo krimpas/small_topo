@@ -10,7 +10,9 @@ Description:
 
 Classes:
 --------
-    TopoNodeL3\n
+    NodeSession\n
+    NodeSection\n
+    NodeL3Interface\n
 
 Misc variables:
 ---------------
@@ -23,18 +25,14 @@ __all__ = ["L3TopoNode"]
 __version__ = "0.0.1"
 __author__ = "Krimpas George"
 
-from typing import Dict, List
+from typing import List
 import pandas as pd
 from pybatfish.client.session import Session
 
 
-class L3TopoNode:
+class NodeSession:
     """
-    Keeps the L3 configured interface names of a given network node. \n
-
-    Performs the bf.q.nodeProperties question to the batfish service \n
-    in order to fetch all interface names as s list of strings for the\n
-    node specified. This Class will be used by. \n
+    Keeps a Batfish session and the Node name as a Nornir task.host.name\n
 
     Attributes
     ----------
@@ -46,18 +44,9 @@ class L3TopoNode:
         The name of the device as Nornir Task Host Name to receive\n
         (task.host.name)
 
-    configured: List[str]
-        A list of interface names as strings
-
-    actual: DataFrame
-        Dataframe derived from the list of interface names (configured)
-
-    Methods
-    -------
-
     """
 
-    def __init__(self, bf: Session, node: str = "") -> None:
+    def __init__(self, bf: Session, node: str = None):
         """
         Initializes the actual Dataframe with all interface names\n
         as a result of the bf.q.nodeProperties batfish question for the\n
@@ -67,35 +56,112 @@ class L3TopoNode:
         Parameters
         ----------
         bf: Session
+            The already opened batfish Session object used to query the\n
+            batfish service.
+        node: str
+            The Node or router name used by Nornir (task.host.name).\n
+        """
+        self.session_bf = bf
+
+        self.node = node
+
+
+class NodeSection(NodeSession):
+    """
+    Keeps an individual config section of each node.
+
+    Attributes
+    ----------
+    configured: Batfish DataFrame
+        Keeps the configuration section info of the specified node.\n
+        The config section is retrieved using the Batfish question \n
+        bf.q.nodeProperties().
+
+    actual: Batfish DataFrame
+        Dataframe derived from configured attribute.\n
+
+    """
+
+    def __init__(
+        self, bf: Session, node: str = None, properties: str = "Interfaces"
+    ) -> None:
+        """
+        Parameters
+        ----------
+        bf: Session
             The already opened batfish Session object used to query the
             batfish service.
+
         node: str
             The  Node or router name used by Nornir (task.host.name).
 
-        Returns
-        -------
-        None
-        """
-        self.session_bf = bf
-        #
-        self.node = node
+        properties: str
+            The individual config feature of the node (i.e Interfaces)\n
+            It is used by the Batfish Query bf.q.nodeProperties()\n
 
+        """
+        super().__init__(bf, node)
+
+        # Get the Node configuration info
         self.configured = (
-            self.session_bf.q.nodeProperties(nodes=node, properties="Interfaces")
+            self.session_bf.q.nodeProperties(nodes=node, properties=properties)
             .answer()
             .frame()
         )
 
-        self.actual = pd.DataFrame(
-            {"Interfaces": self.configured.iloc[0]["Interfaces"]}
-        )
+        # Transform the info fetched into a dataframe
+        self.actual = pd.DataFrame({properties: self.configured.iloc[0][properties]})
 
 
-class L3InterfacesNode:
-    """ """
+class NodeL3Interface:
+    """
+    Keeps all L3 Interfaces names of the specified node and \n
+    the SourceOfTruth. Then the unexpected and missing L3\n
+    interfaces are calculated.\n
+
+    Attributes
+    ----------
+    layer3_actual: Batfish DataFrame
+        Keeps the Interface Names as a result of the Batfish Query.\n
+    layer3_sot: Batfish DataFrame
+        Keeps the Interface names based on SourceOfTruth.\n
+    layer3_unexpected: Batfish DataFrame
+        Keeps the Interface names which actually configured but \n
+        not contained into SourceOfTruth.\n
+    layer3_missing: Batfish DataFrame
+        Keeps the Interface names which contained into SourceOfTruth\n
+        but not actually configured.\n
+
+    Methods
+    -------
+    _build_sot()
+        Creates the SoT Dataframe for the L3 Interfaces.\n
+    _build_erroneous_layer3()
+        Used to create the Unexpected L3 Interfaces DataFrame and the\n
+        Missing L3 Interfaces DataFrame.
+    layer3_erroneous()
+        Builds a Dataframe by merging all the above Dataframes.
+
+    """
 
     def __init__(self, sot: List, actual_df: pd.DataFrame):
-        """ """
+        """
+        Initialization of the 4 DataFrames needed:\n
+        1. SoT of L3 Interfaces.\n
+        2. Actually configured L3 Interfaces.\n
+        3. Unexpected configured L3 Interfaces.\n
+        4. Missing L3 Interfaces.\n
+
+        Parameters
+        ----------
+        sot: List
+            Points to the source of truth of Interfaces for the\n
+            specified node.
+        actual: Batfish Dataframe
+            Represents the names of all configured L3 interfaces\n
+            of the specified node.
+
+        """
         self.layer3_actual = actual_df
 
         self.layer3_sot = self._build_sot(source_of_truth=sot)
@@ -108,12 +174,44 @@ class L3InterfacesNode:
             left_df=self.layer3_sot, right_df=self.layer3_actual
         )
 
-    def _build_sot(self, source_of_truth: List = None):
-        """ """
+    def _build_sot(self, source_of_truth: List = None) -> pd.DataFrame:
+        """
+        Creates the SoT Dataframe for the L3 Interfaces.
+
+        Parameters
+        ----------
+        source_of_truth: List
+            The source of truth for L3 Interfaces.
+
+        Returns
+        -------
+        Dataframe
+        The SoT Dataframe for the L3 Interfaces.
+        """
         return pd.DataFrame({"Interfaces": source_of_truth})
 
     def _build_erroneous_layer3(self, left_df: pd.DataFrame, right_df: pd.DataFrame):
-        """ """
+        """
+        Used to create the Unexpected L3 Interfaces and Missing L3\n
+        Interfaces DataFrame. This is achieved by merging the left_df\n
+        and right_df DataFrames on "Interfaces" column by performing\n
+        LEFT JOIN.
+
+        Parameters
+        ----------
+        left_df: pd.DataFrame
+            The left dataframe for the LEFT join.
+        right_df: pd.DataFrame
+            The right dataframe for the LEFT join.
+
+        Returns
+        -------
+        erroneous_ifaces: Dataframe
+            If the left DataFrame is sot and the right one is actual\n
+            then returns the Missing L3 Interfaces. If vice versa\n
+            returns the Unexpected L3 Interfaces.
+
+        """
         erroneous_ifaces = pd.merge(
             left_df,
             right_df[["Interfaces"]],
