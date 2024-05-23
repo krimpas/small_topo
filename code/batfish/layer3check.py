@@ -36,15 +36,20 @@ def exec_checks(
 
     dfs = TopoNodeL3Interface(sot=ifaces[device.node], actual_df=device.actual)
 
-    res = dfs.call_method_by_name(func_name, **kwargs)
+    res, stats = dfs.call_method_by_name(func_name, **kwargs)
 
     data = dfprint(
         df=res,
         props=["#"] + list(res.columns),
         title=f"Host=[{task.host.name}]/" + title,
     )
-    # print(res)
-    return Result(host=task.host, result=data)
+
+    errstats = dfprint(
+        df=stats,
+        props=["#"] + list(stats.columns),
+        title=f"Host=[{task.host.name}]/" + title,
+    )
+    return Result(host=task.host, statistics=errstats, result=data)
 
 
 def main():

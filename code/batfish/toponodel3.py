@@ -228,6 +228,24 @@ class TopoNodeL3Interface:
 
         return erroneous_ifaces
 
+    def layer3_statistics(self):
+        """Calculates errorcodes and stats"""
+        if self.layer3_missing.shape[0] == 0 and self.layer3_unexpected.shape[0] == 0:
+            errorcode = 0
+            status = "PASSED"
+        else:
+            errorcode = -1
+            status = "FAILED"
+
+        stats = {
+            "name": ["Batfish_L3_Interface_Check"],
+            "retcode": [errorcode],
+            "Unexpected": [self.layer3_unexpected.shape[0]],
+            "Missing": [self.layer3_missing.shape[0]],
+            "Status": [status],
+        }
+        return pd.DataFrame(stats)
+
     def layer3_erroneous(self):
         """builds a Dataframe"""
 
@@ -249,6 +267,10 @@ class TopoNodeL3Interface:
         tmp_erroneous.fillna("-", inplace=True)
 
         return tmp_erroneous
+
+    def layer3_check(self):
+        """ """
+        return self.layer3_erroneous, self.layer3_statistics
 
     def call_method_by_name(self, name, **kwargs):
         """
