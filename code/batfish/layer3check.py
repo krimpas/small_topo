@@ -5,6 +5,7 @@ Nornir tasks.
 
 import os
 import logging
+import pandas as pd
 from l3info import NodeL3InterfaceInfo
 from bfish_L3iface_props import BFISH_L3IFACE_PROPS
 from nornir import InitNornir
@@ -65,7 +66,7 @@ def main():
 
     # print_result(result, vars=["data", "stats"])
 
-    stats_summary = [result[h]["stats"] for h in nr.inventory.hosts.keys()]
+    stats_summary = [result[h].result["stats"] for h in nr.inventory.hosts.keys()]
     summary = pd.merge(stats_summary, axis=0)
 
     errstats = dfprint(
