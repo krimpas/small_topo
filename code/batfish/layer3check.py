@@ -62,18 +62,18 @@ def main():
         title="Erroneous L3 Interface Configuration",
         severity_level=logging.INFO,
     )
-    
+
     print_result(result, vars=["data", "stats"])
-    
-    stats_summary = [result[h]['stats'] for h in nr.inventory.hosts.keys()]
-    summary=pd.merge(stats_summary, axis=0)
-    
+
+    stats_summary = [result[h]["stats"] for h in nr.inventory.hosts.keys()]
+    summary = pd.merge(stats_summary, axis=0)
+
     errstats = dfprint(
-        df=summary,
-        props=["#"] + list(summary.columns),
-        title=f"SUMMARY"
+        df=summary, props=["#"] + list(summary.columns), title=f"SUMMARY"
+    )
 
     print(errstats)
-    
+
+
 if __name__ == "__main__":
     main()
