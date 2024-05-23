@@ -12,7 +12,7 @@ Classes:
 --------
     NodeSession\n
     NodeSection\n
-    NodeL3Interface\n
+    TopoNodeL3Interface\n
 
 Misc variables:
 ---------------
@@ -113,7 +113,7 @@ class NodeSection(NodeSession):
         self.actual = pd.DataFrame({properties: self.configured.iloc[0][properties]})
 
 
-class NodeL3Interface:
+class TopoNodeL3Interface:
     """
     Keeps all L3 Interfaces names of the specified node and \n
     the SourceOfTruth. Then the unexpected and missing L3\n
