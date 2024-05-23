@@ -68,9 +68,9 @@ def main():
         severity_level=logging.INFO,
     )
 
-    print(result.data)
+    print(result["r1"][0].data)
 
-    print(result.statistics)
+    print(result["r1"][0].statistics)
     # print_result(result, vars=["data", "statistics"])
 
 
