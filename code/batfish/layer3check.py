@@ -63,7 +63,7 @@ def main():
         severity_level=logging.INFO,
     )
 
-    print_result(result, vars=["data", "stats"])
+    # print_result(result, vars=["data", "stats"])
 
     stats_summary = [result[h]["stats"] for h in nr.inventory.hosts.keys()]
     summary = pd.merge(stats_summary, axis=0)
