@@ -43,7 +43,8 @@ def exec_checks(
         props=["#"] + list(erroneous.columns),
         title=f"Host=[{task.host.name}]/" + title,
     )
-
+    stats]'Device'] = f"{task.host.name}"
+    
     errstats = dfprint(
         df=stats,
         props=["#"] + list(stats.columns),
