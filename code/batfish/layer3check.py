@@ -62,7 +62,7 @@ def main():
         name="Erroneous L3 Interface Configuration",
         task=exec_checks,
         bf=bf_session,
-        func_name="layer3_erroneous",
+        func_name="layer3_check",
         title="Erroneous L3 Interface Configuration",
         severity_level=logging.INFO,
     )
