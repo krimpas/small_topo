@@ -76,7 +76,7 @@ def main():
     tmp_df = pd.concat(tmp_list_df, axis=0)
     print(tmp_df.reset_index(drop=True))
 
-    print_result(result)
+    print_result(result.data)
 
 
 if __name__ == "__main__":
