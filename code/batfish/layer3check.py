@@ -69,8 +69,6 @@ def main():
     )
     tmp_list_df = []
     for h in nr.inventory.hosts.keys():
-        print(result[h].data)
-        print("----------------------------------------------")
         tmp_list_df.append(result[h].statistics)
 
     tmp_df = pd.concat(tmp_list_df, axis=0)
