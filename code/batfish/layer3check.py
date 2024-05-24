@@ -74,7 +74,7 @@ def main():
         tmp_list_df.append(result[h].statistics)
 
     tmp_df = pd.concat(tmp_list_df, axis=0)
-    print(tmp_df)
+    print(tmp_df.reset_index(drop=True))
 
 
 if __name__ == "__main__":
