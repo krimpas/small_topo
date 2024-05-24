@@ -39,18 +39,18 @@ def exec_checks(
 
     erroneous, stats = dfs.call_method_by_name(func_name, **kwargs)
 
-    erroneous_data = dfprint(
-        df=erroneous,
-        props=["#"] + list(erroneous.columns),
-        title=f"Host=[{task.host.name}]/" + title,
-    )
+    # erroneous_data = dfprint(
+    #    df=erroneous,
+    #    props=["#"] + list(erroneous.columns),
+    #    title=f"Host=[{task.host.name}]/" + title,
+    # )
     stats.insert(0, "Device", [f"{task.host.name}"], True)
-    stats_data = dfprint(
-        df=stats,
-        props=["#"] + list(stats.columns),
-        title=f"Host=[{task.host.name}]/" + title,
-    )
-    return Result(host=task.host, data=erroneous_data, statistics=stats_data)
+    # stats_data = dfprint(
+    #    df=stats,
+    #    props=["#"] + list(stats.columns),
+    #    title=f"Host=[{task.host.name}]/" + title,
+    # )
+    return Result(host=task.host, data=erroneous, statistics=stats)
 
 
 def main():
