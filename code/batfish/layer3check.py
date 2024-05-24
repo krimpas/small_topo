@@ -72,7 +72,7 @@ def main():
 
     print(result["r1"][0].statistics)
     print("---------------------------------------")
-    print_result(result, vars=["data", "statistics"])
+    # print_result(result, vars=["data", "statistics"])
 
 
 if __name__ == "__main__":

@@ -21,7 +21,7 @@ Misc variables:
     __author__\n
 """
 
-__all__ = ["L3TopoNode"]
+__all__ = ["NodeSession", "NodeSection", "TopoNodeL3Interface"]
 __version__ = "0.0.1"
 __author__ = "Krimpas George"
 
@@ -229,16 +229,27 @@ class TopoNodeL3Interface:
         return erroneous_ifaces
 
     def layer3_statistics(self):
-        """Calculates errorcodes and stats"""
-        if self.layer3_missing.shape[0] == 0 and self.layer3_unexpected.shape[0] == 0:
-            errorcode = 0
-            status = "PASSED"
-        else:
-            errorcode = -1
-            status = "FAILED"
+        """
+        Calculates the status and statistical info of the checks. The
+        status of the check is PASSED if the missing and unexpected
+        DataFrames are empty, otherwise the status is FAILED.
+
+        Returns
+        -------
+        stats: DataFrame
+            The statistical DataFrame of the check.
+        """
+        is_missing_empty = self.layer3_missing.shape[0] == 0
+        is_unexpected_empty = self.layer3_unexpected.shape[0] == 0
+
+        error_code, status = (
+            (0, "PASSED")
+            if is_missing_empty and is_unexpected_empty
+            else (-1, "FAILED")
+        )
 
         stats = {
-            "retcode": [errorcode],
+            "retcode": [error_code],
             "Unexpected": [self.layer3_unexpected.shape[0]],
             "Missing": [self.layer3_missing.shape[0]],
             "Status": [status],
@@ -246,7 +257,19 @@ class TopoNodeL3Interface:
         return pd.DataFrame(stats)
 
     def layer3_erroneous(self):
-        """builds a Dataframe"""
+        """
+        DataFrame contains the erroneous elements. This is done
+        by merging the following DataFrames:
+        1. The Source of Truth elements.
+        2. The actual configured elements.
+        3. The unexpected configured elements.
+        4. the missing elements.
+
+        Returns
+        -------
+        tmp_erroneous: DataFrame
+            The DataFrame containing all the above DataFrames.`
+        """
 
         tmp_sot = self.layer3_sot
         tmp_sot.rename(columns={"Interfaces": "SoT"}, inplace=True)
@@ -268,7 +291,16 @@ class TopoNodeL3Interface:
         return tmp_erroneous
 
     def layer3_check(self):
-        """ """
+        """
+        Returns the Dataframe of errors and the statistics.
+
+        Returns
+        -------
+        layer3_erroneous: DataFrame
+            The DataFrame contains the erroneous elements
+        layer3_statistics: DataFrame
+            The DataFrame contains the statistics elements
+        """
         return self.layer3_erroneous(), self.layer3_statistics()
 
     def call_method_by_name(self, name, **kwargs):
