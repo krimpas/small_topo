@@ -70,7 +70,7 @@ def main():
     for h in nr.inventory.hosts.keys():
         print(result[h].data)
         print(result[h].statistics)
-        print_result(result[h])
+        print_result(result[h].data)
         print("---------------------------------------")
 
 
