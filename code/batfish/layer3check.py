@@ -67,11 +67,10 @@ def main():
         title="Erroneous L3 Interface Configuration",
         severity_level=logging.INFO,
     )
-
-    print(result["r1"].data)
-
-    print(result["r1"].statistics)
-    print("---------------------------------------")
+    for h in nr.inventory.hosts.keys():
+        print(result[h].data)
+        print(result[h].statistics)
+        print("---------------------------------------")
 
 
 if __name__ == "__main__":
