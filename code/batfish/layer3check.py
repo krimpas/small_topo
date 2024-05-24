@@ -67,11 +67,14 @@ def main():
         title="Erroneous L3 Interface Configuration",
         severity_level=logging.INFO,
     )
+    tmp_list_df = []
     for h in nr.inventory.hosts.keys():
         print(result[h].data)
         print(result[h].statistics)
-        print_result(result[h].data)
-        print("---------------------------------------")
+        tmp_list_df.append(result[h].statistics)
+
+    tmp_df = pd.concat(tmp_list_df, axis=0)
+    print(tmp_df)
 
 
 if __name__ == "__main__":
