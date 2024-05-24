@@ -76,8 +76,15 @@ def main():
     tmp_df = pd.concat(tmp_list_df, axis=0)
     print(tmp_df.reset_index(drop=True))
 
-    for h in nr.inventory.hosts.keys():
-        print_result(result[h], vars=["data", "statistics"])
+    # for h in nr.inventory.hosts.keys():
+    #    print_result(result[h], vars=["data", "statistics"])
+
+    tmp_df_data = dfprint(
+        df=tmp_df,
+        props=["#"] + list(tmp_df.columns),
+        title=f"Statistics",
+    )
+    print(tmp_df_data)
 
 
 if __name__ == "__main__":
