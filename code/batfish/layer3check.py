@@ -50,7 +50,7 @@ def exec_checks(
         props=["#"] + list(erroneous.columns),
         title=f"Host=[{task.host.name}]/" + title,
     )
-    return Result(host=task.host, data=erroneous_data, statistics=stats_datas)
+    return Result(host=task.host, data=erroneous_data, statistics=stats_data)
 
 
 def main():
