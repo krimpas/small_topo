@@ -47,7 +47,7 @@ def exec_checks(
     stats.insert(0, "Device", [f"{task.host.name}"], True)
     stats_data = dfprint(
         df=stats,
-        props=["#"] + list(erroneous.columns),
+        props=["#"] + list(stats.columns),
         title=f"Host=[{task.host.name}]/" + title,
     )
     return Result(host=task.host, data=erroneous_data, statistics=stats_data)
