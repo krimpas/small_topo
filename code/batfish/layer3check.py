@@ -64,14 +64,15 @@ def main():
     nr = InitNornir(config_file=os.environ.get("NORNIR_CONFIG_FILE"))
     bf_session = bfish_init()
 
-    erroneous_data = nr.run(
+    result = nr.run(
         name="Erroneous L3 Interface Configuration",
         task=exec_checks,
         bf=bf_session,
         func_name="layer3_erroneous",
         severity_level=logging.INFO,
     )
-    print_result(erroneous_data, vars=["result"])
+    for host, task_result in result.items():
+        print(f"{host}: {task_result.result}")
 
 
 if __name__ == "__main__":
