@@ -271,22 +271,22 @@ class TopoNodeL3Interface:
             The DataFrame containing all the above DataFrames.`
         """
 
-        tmp_sot = self.layer3_sot
+        tmp_sot = self.layer3_sot.copy()
         tmp_sot.rename(columns={"Interfaces": "SoT"}, inplace=True)
 
-        tmp_actual = self.layer3_actual
+        tmp_actual = self.layer3_actual.copy()
         tmp_actual.rename(columns={"Interfaces": "Actual"}, inplace=True)
 
-        tmp_unexpected = self.layer3_unexpected
+        tmp_unexpected = self.layer3_unexpected.copy()
         tmp_unexpected.rename(columns={"Interfaces": "Unexpected"}, inplace=True)
 
-        tmp_missing = self.layer3_missing
+        tmp_missing = self.layer3_missing.copy()
         tmp_missing.rename(columns={"Interfaces": "Missing"}, inplace=True)
 
         tmp_erroneous = pd.concat(
             [tmp_sot, tmp_actual, tmp_unexpected, tmp_missing], axis=1
         )
-        # tmp_erroneous.fillna("-", inplace=True)
+        tmp_erroneous.fillna("-", inplace=True)
 
         return tmp_erroneous
 
