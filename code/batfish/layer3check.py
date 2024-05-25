@@ -44,7 +44,8 @@ def process_stats(result):
     """Stas processing"""
 
     for h, res in result.items():
-        res.insert(0, "Device", [f"{h}"], True)
+        print(f"TYPE OF RES -> {type(res)}")
+        # res.insert(0, "Device", [f"{h}"], True)
 
     tmp_list_df = []
     for h, res in result.items():
