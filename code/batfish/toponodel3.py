@@ -214,7 +214,7 @@ class TopoNodeL3Interface:
         """
         erroneous_ifaces = pd.merge(
             left_df,
-            right_df[["Interfaces"]],
+            right_df,
             on="Interfaces",
             how="left",
             indicator=True,
