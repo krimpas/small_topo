@@ -28,29 +28,34 @@ ifaces = {
 load_dotenv()
 
 
-def exec_checks(
-    task: Task, bf: Session, func_name: str = "", title: str = "", **kwargs
-) -> Result:
+def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
     """mplah"""
 
     device = NodeSection(bf=bf, node=f"{task.host.name}", properties="Interfaces")
 
     dfs = TopoNodeL3Interface(sot=ifaces[device.node], actual_df=device.actual)
 
-    erroneous, stats = dfs.call_method_by_name(func_name, **kwargs)
+    result_data = dfs.call_method_by_name(func_name, **kwargs)
 
-    erroneous_data = dfprint(
-        df=erroneous,
-        props=["#"] + list(erroneous.columns),
-        title=f"Host=[{task.host.name}]/" + title,
-    )
-    stats.insert(0, "Device", [f"{task.host.name}"], True)
-    stats_data = dfprint(
-        df=stats,
-        props=["#"] + list(stats.columns),
-        title=f"Host=[{task.host.name}]/" + title,
-    )
-    return Result(host=task.host, result=[erroneous_data, stats_data])
+    # stats.insert(0, "Device", [f"{task.host.name}"], True)
+
+    return Result(host=task.host, result=result_data)
+
+
+def process_stats(nr, result):
+    """Stas processing"""
+
+    for h in nr.inventory.hosts.keys():
+        result[h].insert(0, "Device", [f"{h}"], True)
+
+    tmp_list_df = []
+    for h in nr.inventory.hosts.keys():
+        tmp_list_df.append(result[h])
+
+    tmp_df = pd.concat(tmp_list_df, axis=0)
+    tmp = tmp_df.reset_index(drop=True)
+
+    return tmp
 
 
 def main():
@@ -59,7 +64,7 @@ def main():
     nr = InitNornir(config_file=os.environ.get("NORNIR_CONFIG_FILE"))
     bf_session = bfish_init()
 
-    result = nr.run(
+    erroneous_data = nr.run(
         name="Erroneous L3 Interface Configuration",
         task=exec_checks,
         bf=bf_session,
@@ -67,25 +72,7 @@ def main():
         title="Erroneous L3 Interface Configuration",
         severity_level=logging.INFO,
     )
-    print_result(result[0])
-    print(40 * "-")
-    print_result(result[1])
-    # tmp_list_df = []
-    # for h in nr.inventory.hosts.keys():
-    #    tmp_list_df.append(result[h].statistics)
-
-    # tmp_df = pd.concat(tmp_list_df, axis=0)
-    # tmp = tmp_df.reset_index(drop=True)
-
-    # for h in nr.inventory.hosts.keys():
-    # print_result(result[h], vars=["data", "statistics"])
-
-    # tmp_df_data = dfprint(
-    #    df=tmp,
-    #    props=["#"] + list(tmp.columns),
-    #    title="Statistics",
-    # )
-    # print(tmp_df_data)
+    print_result(erroneous_data)
 
 
 if __name__ == "__main__":
