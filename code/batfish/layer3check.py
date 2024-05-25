@@ -51,7 +51,7 @@ def process_stats(result):
 
     tmp_list_df = []
     for h, res in result.items():
-        tmp_list_df.append(res)
+        tmp_list_df.append(res.result)
 
     tmp_df = pd.concat(tmp_list_df, axis=0)
     tmp = tmp_df.reset_index(drop=True)
