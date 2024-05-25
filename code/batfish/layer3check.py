@@ -50,7 +50,7 @@ def exec_checks(
     #    props=["#"] + list(stats.columns),
     #    title=f"Host=[{task.host.name}]/" + title,
     # )
-    return Result(host=task.host, data=erroneous, statistics=stats)
+    return Result(host=task.host, result=[erroneous, stats])
 
 
 def main():
@@ -67,7 +67,7 @@ def main():
         title="Erroneous L3 Interface Configuration",
         severity_level=logging.DEBUG,
     )
-    print_result(result, vars=["data"])
+    print_result(result)
 
     tmp_list_df = []
     for h in nr.inventory.hosts.keys():
