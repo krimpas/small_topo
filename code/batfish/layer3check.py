@@ -40,15 +40,15 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
     return Result(host=task.host, result=result_data)
 
 
-def process_stats(nr, result):
+def process_stats(result):
     """Stas processing"""
 
-    for h in nr.inventory.hosts.keys():
-        result[h].insert(0, "Device", [f"{h}"], True)
+    for h, res in result.items():
+        res.insert(0, "Device", [f"{h}"], True)
 
     tmp_list_df = []
-    for h in nr.inventory.hosts.keys():
-        tmp_list_df.append(result[h])
+    for h, res in result.items():
+        tmp_list_df.append(res)
 
     tmp_df = pd.concat(tmp_list_df, axis=0)
     tmp = tmp_df.reset_index(drop=True)
@@ -115,6 +115,9 @@ def main():
     # print(tmp)
     for host, task_result in statistics_result.items():
         print(task_result.result)
+
+    tmp = process_stats(statistics_result)
+    print(tmp)
 
 
 if __name__ == "__main__":
