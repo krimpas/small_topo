@@ -98,21 +98,21 @@ def main():
         severity_level=logging.INFO,
     )
 
-    for host, task_result in error_result.items():
-        print(
-            dataframe_to_prettytable(
-                task_result.result,
-                title=f"Host:[{host}] Check:Erroneous L3 Interface Configuration",
-            )
-        )
+    #    for host, task_result in error_result.items():
+    #        print(
+    #            dataframe_to_prettytable(
+    #                task_result.result,
+    #                title=f"Host:[{host}] Check:Erroneous L3 Interface Configuration",
+    #            )
+    #        )
 
-    for host, task_result in statistics_result.items():
-        print(
-            dataframe_to_prettytable(
-                task_result.result,
-                title=f"Host:[{host}] Statistics",
-            )
-        )
+    #    for host, task_result in statistics_result.items():
+    #        print(
+    #            dataframe_to_prettytable(
+    #                task_result.result,
+    #                title=f"Host:[{host}] Statistics",
+    #            )
+    #        )
 
     # tmp = process_stats(nr, statistics_result)
     # print(tmp)
@@ -121,6 +121,13 @@ def main():
 
     tmp = process_stats(statistics_result)
     print(tmp)
+
+    print(
+        dataframe_to_prettytable(
+            tmp,
+            title="Cumulative Statistics",
+        )
+    )
 
 
 if __name__ == "__main__":
