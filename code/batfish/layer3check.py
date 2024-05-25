@@ -86,6 +86,15 @@ def main():
         func_name="layer3_erroneous",
         severity_level=logging.INFO,
     )
+
+    statistics_result = nr.run(
+        name="Statistics Results",
+        task=exec_checks,
+        bf=bf_session,
+        func_name="layer3_statistics",
+        severity_level=logging.INFO,
+    )
+
     for host, task_result in error_result.items():
         print(
             dataframe_to_prettytable(
@@ -93,6 +102,8 @@ def main():
                 title=f"Host:[{host} Check:Erroneous L3 Interface Configuration",
             )
         )
+    tmp = process_stats(nr, statistics_result)
+    print(tmp)
 
 
 if __name__ == "__main__":
