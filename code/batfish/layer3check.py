@@ -64,14 +64,14 @@ def main():
     nr = InitNornir(config_file=os.environ.get("NORNIR_CONFIG_FILE"))
     bf_session = bfish_init()
 
-    result = nr.run(
+    error_result = nr.run(
         name="Erroneous L3 Interface Configuration",
         task=exec_checks,
         bf=bf_session,
         func_name="layer3_erroneous",
         severity_level=logging.INFO,
     )
-    for host, task_result in result.items():
+    for host, task_result in error_result.items():
         print(f"{host}: {task_result.result}")
     print("00000000000000000000000")
     print(nr.inventory.hosts.keys())
