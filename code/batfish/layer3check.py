@@ -53,7 +53,7 @@ def main():
         func_name="layer3_erroneous",
         severity_level=logging.INFO,
     )
-    print_result(error_result)
+    print_result(error_result["r1"])
     statistics_result = nr.run(
         name="Statistics Results",
         task=exec_checks,
