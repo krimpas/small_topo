@@ -99,11 +99,20 @@ def main():
         print(
             dataframe_to_prettytable(
                 task_result.result,
-                title=f"Host:[{host} Check:Erroneous L3 Interface Configuration",
+                title=f"Host:[{host}] Check:Erroneous L3 Interface Configuration",
             )
         )
-    tmp = process_stats(nr, statistics_result)
-    print(tmp)
+
+    for host, task_result in statistics_result.items():
+        print(
+            dataframe_to_prettytable(
+                task_result.result,
+                title=f"Host:[{host}] Statistics",
+            )
+        )
+
+    # tmp = process_stats(nr, statistics_result)
+    # print(tmp)
 
 
 if __name__ == "__main__":
