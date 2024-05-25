@@ -44,10 +44,10 @@ def process_stats(result):
     """Stas processing"""
 
     for h, res in result.items():
-        print(f"TYPE OF RES -> {type(res)}")
+        # print(f"TYPE OF RES -> {type(res)}")
         print(f"TYPE OF RES -> {type(res.result)}")
 
-        # res.insert(0, "Device", [f"{h}"], True)
+        res.result.insert(0, "Device", [f"{h}"], True)
 
     tmp_list_df = []
     for h, res in result.items():
@@ -120,7 +120,7 @@ def main():
         print(task_result.result)
 
     tmp = process_stats(statistics_result)
-    # print(tmp)
+    print(tmp)
 
 
 if __name__ == "__main__":
