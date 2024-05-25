@@ -286,7 +286,7 @@ class TopoNodeL3Interface:
         tmp_erroneous = pd.concat(
             [tmp_sot, tmp_actual, tmp_unexpected, tmp_missing], axis=1
         )
-        tmp_erroneous.fillna("-", inplace=True)
+        # tmp_erroneous.fillna("-", inplace=True)
 
         return tmp_erroneous
 
