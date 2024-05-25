@@ -71,7 +71,7 @@ def main():
         func_name="layer3_erroneous",
         severity_level=logging.INFO,
     )
-    print_result(erroneous_data)
+    print_result(erroneous_data, vars=["result"])
 
 
 if __name__ == "__main__":
