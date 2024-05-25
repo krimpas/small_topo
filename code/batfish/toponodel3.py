@@ -250,6 +250,7 @@ class TopoNodeL3Interface:
 
         stats = {
             "retcode": [error_code],
+            "SoT": [self.layer3_sot],
             "Unexpected": [self.layer3_unexpected.shape[0]],
             "Missing": [self.layer3_missing.shape[0]],
             "Status": [status],
