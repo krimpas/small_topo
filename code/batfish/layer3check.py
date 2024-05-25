@@ -65,9 +65,9 @@ def main():
         bf=bf_session,
         func_name="layer3_check",
         title="Erroneous L3 Interface Configuration",
-        severity_level=logging.INFO,
+        severity_level=logging.DEBUG,
     )
-    print_result(result, vars=["data"])
+    print_result(result)
 
     tmp_list_df = []
     for h in nr.inventory.hosts.keys():
