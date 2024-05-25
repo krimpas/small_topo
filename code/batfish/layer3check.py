@@ -67,7 +67,7 @@ def main():
         title="Erroneous L3 Interface Configuration",
         severity_level=logging.DEBUG,
     )
-    print_result(result)
+    print_result(result["data"])
 
     tmp_list_df = []
     for h in nr.inventory.hosts.keys():
