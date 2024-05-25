@@ -59,18 +59,17 @@ def process_stats(nr, result):
 def dataframe_to_prettytable(
     df: pd.DataFrame, title: str = "Error Elements"
 ) -> PrettyTable:
+    """Creates a Pretty Table from a Dataframe"""
     # Create PrettyTable object
-    """ fdsfsd"""
     table = PrettyTable()
 
-    # Add columns
-
-    table.field_names = ["#"] + df.columns.tolist()
-    # Add rows
-    if df is no None:
+    if df is not None:
+        # Add columns
+        table.field_names = ["#"] + df.columns.tolist()
+        # Add rows
         for row in df.itertuples():
             table.add_row(row)
-        
+
     return table.get_string(title=title)
 
 
