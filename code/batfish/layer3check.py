@@ -77,7 +77,7 @@ def main():
     tmp = tmp_df.reset_index(drop=True)
 
     # for h in nr.inventory.hosts.keys():
-    print_result(result[h], vars=["data", "statistics"])
+    # print_result(result[h], vars=["data", "statistics"])
 
     tmp_df_data = dfprint(
         df=tmp,
