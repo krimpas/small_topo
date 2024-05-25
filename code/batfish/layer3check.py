@@ -80,8 +80,8 @@ def main():
 
     # tmp = process_stats(nr, statistics_result)
     # print(tmp)
-    for host, task_result in statistics_result.items():
-        print(task_result.result)
+    # for host, task_result in statistics_result.items():
+    #    print(task_result.result)
 
     tmp = process_stats(statistics_result)
     print(tmp)
