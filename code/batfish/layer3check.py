@@ -114,7 +114,7 @@ def main():
     # tmp = process_stats(nr, statistics_result)
     # print(tmp)
     for host, task_result in statistics_result.items():
-        print(task_result)
+        print(task_result[host])
 
 
 if __name__ == "__main__":
