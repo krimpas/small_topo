@@ -87,8 +87,12 @@ def main():
         severity_level=logging.INFO,
     )
     for host, task_result in error_result.items():
-        print(f"--------- host={host} ------------")
-        print(dataframe_to_prettytable(task_result.result))
+        print(
+            dataframe_to_prettytable(
+                task_result.result,
+                title=f"Host:[{host} Check:Erroneous L3 Interface Configuration",
+            )
+        )
 
 
 if __name__ == "__main__":
