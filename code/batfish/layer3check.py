@@ -69,22 +69,22 @@ def main():
     )
     print_result(result)
 
-    tmp_list_df = []
-    for h in nr.inventory.hosts.keys():
-        tmp_list_df.append(result[h].statistics)
+    # tmp_list_df = []
+    # for h in nr.inventory.hosts.keys():
+    #    tmp_list_df.append(result[h].statistics)
 
-    tmp_df = pd.concat(tmp_list_df, axis=0)
-    tmp = tmp_df.reset_index(drop=True)
+    # tmp_df = pd.concat(tmp_list_df, axis=0)
+    # tmp = tmp_df.reset_index(drop=True)
 
     # for h in nr.inventory.hosts.keys():
     # print_result(result[h], vars=["data", "statistics"])
 
-    tmp_df_data = dfprint(
-        df=tmp,
-        props=["#"] + list(tmp.columns),
-        title="Statistics",
-    )
-    print(tmp_df_data)
+    # tmp_df_data = dfprint(
+    #    df=tmp,
+    #    props=["#"] + list(tmp.columns),
+    #    title="Statistics",
+    # )
+    # print(tmp_df_data)
 
 
 if __name__ == "__main__":
