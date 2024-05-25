@@ -74,7 +74,9 @@ def main():
     for host, task_result in result.items():
         print(f"{host}: {task_result.result}")
     print("00000000000000000000000")
-    print(nr.inventory.hosts.items())
+    print(nr.inventory.hosts.keys())
+
+    print(nr.inventory.hosts.values())
 
 
 if __name__ == "__main__":
