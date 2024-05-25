@@ -14,8 +14,8 @@ from nornir_utils.plugins.functions import print_result
 from dotenv import load_dotenv
 from bfish_init import bfish_init
 from pybatfish.client.session import Session
-from L3check2 import dfprint
 from toponodel3 import NodeSection, TopoNodeL3Interface
+from prettytable import PrettyTable
 
 ifaces = {
     "r1": ["GigabitEthernet2", "GigabitEthernet4", "Loopback0"],
@@ -37,8 +37,6 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
 
     result_data = dfs.call_method_by_name(func_name, **kwargs)
 
-    # stats.insert(0, "Device", [f"{task.host.name}"], True)
-
     return Result(host=task.host, result=result_data)
 
 
@@ -58,6 +56,21 @@ def process_stats(nr, result):
     return tmp
 
 
+def dataframe_to_prettytable(df: pd.DataFrame) -> PrettyTable:
+    # Create PrettyTable object
+    """ " fdsfsd"""
+    table = PrettyTable()
+
+    # Add columns
+    table.field_names = df.columns.tolist()
+
+    # Add rows
+    for row in df.itertuples(index=False):
+        table.add_row(row)
+
+    return table
+
+
 def main():
     """This is the main function which executes all the Nornir Tasks."""
     # Initialize Nornir
@@ -72,11 +85,8 @@ def main():
         severity_level=logging.INFO,
     )
     for host, task_result in error_result.items():
-        print(f"{host}: {task_result.result}")
-    print("00000000000000000000000")
-    print(nr.inventory.hosts.keys())
-
-    print(nr.inventory.hosts.values())
+        print(f"--------- host={host} ------------")
+        print(dataframe_to_prettytable(task_result.result))
 
 
 if __name__ == "__main__":
