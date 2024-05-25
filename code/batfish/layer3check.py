@@ -62,7 +62,8 @@ def dataframe_to_prettytable(df: pd.DataFrame) -> PrettyTable:
     table = PrettyTable()
 
     # Add columns
-    table.field_names = df.columns.tolist()
+    fields = df.columns.tolist()
+    table.field_names = ["#"] + fields
 
     # Add rows
     for row in df.itertuples():
