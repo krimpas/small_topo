@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 from bfish_init import bfish_init
 from pybatfish.client.session import Session
 from toponodel3 import NodeSection, TopoNodeL3Interface
-from customutils import process_stats, dataframe_to_prettytable
+from customutils import process_stats, dataframe_to_prettytable, echo_nornir_result
 
 ifaces = {
     "r1": ["GigabitEthernet2", "GigabitEthernet4", "Loopback0"],
@@ -55,49 +55,9 @@ def main():
     )
 
     # print_result(error_result, vars=["result"])
+    echo_nornir_result(error_result, akey="data", title="L3 Interfaces Conf")
 
-    for host, task_result in error_result.items():
-
-        print(
-            dataframe_to_prettytable(
-                task_result.result["data"],
-                title=f"Host:[{host}] Check:Erroneous L3 Interface Configuration",
-            )
-        )
-
-        print(
-            dataframe_to_prettytable(
-                task_result.result["statistics"],
-                title=f"Host:[{host}] Check: Statistics Summary",
-            )
-        )
-    #    for host, task_result in statistics_result.items():
-    #        print(
-    #            dataframe_to_prettytable(
-    #                task_result.result,
-    #                title=f"Host:[{host}] Statistics",
-    #            )
-    #        )
-
-    # for host, host_result in error_result.items():
-    #    print(20 * "-" + f"{host}" + 20 * "-")
-    #    print(host_result.result["data"])
-    #    print(50 * "@")
-    #    print(host_result.result["statistics"])
-
-    # for host, task_result in statistics_result.items():
-    #    print(task_result.result)
-    print(50 * "#")
-
-    tmp = process_stats(error_result)
-    print(tmp)
-
-    print(
-        dataframe_to_prettytable(
-            tmp,
-            title="Cumulative Statistics",
-        )
-    )
+    # tmp = process_stats(error_result)
 
 
 if __name__ == "__main__":

@@ -1,5 +1,6 @@
-from prettytable import PrettyTable
 import pandas as pd
+from nornir.core.task import Task, Result
+from prettytable import PrettyTable
 
 
 def process_stats(aresult):
@@ -37,3 +38,16 @@ def dataframe_to_prettytable(
             table.add_row(row)
 
     return table.get_string(title=title)
+
+
+def echo_nornir_result(
+    some_result: Result, akey: str = "data", title: str = None
+) -> None:
+    print(60 * "@")
+    for host, task_result in some_result.items():
+        pt = dataframe_to_prettytable(
+            task_result.result["f{akey}"],
+            title=f"Host=[{host}]" + title,
+        )
+        print(pt)
+    print(60 * "@")
