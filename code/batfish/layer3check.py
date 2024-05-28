@@ -54,7 +54,7 @@ def main():
         severity_level=logging.INFO,
     )
 
-    print_result(error_result)
+    print_result(error_result, vars=["result"])
     # print(error_result["r1"].result)
     # statistics_result = nr.run(
     #    name="Statistics Results",
