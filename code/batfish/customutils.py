@@ -2,18 +2,18 @@ from prettytable import PrettyTable
 import pandas as pd
 
 
-def process_stats(result):
+def process_stats(aresult):
     """Stas processing"""
 
-    for h, res in result.items():
+    for h, res in aresult.items():
         # print(f"TYPE OF RES -> {type(res)}")
         # print(f"TYPE OF RES -> {type(res.result.statistics)}")
 
-        res.h.result.statistics.insert(0, "Device", [f"{h}"], True)
+        aresult[f"{h}"].result["statistics"].insert(0, "Device", [f"{h}"], True)
 
     tmp_list_df = []
-    for h, res in result.items():
-        tmp_list_df.append(res.h.result.statistics)
+    for h, res in aresult.items():
+        tmp_list_df.append(aresult[f"{h}"].result["statistics"])
 
     tmp_df = pd.concat(tmp_list_df, axis=0)
     tmp = tmp_df.reset_index(drop=True)

@@ -78,7 +78,9 @@ def main():
     print(error_result["r3"].result["data"])
     print(50 * "-")
     print(error_result["r3"].result["statistics"])
-
+    print(50 * "@")
+    tmp = process_stats(error_result)
+    print(tmp)
     # for host, task_result in statistics_result.items():
     #    print(task_result.result)
 
