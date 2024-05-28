@@ -92,13 +92,12 @@ def main():
     tmp = process_stats(error_result)
     print(tmp)
 
-
-# print(
-#     dataframe_to_prettytable(
-#         tmp,
-#         title="Cumulative Statistics",
-#     )
-# )
+    print(
+        dataframe_to_prettytable(
+            tmp,
+            title="Cumulative Statistics",
+        )
+    )
 
 
 if __name__ == "__main__":
