@@ -75,7 +75,10 @@ def main():
     print(50 * "@")
     # tmp = process_stats(error_result)
     # print(tmp)
-    print(error_result["r3"].result)
+    print(error_result["r3"].result["data"])
+    print(50 * "-")
+    print(error_result["r3"].result["statistics"])
+
     # for host, task_result in statistics_result.items():
     #    print(task_result.result)
 
