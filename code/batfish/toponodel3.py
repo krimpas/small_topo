@@ -301,7 +301,7 @@ class TopoNodeL3Interface:
         layer3_statistics: DataFrame
             The DataFrame contains the statistics elements
         """
-        return dict(data=self.layer3_erroneous(), statistics=self.layer3_statistics())
+        return self.layer3_erroneous(), self.layer3_statistics()
 
     def call_method_by_name(self, name, **kwargs):
         """
