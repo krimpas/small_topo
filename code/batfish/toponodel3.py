@@ -213,20 +213,18 @@ class TopoNodeL3Interface:
 
         """
         erroneous_ifaces = pd.merge(
-            left_df,
-            right_df,
+            left_df[["Interfaces"]],
+            right_df[["Interfaces"]],
             on="Interfaces",
             how="left",
             indicator=True,
         )
 
-        erroneous_ifaces = (
+        return (
             erroneous_ifaces[erroneous_ifaces["_merge"] == "left_only"]
             .drop(columns=["_merge"])
             .reset_index(drop=True)
         )
-
-        return erroneous_ifaces
 
     def layer3_statistics(self):
         """
