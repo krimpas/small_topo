@@ -55,9 +55,9 @@ def main():
     )
 
     # print_result(error_result, vars=["result"])
-    echo_nornir_result(error_result, akey="data", title="L3 Interfaces Conf")
+    echo_nornir_result(error_result, title="L3 Interfaces Conf")
 
-    echo_nornir_result(error_result, akey="statistics", title="Stats")
+    # echo_nornir_result(error_result, akey="statistics", title="Stats")
     # tmp = process_stats(error_result)
 
 

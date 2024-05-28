@@ -40,14 +40,16 @@ def dataframe_to_prettytable(
     return table.get_string(title=title)
 
 
-def echo_nornir_result(
-    some_result: Result, akey: str = "data", title: str = None
-) -> None:
-    print(60 * "@")
+def echo_nornir_result(some_result: Result, title: str = None) -> None:
     for host, task_result in some_result.items():
-        pt = dataframe_to_prettytable(
-            task_result.result[akey],
+        pt_data = dataframe_to_prettytable(
+            task_result.result["data"],
             title=f"Host=[{host}]" + title,
         )
-        print(pt)
-    print(60 * "@")
+        pd_stats = dataframe_to_prettytable(
+            task_result.result["statistics"],
+            title=f"Host=[{host}]" + "Statistics" + title,
+        )
+        print(pt_data)
+        print(70 * "@")
+        print(pd_stats)
