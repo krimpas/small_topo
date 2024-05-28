@@ -85,7 +85,7 @@ def main():
     tmp = process_stats(error_result)
     print(tmp)
 
-    print_result(error_result["r1"].result)
+    print_result(error_result["r1"])
 
 
 # print(
