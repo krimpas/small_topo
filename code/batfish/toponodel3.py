@@ -188,7 +188,7 @@ class TopoNodeL3Interface:
         Dataframe
         The SoT Dataframe for the L3 Interfaces.
         """
-        return pd.DataFrame({"Interfaces": source_of_truth})
+        return pd.DataFrame.from_dict({"Interfaces": source_of_truth})
 
     def _build_erroneous_layer3(self, left_df: pd.DataFrame, right_df: pd.DataFrame):
         """
@@ -271,16 +271,16 @@ class TopoNodeL3Interface:
         """
 
         tmp_sot = self.layer3_sot
-        tmp_sot.rename(columns={"Interfaces": "SoT"}, inplace=True)
+        tmp_sot.rename(mapper={"Interfaces": "SoT"}, axis=1, inplace=True)
 
         tmp_actual = self.layer3_actual
-        tmp_actual.rename(columns={"Interfaces": "Actual"}, inplace=True)
+        tmp_actual.rename(mapper={"Interfaces": "Actual"}, axis=1, inplace=True)
 
         tmp_unexpected = self.layer3_unexpected
-        tmp_unexpected.rename(columns={"Interfaces": "Unexpected"}, inplace=True)
+        tmp_unexpected.rename(mapper={"Interfaces": "Unexpected"}, axis=1, inplace=True)
 
         tmp_missing = self.layer3_missing
-        tmp_missing.rename(columns={"Interfaces": "Missing"}, inplace=True)
+        tmp_missing.rename(mapper={"Interfaces": "Missing"}, axis=1, inplace=True)
 
         tmp_erroneous = pd.concat(
             [tmp_sot, tmp_actual, tmp_unexpected, tmp_missing], axis=1
