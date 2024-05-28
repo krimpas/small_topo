@@ -37,7 +37,7 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
 
     result_data = dfs.call_method_by_name(func_name, **kwargs)
 
-    return Result(host=task.host, errors=result_data)
+    return Result(host=task.host, result=result_data)
 
 
 def main():
@@ -50,11 +50,11 @@ def main():
         name="Erroneous L3 Interface Configuration",
         task=exec_checks,
         bf=bf_session,
-        func_name="layer3_erroneous",
+        func_name="layer3_check",
         severity_level=logging.INFO,
     )
 
-    print_result(error_result, vars=["errors"])
+    print_result(error_result, vars=["data", "statistics"])
     # print(error_result["r1"].result)
     # statistics_result = nr.run(
     #    name="Statistics Results",
