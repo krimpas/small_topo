@@ -56,13 +56,13 @@ def main():
 
     # print_result(error_result, vars=["result"])
 
-    #    for host, task_result in error_result.items():
-    #        print(
-    #            dataframe_to_prettytable(
-    #                task_result.result,
-    #                title=f"Host:[{host}] Check:Erroneous L3 Interface Configuration",
-    #            )
-    #        )
+    for host, task_result in error_result.items():
+        print(
+            dataframe_to_prettytable(
+                task_result.result["data"],
+                title=f"Host:[{host}] Check:Erroneous L3 Interface Configuration",
+            )
+        )
 
     #    for host, task_result in statistics_result.items():
     #        print(
@@ -72,11 +72,11 @@ def main():
     #            )
     #        )
 
-    for host, host_result in error_result.items():
-        print(20 * "-" + f"{host}" + 20 * "-")
-        print(host_result.result["data"])
-        print(50 * "@")
-        print(host_result.result["statistics"])
+    # for host, host_result in error_result.items():
+    #    print(20 * "-" + f"{host}" + 20 * "-")
+    #    print(host_result.result["data"])
+    #    print(50 * "@")
+    #    print(host_result.result["statistics"])
 
     # for host, task_result in statistics_result.items():
     #    print(task_result.result)
@@ -84,8 +84,6 @@ def main():
 
     tmp = process_stats(error_result)
     print(tmp)
-
-    print_result(error_result["r1"])
 
 
 # print(
