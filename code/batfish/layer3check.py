@@ -71,9 +71,10 @@ def main():
     #                title=f"Host:[{host}] Statistics",
     #            )
     #        )
-
-    # tmp = process_stats(nr, statistics_result)
-    # print(tmp)
+    print()
+    print(50 * "@")
+    tmp = process_stats(error_result.statistics)
+    print(tmp)
     # for host, task_result in statistics_result.items():
     #    print(task_result.result)
 
