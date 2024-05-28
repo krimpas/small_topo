@@ -53,6 +53,7 @@ def main():
         func_name="layer3_check",
         severity_level=logging.INFO,
     )
+    print(70 * "@")
 
     # print_result(error_result, vars=["result"])
     echo_nornir_result(error_result, title="L3 Interfaces Conf")
