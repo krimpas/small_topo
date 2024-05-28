@@ -9,7 +9,8 @@ def process_stats(aresult):
         # print(f"TYPE OF RES -> {type(res)}")
         # print(f"TYPE OF RES -> {type(res.result.statistics)}")
 
-        aresult[f"{h}"].result["statistics"].insert(0, "Device", [f"{h}"], True)
+        # aresult[f"{h}"].result["statistics"].insert(0, "Device", [f"{h}"], True)
+        res.result["statistics"].insert(0, "Device", [f"{h}"], True)
 
     tmp_list_df = []
     for h, res in aresult.items():
