@@ -286,7 +286,7 @@ class TopoNodeL3Interface:
             [tmp_sot, tmp_actual, tmp_unexpected, tmp_missing], axis=1
         ).reset_index(drop=True)
 
-        # tmp_erroneous.fillna("-", inplace=True)
+        tmp_erroneous.fillna("-", inplace=True)
 
         return tmp_erroneous
 

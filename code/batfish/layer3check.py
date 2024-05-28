@@ -55,14 +55,6 @@ def main():
     )
 
     print_result(error_result, vars=["result"])
-    # print(error_result["r1"].result)
-    # statistics_result = nr.run(
-    #    name="Statistics Results",
-    #    task=exec_checks,
-    #    bf=bf_session,
-    #    func_name="layer3_statistics",
-    #    severity_level=logging.INFO,
-    # )
 
     #    for host, task_result in error_result.items():
     #        print(
