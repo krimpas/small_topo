@@ -57,6 +57,7 @@ def main():
     # print_result(error_result, vars=["result"])
 
     for host, task_result in error_result.items():
+
         print(
             dataframe_to_prettytable(
                 task_result.result["data"],
@@ -64,6 +65,12 @@ def main():
             )
         )
 
+        print(
+            dataframe_to_prettytable(
+                task_result.result["statistics"],
+                title=f"Host:[{host}] Check: Statistics Summary",
+            )
+        )
     #    for host, task_result in statistics_result.items():
     #        print(
     #            dataframe_to_prettytable(
