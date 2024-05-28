@@ -7,7 +7,7 @@ def process_stats(result):
 
     for h, res in result.items():
         # print(f"TYPE OF RES -> {type(res)}")
-        print(f"TYPE OF RES -> {type(res.result.statistics)}")
+        # print(f"TYPE OF RES -> {type(res.result.statistics)}")
 
         res.result.statistics.insert(0, "Device", [f"{h}"], True)
 
