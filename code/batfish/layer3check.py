@@ -54,7 +54,7 @@ def main():
         severity_level=logging.INFO,
     )
 
-    print_result(error_result, vars=["result"])
+    # print_result(error_result, vars=["result"])
 
     #    for host, task_result in error_result.items():
     #        print(
@@ -71,21 +71,19 @@ def main():
     #                title=f"Host:[{host}] Statistics",
     #            )
     #        )
-    print()
-    print(50 * "@")
-    # tmp = process_stats(error_result)
-    # print(tmp)
-    print(error_result["r3"].result["data"])
-    print(50 * "-")
-    print(error_result["r3"].result["statistics"])
-    print(50 * "@")
-    tmp = process_stats(error_result)
-    print(tmp)
+
+    for host, host_result in error_result.items():
+        print(20 * "-" + f"{host}" + 20 * "-")
+        print(host_result.result["data"])
+        print(50 * "@")
+        print(host_result.result["statistics"])
+
     # for host, task_result in statistics_result.items():
     #    print(task_result.result)
+    print(50 * "#")
 
-    # tmp = process_stats(statistics_result)
-    # print(tmp)
+    tmp = process_stats(error_result)
+    print(tmp)
 
 
 # print(
