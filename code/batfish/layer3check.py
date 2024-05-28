@@ -54,7 +54,7 @@ def main():
         severity_level=logging.INFO,
     )
 
-    print_result(error_result, vars=["data", "statistics"])
+    print_result(error_result, vars=["result"])
 
     #    for host, task_result in error_result.items():
     #        print(
