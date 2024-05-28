@@ -35,9 +35,9 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
 
     dfs = TopoNodeL3Interface(sot=ifaces[device.node], actual_df=device.actual)
 
-    data, statistics = dfs.call_method_by_name(func_name, **kwargs)
+    data_statistics = dfs.call_method_by_name(func_name, **kwargs)
 
-    return Result(host=task.host, data=data, statistics=statistics)
+    return Result(host=task.host, result=data_statistics)
 
 
 def main():
