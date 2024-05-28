@@ -73,7 +73,7 @@ def main():
     #        )
     print()
     print(50 * "@")
-    tmp = process_stats(error_result.statistics)
+    tmp = process_stats(error_result)
     print(tmp)
     # for host, task_result in statistics_result.items():
     #    print(task_result.result)
