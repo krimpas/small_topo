@@ -7,13 +7,13 @@ def process_stats(result):
 
     for h, res in result.items():
         # print(f"TYPE OF RES -> {type(res)}")
-        print(f"TYPE OF RES -> {type(res.result)}")
+        print(f"TYPE OF RES -> {type(res.result.statistics)}")
 
-        res.result.insert(0, "Device", [f"{h}"], True)
+        res.result.statistics.insert(0, "Device", [f"{h}"], True)
 
     tmp_list_df = []
     for h, res in result.items():
-        tmp_list_df.append(res.result)
+        tmp_list_df.append(res.result.statistics)
 
     tmp_df = pd.concat(tmp_list_df, axis=0)
     tmp = tmp_df.reset_index(drop=True)
