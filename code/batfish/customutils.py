@@ -51,5 +51,5 @@ def echo_nornir_result(some_result: Result, title: str = None) -> None:
             title=f"Host=[{host}]" + "Statistics" + title,
         )
         print(pt_data)
-        print(70 * "@")
         print(pd_stats)
+        print(70 * "@")
