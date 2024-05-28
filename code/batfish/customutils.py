@@ -46,7 +46,7 @@ def echo_nornir_result(
     print(60 * "@")
     for host, task_result in some_result.items():
         pt = dataframe_to_prettytable(
-            task_result.result["f{akey}"],
+            task_result.result[akey],
             title=f"Host=[{host}]" + title,
         )
         print(pt)
