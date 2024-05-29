@@ -16,6 +16,7 @@ from bfish_init import bfish_init
 from pybatfish.client.session import Session
 from toponodel3 import NodeSection, TopoNodeL3Interface
 from customutils import process_stats, dataframe_to_prettytable, echo_nornir_result
+from typing import List
 
 ifaces = {
     "r1": ["GigabitEthernet2", "GigabitEthernet4", "Loopback0"],
