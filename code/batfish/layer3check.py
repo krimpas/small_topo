@@ -45,6 +45,7 @@ def main():
     """This is the main function which executes all the Nornir Tasks."""
     # Initialize Nornir
     nr = InitNornir(config_file=os.environ.get("NORNIR_CONFIG_FILE"))
+    # Initialize Batfish session
     bf_session = bfish_init()
 
     error_result = nr.run(
