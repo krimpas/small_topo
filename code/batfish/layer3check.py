@@ -54,17 +54,16 @@ def main():
         func_name="layer3_erroneous",
         severity_level=logging.INFO,
     )
-    print_result(error_result)
-    print(70 * "@")
+    print(78 * "@")
 
     # print_result(error_result, vars=["result"])
-    echo_nornir_result(error_result, title="L3 Interfaces Conf")
+    # echo_nornir_result(error_result, title="L3 Interfaces Conf")
 
     # echo_nornir_result(error_result, akey="statistics", title="Stats")
-    tmp_df = process_stats(error_result)
+    # tmp_df = process_stats(error_result)
 
-    tmp_pt = dataframe_to_prettytable(tmp_df, title="Summary Statistics")
-    print(tmp_pt)
+    # tmp_pt = dataframe_to_prettytable(tmp_df, title="Summary Statistics")
+    # print(tmp_pt)
 
 
 if __name__ == "__main__":
