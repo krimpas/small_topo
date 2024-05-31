@@ -56,7 +56,7 @@ def main():
     )
     print(78 * "@")
 
-    # print_result(error_result, vars=["result"])
+    print_result(error_result, vars=["data"])
     # echo_nornir_result(error_result, title="L3 Interfaces Conf")
 
     # echo_nornir_result(error_result, akey="statistics", title="Stats")
