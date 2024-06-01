@@ -58,8 +58,8 @@ def main():
     )
     print(78 * "@")
     for h, res in error_result.items():
-        print_title(f"Host=[{h}")
-        print_result(res.result["data"])
+        print_title(f"Host=[{h}]")
+        print(res.result["data"])
     # echo_nornir_result(error_result, title="L3 Interfaces Conf")
 
     # echo_nornir_result(error_result, akey="statistics", title="Stats")
