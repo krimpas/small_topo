@@ -36,9 +36,9 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
 
     dfs = TopoNodeL3Interface(sot=ifaces[device.node], actual_df=device.actual)
 
-    data = dfs.call_method_by_name(func_name, **kwargs)
+    data, stats = dfs.call_method_by_name(func_name, **kwargs)
 
-    return Result(host=task.host, result=data)
+    return Result(host=task.host, data=data, statistics=stats)
 
 
 def main():
@@ -52,12 +52,12 @@ def main():
         name="Erroneous L3 Interface Configuration",
         task=exec_checks,
         bf=bf_session,
-        func_name="layer3_erroneous",
+        func_name="layer3_check",
         severity_level=logging.INFO,
     )
     print(78 * "@")
     for h, res in error_result.items():
-        print_result(error_result[h])
+        print_result(error_result[h], vars=["data"])
     # echo_nornir_result(error_result, title="L3 Interfaces Conf")
 
     # echo_nornir_result(error_result, akey="statistics", title="Stats")
