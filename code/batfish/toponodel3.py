@@ -289,7 +289,7 @@ class TopoNodeL3Interface:
         tmp_erroneous.fillna("-", inplace=True)
         tmp_erroneous.index.name = "#"
 
-        return dict(data=tmp_erroneous)
+        return tmp_erroneous
 
     def layer3_check(self):
         """
