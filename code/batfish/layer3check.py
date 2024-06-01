@@ -62,13 +62,14 @@ def main():
         print(res.result["data"])
         print(80 * "+")
         print(res.result["statistics"])
+
     # echo_nornir_result(error_result, title="L3 Interfaces Conf")
 
     # echo_nornir_result(error_result, akey="statistics", title="Stats")
-    # tmp_df = process_stats(error_result)
+    tmp_df = process_stats(error_result)
 
     # tmp_pt = dataframe_to_prettytable(tmp_df, title="Summary Statistics")
-    # print(tmp_pt)
+    print(tmp_df)
 
 
 if __name__ == "__main__":
