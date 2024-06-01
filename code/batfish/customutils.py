@@ -41,6 +41,7 @@ def dataframe_to_prettytable(
 
 
 def echo_nornir_result(some_result: Result, title: str = None) -> None:
+    """re malakes"""
     for host, task_result in some_result.items():
         pt_data = dataframe_to_prettytable(
             task_result.result["data"],
