@@ -38,7 +38,7 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
 
     data, stats = dfs.call_method_by_name(func_name, **kwargs)
 
-    return Result(host=task.host, data=data, statistics=stats)
+    return Result(host=task.host, result=dict(data=data, statistics=stats))
 
 
 def main():
