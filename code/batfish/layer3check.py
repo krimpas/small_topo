@@ -56,7 +56,7 @@ def main():
         func_name="layer3_check",
         severity_level=logging.INFO,
     )
-    print(78 * "@")
+    print(80 * "@")
     for h, res in error_result.items():
         print_title(f"Host=[{h}]=>Erroneous L3 Interface Configuration")
         print(res.result["data"])
