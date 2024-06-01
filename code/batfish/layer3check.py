@@ -64,9 +64,8 @@ def main():
         print(res.result["statistics"])
         print_title("End of data and statistics")
 
-    # echo_nornir_result(error_result, title="L3 Interfaces Conf")
+    echo_nornir_result(error_result, title="L3 Interfaces Conf")
 
-    # echo_nornir_result(error_result, akey="statistics", title="Stats")
     print_title("Aggregated Statistics for all Hosts")
     tmp_df = process_stats(error_result)
 
