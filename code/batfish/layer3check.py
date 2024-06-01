@@ -52,12 +52,12 @@ def main():
         name="Erroneous L3 Interface Configuration",
         task=exec_checks,
         bf=bf_session,
-        func_name="layer3_check",
+        func_name="layer3_erroneous",
         severity_level=logging.DEBUG,
     )
     print(78 * "@")
-
-    print_result(error_result, vars=["data", "statistics"])
+    for h, res in error_result.items():
+        print_result(error_result[f"{h}"])
     # echo_nornir_result(error_result, title="L3 Interfaces Conf")
 
     # echo_nornir_result(error_result, akey="statistics", title="Stats")
