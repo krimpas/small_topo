@@ -10,7 +10,7 @@ from l3info import NodeL3InterfaceInfo
 from bfish_L3iface_props import BFISH_L3IFACE_PROPS
 from nornir import InitNornir
 from nornir.core.task import Task, Result
-from nornir_utils.plugins.functions import print_result
+from nornir_utils.plugins.functions import print_result, print_title
 from dotenv import load_dotenv
 from bfish_init import bfish_init
 from pybatfish.client.session import Session
@@ -58,7 +58,8 @@ def main():
     )
     print(78 * "@")
     for h, res in error_result.items():
-        pprint(res.result["data"])
+        print_title(f"Host=[{h}")
+        print_result(res.result["data"])
     # echo_nornir_result(error_result, title="L3 Interfaces Conf")
 
     # echo_nornir_result(error_result, akey="statistics", title="Stats")
