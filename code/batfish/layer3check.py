@@ -70,8 +70,8 @@ def main():
     print_title("Aggregated Statistics for all Hosts")
     tmp_df = process_stats(error_result)
 
-    # tmp_pt = dataframe_to_prettytable(tmp_df, title="Summary Statistics")
-    print(tmp_df)
+    tmp_pt = dataframe_to_prettytable(tmp_df, title="Summary Statistics")
+    print(tmp_pt)
     print_title("END FOR: Aggregated Statistics for all Hosts")
 
 
