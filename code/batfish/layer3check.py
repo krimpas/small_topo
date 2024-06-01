@@ -36,8 +36,8 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
 
     dfs = TopoNodeL3Interface(sot=ifaces[device.node], actual_df=device.actual)
 
-    data_statistics = dfs.call_method_by_name(func_name, **kwargs)
-    return Result(host=task.host, result=data_statistics)
+    data, statistics = dfs.call_method_by_name(func_name, **kwargs)
+    return Result(host=task.host, data=data, statistics=statistics)
 
 
 def main():
@@ -56,7 +56,7 @@ def main():
     )
     print(78 * "@")
 
-    print_result(error_result)
+    print_result(error_result, vars=["data", "statistics"])
     # echo_nornir_result(error_result, title="L3 Interfaces Conf")
 
     # echo_nornir_result(error_result, akey="statistics", title="Stats")

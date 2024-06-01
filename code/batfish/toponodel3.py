@@ -28,6 +28,7 @@ __author__ = "Krimpas George"
 from typing import List
 import pandas as pd
 from pybatfish.client.session import Session
+from customutils import dataframe_to_prettytable
 
 
 class NodeSession:
@@ -302,7 +303,9 @@ class TopoNodeL3Interface:
         layer3_statistics: DataFrame
             The DataFrame contains the statistics elements
         """
-        return {"data": self.layer3_erroneous(), "statistics": self.layer3_statistics()}
+        return dataframe_to_prettytable(
+            self.layer3_erroneous(), title="Erroneous L3 Interfaces"
+        ), dataframe_to_prettytable(self.layer3_statistics(), title="Statistics")
 
     def call_method_by_name(self, name, **kwargs):
         """
