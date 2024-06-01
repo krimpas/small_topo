@@ -17,6 +17,7 @@ from pybatfish.client.session import Session
 from toponodel3 import NodeSection, TopoNodeL3Interface
 from customutils import process_stats, dataframe_to_prettytable, echo_nornir_result
 from typing import List
+from pprint import pprint
 
 ifaces = {
     "r1": ["GigabitEthernet2", "GigabitEthernet4", "Loopback0"],
@@ -57,7 +58,7 @@ def main():
     )
     print(78 * "@")
     for h, res in error_result.items():
-        print(res.result)
+        pprint(object)print(res.result)
     # echo_nornir_result(error_result, title="L3 Interfaces Conf")
 
     # echo_nornir_result(error_result, akey="statistics", title="Stats")
