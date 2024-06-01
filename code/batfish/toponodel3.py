@@ -288,7 +288,7 @@ class TopoNodeL3Interface:
         ).reset_index(drop=True)
 
         tmp_erroneous.fillna("-", inplace=True)
-        # tmp_erroneous.index.name = "#"
+        tmp_erroneous.index.name = "#"
 
         return tmp_erroneous
 
