@@ -303,9 +303,7 @@ class TopoNodeL3Interface:
         layer3_statistics: DataFrame
             The DataFrame contains the statistics elements
         """
-        return dataframe_to_prettytable(
-            self.layer3_erroneous(), title="Erroneous L3 Interfaces"
-        ), dataframe_to_prettytable(self.layer3_statistics(), title="Statistics")
+        return self.layer3_erroneous(), self.layer3_statistics()
 
     def call_method_by_name(self, name, **kwargs):
         """
