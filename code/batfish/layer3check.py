@@ -53,7 +53,7 @@ def main():
         task=exec_checks,
         bf=bf_session,
         func_name="layer3_erroneous",
-        severity_level=logging.DEBUG,
+        severity_level=logging.INFO,
     )
     print(78 * "@")
     for h, res in error_result.items():
