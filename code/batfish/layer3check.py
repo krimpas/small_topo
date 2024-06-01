@@ -62,6 +62,7 @@ def main():
         print(res.result["data"])
         print(80 * "+")
         print(res.result["statistics"])
+        print_title("End of data and statistics")
 
     # echo_nornir_result(error_result, title="L3 Interfaces Conf")
 
@@ -71,6 +72,7 @@ def main():
 
     # tmp_pt = dataframe_to_prettytable(tmp_df, title="Summary Statistics")
     print(tmp_df)
+    print_title("END FOR: Aggregated Statistics for all Hosts")
 
 
 if __name__ == "__main__":
