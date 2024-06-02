@@ -33,7 +33,7 @@ load_dotenv()
 def exec_topo(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
     """mplah"""
 
-    device = TopoSection(bf=bf, node=f"{task.host.name}", properties="Interfaces")
+    device = TopoSection(bf=bf, node=f"{task.host.name}", properties="Interface")
 
     data, ifaces = device.call_method_by_name(func_name, **kwargs)
 
