@@ -37,7 +37,7 @@ def exec_topo(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
 
     data = device.call_method_by_name(func_name, **kwargs)
 
-    return Result(host=task.host, result=data)
+    return Result(host=task.host, result=dict(data=data))
 
 
 class TopoSection(NodeSession):
@@ -126,7 +126,7 @@ def main():
         func_name="get_topo",
         severity_level=logging.INFO,
     )
-    print_result(topo_result)
+    print(topo_result)
 
 
 if __name__ == "__main__":
