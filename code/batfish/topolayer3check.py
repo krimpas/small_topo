@@ -33,7 +33,7 @@ load_dotenv()
 def exec_topo(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
     """mplah"""
 
-    device = TopoSection(bf=bf, node=f"{task.host.name}", properties="Interface")
+    device = TopoSection(bf=bf, node=f"{task.host.name}", properties="Declared_Names")
 
     data, l3 = device.call_method_by_name(func_name, **kwargs)
 
@@ -57,7 +57,7 @@ class TopoSection(NodeSession):
     """
 
     def __init__(
-        self, bf: Session, node: str = None, properties: str = "Interface"
+        self, bf: Session, node: str = None, properties: str = "Declared_Names"
     ) -> None:
         """
         Parameters
