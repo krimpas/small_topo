@@ -60,9 +60,9 @@ def main():
     for h, res in error_result.items():
         print_title(f"Host=[{h}]=>Erroneous L3 Interface Configuration")
         print(res.result["data"])
-        print(80 * "+")
+        print_title(f"Host=[{h}]=>Host Statistics")
         print(res.result["statistics"])
-        print_title("End of data and statistics")
+        print(80 * "+")
 
     # echo_nornir_result(error_result, title="L3 Interfaces Conf")
 
