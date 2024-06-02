@@ -19,12 +19,6 @@ trigger:
     - dev_L3ifaces
 
 steps:
-  - name: Container info
-    image: gkrimpas/small_topo:latest
-    commands:
-      - uname -v
-      - ls -la 
-      - env | grep BAT
   
   - name: Black & YamlLint YAML DATA & SCHEMA files
     image: gkrimpas/small_topo:latest
@@ -41,8 +35,4 @@ steps:
     image: gkrimpas/small_topo:latest
     commands:
       - make batfish
-  
-  - name: Batfishing L3 Topology
-    image: gkrimpas/small_topo:latest
-    commands:
       - make batfishtopo
