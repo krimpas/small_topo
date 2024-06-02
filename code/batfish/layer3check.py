@@ -42,7 +42,6 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
     return Result(host=task.host, result=dict(data=data, statistics=stats))
 
 
-
 def exec_topo(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
     """mplah"""
 
@@ -50,7 +49,8 @@ def exec_topo(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
 
     data = device.call_method_by_name(func_name, **kwargs)
 
-    return Result(host=task.host, result=data))
+    return Result(host=task.host, result=data)
+
 
 def main():
     """This is the main function which executes all the Nornir Tasks."""
@@ -88,9 +88,10 @@ def main():
         task=exec_topo,
         bf=bf_session,
         func_name="get_topo",
-        severity_level=logging.INFO
+        severity_level=logging.INFO,
     )
     print_result(topo_result)
+
 
 if __name__ == "__main__":
     main()
