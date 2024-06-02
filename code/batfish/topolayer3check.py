@@ -35,9 +35,9 @@ def exec_topo(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
 
     device = TopoSection(bf=bf, node=f"{task.host.name}", properties="Interface")
 
-    data, ifaces = device.call_method_by_name(func_name, **kwargs)
+    data, l3 = device.call_method_by_name(func_name, **kwargs)
 
-    return Result(host=task.host, result=dict(data=data, ifaces=ifaces))
+    return Result(host=task.host, result=dict(data=data, l3=l3))
 
 
 class TopoSection(NodeSession):
@@ -130,7 +130,8 @@ def main():
         print_title(f"Host=[{h}]=>L3 TOPOLOGY")
         print(res.result["data"])
         print_title(f"Host=[{h}]=>L3 ifaces")
-        print(res.result["ifaces"])
+        print(res.result["l3"])
+        print(80 * "+")
 
 
 if __name__ == "__main__":
