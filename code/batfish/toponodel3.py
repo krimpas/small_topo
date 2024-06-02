@@ -371,11 +371,7 @@ class TopoSection(NodeSession):
             .frame()
         )
 
-        self.layer3_topo = (
-            self.session_bf.q.layer3Edges(nodes=node, properties=properties)
-            .answer()
-            .frame()
-        )
+        self.layer3_topo = self.session_bf.q.layer3Edges(nodes=node).answer().frame()
 
     def get_topo(self):
         """returns topo layer3 interfaces"""
