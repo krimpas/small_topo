@@ -14,7 +14,7 @@ from nornir_utils.plugins.functions import print_result, print_title
 from dotenv import load_dotenv
 from bfish_init import bfish_init
 from pybatfish.client.session import Session
-from toponodel3 import NodeSection, TopoNodeL3Interface
+from toponodel3 import NodeSection, NodeL3Interface
 from customutils import process_stats, dataframe_to_prettytable, echo_nornir_result
 from typing import List
 from pprint import pprint
@@ -35,7 +35,7 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
 
     device = NodeSection(bf=bf, node=f"{task.host.name}", properties="Interfaces")
 
-    dfs = TopoNodeL3Interface(sot=ifaces[device.node], actual_df=device.actual)
+    dfs = NodeL3Interface(sot=ifaces[device.node], actual_df=device.actual)
 
     data, stats = dfs.call_method_by_name(func_name, **kwargs)
 
