@@ -35,9 +35,9 @@ def exec_topo(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
 
     device = TopoSection(bf=bf, node=f"{task.host.name}", properties="Interfaces")
 
-    data = device.call_method_by_name(func_name, **kwargs)
+    data, ifaces = device.call_method_by_name(func_name, **kwargs)
 
-    return Result(host=task.host, result=dict(data=data))
+    return Result(host=task.host, result=dict(data=data, ifaces=ifaces))
 
 
 class TopoSection(NodeSession):
@@ -57,7 +57,7 @@ class TopoSection(NodeSession):
     """
 
     def __init__(
-        self, bf: Session, node: str = None, properties: str = "Interfaces"
+        self, bf: Session, node: str = None, properties: str = "Interface"
     ) -> None:
         """
         Parameters
@@ -77,17 +77,17 @@ class TopoSection(NodeSession):
         super().__init__(bf, node)
 
         # Get the Node configuration info
-        # self.actual = (
-        #    self.session_bf.q.interfaceProperties(nodes=node, properties=properties)
-        #    .answer()
-        #    .frame()
-        # )
+        self.actual = (
+            self.session_bf.q.interfaceProperties(nodes=node, properties=properties)
+            .answer()
+            .frame()
+        )
 
         self.layer3_topo = self.session_bf.q.layer3Edges(nodes=node).answer().frame()
 
     def get_topo(self):
         """returns topo layer3 interfaces"""
-        return self.layer3_topo
+        return self.layer3_topo, self.actual
 
     def call_method_by_name(self, name, **kwargs):
         """
@@ -127,8 +127,10 @@ def main():
         severity_level=logging.INFO,
     )
     for h, res in topo_result.items():
-        print_title(f"Host=[{h}]=>Erroneous L3TOPOLOGY")
+        print_title(f"Host=[{h}]=>L3 TOPOLOGY")
         print(res.result["data"])
+        print_title(f"Host=[{h}]=>L3 ifaces")
+        print(res.result["ifaces"])
 
 
 if __name__ == "__main__":
