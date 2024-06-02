@@ -76,21 +76,12 @@ def main():
 
     # echo_nornir_result(error_result, title="L3 Interfaces Conf")
 
-    print_title("Aggregated Statistics for all Hosts")
+    print_title("Total Summary Statistics for all Hosts")
     tmp_df = process_stats(error_result)
 
     tmp_pt = dataframe_to_prettytable(tmp_df, title="Summary Statistics")
     print(tmp_pt)
-    print_title("END FOR: Aggregated Statistics for all Hosts")
-
-    topo_result = nr.run(
-        name="Erroneous L3 Topology",
-        task=exec_topo,
-        bf=bf_session,
-        func_name="get_topo",
-        severity_level=logging.INFO,
-    )
-    print(topo_result)
+    print_title("END: Total Summary Statistics for all Hosts")
 
 
 if __name__ == "__main__":
