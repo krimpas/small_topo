@@ -14,7 +14,7 @@ from nornir_utils.plugins.functions import print_result, print_title
 from dotenv import load_dotenv
 from bfish_init import bfish_init
 from pybatfish.client.session import Session
-from toponodel3 import NodeSection
+from toponodel3 import NodeSession
 from customutils import process_stats, dataframe_to_prettytable, echo_nornir_result
 from typing import List
 from pprint import pprint
