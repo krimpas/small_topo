@@ -41,3 +41,8 @@ steps:
     image: gkrimpas/small_topo:latest
     commands:
       - make batfish
+  
+  - name: Batfishing L3 Topology
+    image: gkrimpas/small_topo:latest
+    commands:
+      - make batfishtopo
