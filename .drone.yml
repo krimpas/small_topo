@@ -34,5 +34,4 @@ steps:
   - name: Batfishing L3 Interfaces
     image: gkrimpas/small_topo:latest
     commands:
-      - make batfish
       - make batfishtopo
