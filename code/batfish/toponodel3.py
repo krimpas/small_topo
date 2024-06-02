@@ -377,7 +377,6 @@ class TopoSection(NodeSession):
             .frame()
         )
 
-    @property
     def get_topo(self):
         """returns topo layer3 interfaces"""
         return self.layer3_topo
