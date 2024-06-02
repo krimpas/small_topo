@@ -90,7 +90,7 @@ def main():
         func_name="get_topo",
         severity_level=logging.INFO,
     )
-    print_result(topo_result)
+    print(topo_result)
 
 
 if __name__ == "__main__":
