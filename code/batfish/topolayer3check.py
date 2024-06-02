@@ -126,7 +126,9 @@ def main():
         func_name="get_topo",
         severity_level=logging.INFO,
     )
-    print(topo_result)
+    for h, res in topo_result.items():
+        print_title(f"Host=[{h}]=>Erroneous L3TOPOLOGY")
+        print(res.result["data"])
 
 
 if __name__ == "__main__":
