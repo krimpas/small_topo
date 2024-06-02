@@ -326,3 +326,80 @@ class NodeL3Interface:
         if method:
             res = method(**kwargs)
         return res
+
+
+class TopoSection(NodeSession):
+    """
+    Keeps an individual config section of topology.
+
+    Attributes
+    ----------
+    configured: Batfish DataFrame
+        Keeps the configuration section info of the specified node.\n
+        The config section is retrieved using the Batfish question \n
+        bf.q.nodeProperties().
+
+    actual: Batfish DataFrame
+        Dataframe derived from configured attribute.\n
+
+    """
+
+    def __init__(
+        self, bf: Session, node: str = None, properties: str = "Interfaces"
+    ) -> None:
+        """
+        Parameters
+        ----------
+        bf: Session
+            The already opened batfish Session object used to query the
+            batfish service.
+
+        node: str
+            The  Node or router name used by Nornir (task.host.name).
+
+        properties: str
+            The individual config feature of the node (i.e Interfaces)\n
+            It is used by the Batfish Query bf.q.nodeProperties()\n
+
+        """
+        super().__init__(bf, node)
+
+        # Get the Node configuration info
+        self.actual = (
+            self.session_bf.q.interfaceProperties(nodes=node, properties=properties)
+            .answer()
+            .frame()
+        )
+
+        self.layer3_topo = (
+            self.session_bf.q.layer3Edges(nodes=node, properties=properties)
+            .answer()
+            .frame()
+        )
+
+    @property
+    def get_topo(self):
+        """returns topo layer3 interfaces"""
+        return self.layer3_topo
+
+    def call_method_by_name(self, name, **kwargs):
+        """
+        Performs dynamic calls to any class method by using the
+        method name and any arguments needed.
+
+        Parameters
+        ----------
+        name: (str, mandatory)
+            The method name as string
+        kwargs: (dict, optional)
+            The method parameters values dict if any.
+
+        Returns
+        -------
+        res (Dataframe)
+        """
+        res = None
+        method = getattr(self, name, None)
+        if method:
+            res = method(**kwargs)
+        return res

@@ -14,7 +14,7 @@ from nornir_utils.plugins.functions import print_result, print_title
 from dotenv import load_dotenv
 from bfish_init import bfish_init
 from pybatfish.client.session import Session
-from toponodel3 import NodeSection, NodeL3Interface
+from toponodel3 import NodeSection, NodeL3Interface, TopoSection
 from customutils import process_stats, dataframe_to_prettytable, echo_nornir_result
 from typing import List
 from pprint import pprint
@@ -41,6 +41,16 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
 
     return Result(host=task.host, result=dict(data=data, statistics=stats))
 
+
+
+def exec_topo(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
+    """mplah"""
+
+    device = TopoSection(bf=bf, node=f"{task.host.name}", properties="Interfaces")
+
+    data = device.call_method_by_name(func_name, **kwargs)
+
+    return Result(host=task.host, result=data))
 
 def main():
     """This is the main function which executes all the Nornir Tasks."""
@@ -73,6 +83,14 @@ def main():
     print(tmp_pt)
     print_title("END FOR: Aggregated Statistics for all Hosts")
 
+    topo_result = nr.run(
+        name="Erroneous L3 Topology",
+        task=exec_topo,
+        bf=bf_session,
+        func_name="get_topo",
+        severity_level=logging.INFO
+    )
+    print_result(topo_result)
 
 if __name__ == "__main__":
     main()
