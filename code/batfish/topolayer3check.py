@@ -84,6 +84,10 @@ class TopoSection(NodeSession):
         )
 
         self.layer3_topo = self.session_bf.q.layer3Edges(nodes=node).answer().frame()
+        #
+
+    def build_missing_topo(self):
+        """_summary_"""
 
     def get_topo(self):
         """returns topo layer3 interfaces"""
@@ -127,9 +131,9 @@ def main():
         severity_level=logging.INFO,
     )
     for h, res in topo_result.items():
-        print_title(f"Host=[{h}]=>L3 TOPOLOGY")
+        print_title(f"Host=[{h}]=>L3 Topology")
         print(res.result["data"])
-        print_title(f"Host=[{h}]=>L3 ifaces")
+        print_title(f"Host=[{h}]=>L3 Actual L3 interfaces")
         print(res.result["l3"])
         print(80 * "+")
 
