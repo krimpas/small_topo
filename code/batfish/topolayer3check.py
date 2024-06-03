@@ -85,13 +85,34 @@ class TopoSection(NodeSession):
 
         self.layer3_topo = self.session_bf.q.layer3Edges(nodes=node).answer().frame()
         #
+        self.actual_not_in_topo = self._build_erroneous_topo(
+            left_df=self.actual, right_df=self.layer3_topo
+        )
 
-    def build_missing_topo(self):
+    def topo_layer3_erroneous(self):
+        """checks"""
+        return self.actual_not_in_topo
+
+    def _build_erroneous_topo(self, left_df: pd.DataFrame, right_df: pd.DataFrame):
         """_summary_"""
+        #
+        erroneous_ifaces = pd.merge(
+            left_df[["Interface"]],
+            right_df[["Interface"]],
+            on="Interface",
+            how="left",
+            indicator=True,
+        )
+
+        return (
+            erroneous_ifaces[erroneous_ifaces["_merge"] == "left_only"]
+            .drop(columns=["_merge"])
+            .reset_index(drop=True)
+        )
 
     def get_topo(self):
         """returns topo layer3 interfaces"""
-        return self.layer3_topo, self.actual
+        return self.layer3_topo, self.actual_not_in_topo
 
     def call_method_by_name(self, name, **kwargs):
         """
@@ -133,7 +154,7 @@ def main():
     for h, res in topo_result.items():
         print_title(f"Host=[{h}]=>L3 Topology")
         print(res.result["data"])
-        print_title(f"Host=[{h}]=>L3 Actual L3 interfaces")
+        print_title(f"Host=[{h}]=>L3 Actual L3 interfaces not in L3Topo")
         print(res.result["l3"])
         print(80 * "+")
 
