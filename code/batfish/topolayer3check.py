@@ -189,7 +189,11 @@ class TopoSection(NodeSession):
             indicator=True,
         )
 
-        anti_join = outer[(outer["_merge"] == "left_only")].drop("_merge", axis=1)
+        anti_join = (
+            outer[(outer["_merge"] == "left_only")]
+            .drop(columns=["_merge"])
+            .reset_index(drop=True)
+        )
 
         return anti_join
 
