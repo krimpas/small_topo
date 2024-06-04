@@ -146,7 +146,7 @@ class TopoSection(NodeSession):
         #
         erroneous_ifaces = pd.merge(
             left_df[["Interface"]],
-            right_df[["Interface"]],
+            right_df[["Interface"]].drop_duplicates(),
             on="Interface",
             how="left",
             indicator=True,
