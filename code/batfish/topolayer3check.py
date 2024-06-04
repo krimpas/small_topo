@@ -144,8 +144,8 @@ class TopoSection(NodeSession):
     def _build_erroneous_topo(self, left_df: pd.DataFrame, right_df: pd.DataFrame):
         """_summary_"""
         #
-        right=right_df[['Interface']]
-        right=right.drop)duplicates(keep=False)
+        right = right_df[["Interface"]]
+        right = right.drop_duplicates(keep=False)
         erroneous_ifaces = pd.merge(
             left_df[["Interface"]],
             right,
