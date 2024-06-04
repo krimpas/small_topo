@@ -113,7 +113,7 @@ class TopoSection(NodeSession):
                 axis=1,
             )
         ]
-        self.sot_not_in_topo = self._build_erroneous_topo2(
+        self.sot_not_in_topo = self._build_erroneous_top(
             left_df=self.layer3_sot, right_df=self.layer3_topo
         )
 
@@ -173,7 +173,7 @@ class TopoSection(NodeSession):
 
         return (
             erroneous_ifaces[erroneous_ifaces["_merge"] == "left_only"]
-            .drop(columns=["_merge"])
+            .drop(columns=["_merge"], acis=1)
             .reset_index(drop=True)
         )
 
