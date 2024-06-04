@@ -164,8 +164,8 @@ class TopoSection(NodeSession):
 
         """
         erroneous_ifaces = pd.merge(
-            left_df[["Interface"]],
-            right_df[["Interface"]],
+            left_df,
+            right_df,
             on="Interface",
             how="left",
             indicator=True,
@@ -188,7 +188,7 @@ class TopoSection(NodeSession):
 
     def get_topo(self):
         """returns topo layer3 interfaces"""
-        return self.layer3_topo, self.layer3_sot
+        return self.layer3_topo, self.actual_not_in_topo
 
     def call_method_by_name(self, name, **kwargs):
         """
