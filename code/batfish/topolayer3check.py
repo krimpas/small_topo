@@ -109,7 +109,7 @@ class TopoSection(NodeSession):
 
         self.layer3_sot = tmp_layer3_sot[
             tmp_layer3_sot.apply(
-                lambda row: not row["Interface"].startswith("Loop"),
+                lambda row: "Loop" not in row["Interface"],
                 axis=1,
             )
         ]
