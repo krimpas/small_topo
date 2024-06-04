@@ -113,9 +113,9 @@ class TopoSection(NodeSession):
                 axis=1,
             )
         ]
-        # self.sot_not_in_topo = self._build_erroneous_topo2(
-        #    left_df=self.layer3_sot, right_df=self.layer3_topo
-        # )
+        self.sot_not_in_topo = self._build_erroneous_topo2(
+            left_df=self.layer3_sot, right_df=self.layer3_topo
+        )
 
     def _build_sot(self, source_of_truth: List = None) -> pd.DataFrame:
         """
@@ -180,7 +180,14 @@ class TopoSection(NodeSession):
     def _build_erroneous_topo2(self, left_df: pd.DataFrame, right_df: pd.DataFrame):
         """_summary_"""
         #
-        outer = left_df.merge(right_df, how="outer", on="Interface", indicator=True)
+        outer = pd / merge(
+            left_df,
+            right_df,
+            how="outer",
+            left_on="Interface",
+            right_on="Interface",
+            indicator=True,
+        )
 
         anti_join = outer[(outer["_merge"] == "left_only")].drop("_merge", axis=1)
 
