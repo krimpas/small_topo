@@ -165,7 +165,7 @@ class TopoSection(NodeSession):
             how="left",
             indicator=True,
         )
-
+        print(erroneous_ifaces)
         return (
             erroneous_ifaces[erroneous_ifaces["_merge"] == "left_only"]
             .drop(columns=["_merge"])
