@@ -158,8 +158,8 @@ class TopoSection(NodeSession):
         """_summary_"""
         #
         erroneous_ifaces = pd.merge(
-            left_df,
-            right_df,
+            left_df[["Interface"]],
+            right_df[["Interface"]],
             left_on="Interface.interface",
             right_on="Interface",
             how="left",
