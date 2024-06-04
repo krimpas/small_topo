@@ -187,7 +187,7 @@ class TopoSection(NodeSession):
             right_df,
             how="outer",
             left_on="Interface",
-            right_on="Interface",
+            right_on="Interface.interface",
             indicator=True,
         )
 
