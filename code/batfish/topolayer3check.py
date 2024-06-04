@@ -145,30 +145,13 @@ class TopoSection(NodeSession):
         """_summary_"""
         #
         erroneous_ifaces = pd.merge(
-            left_df[["Interface"]],
-            right_df[["Interface"]],
+            left_df,
+            right_df,
             on="Interface",
             how="left",
             indicator=True,
         )
 
-        return (
-            erroneous_ifaces[erroneous_ifaces["_merge"] == "left_only"]
-            .drop(columns=["_merge"])
-            .reset_index(drop=True)
-        )
-
-    def _build_erroneous_topo2(self, left_df: pd.DataFrame, right_df: pd.DataFrame):
-        """_summary_"""
-        #
-        erroneous_ifaces = pd.merge(
-            left_df[["Interface"]],
-            right_df[["Interface"]],
-            left_on="Interface",
-            right_on="Interface",
-            how="left",
-            indicator=True,
-        )
         return (
             erroneous_ifaces[erroneous_ifaces["_merge"] == "left_only"]
             .drop(columns=["_merge"])
