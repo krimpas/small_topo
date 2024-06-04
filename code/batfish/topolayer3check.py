@@ -93,7 +93,7 @@ class TopoSection(NodeSession):
         )
         self.actual = tmp_actual[
             tmp_actual.apply(
-                lambda row: row["Interface"].hostname == self.node
+                lambda row: row["Interface"].hostname == node
                 and not row["Interface"].interface.startswith("Loop"),
                 axis=1,
             )
@@ -113,9 +113,9 @@ class TopoSection(NodeSession):
                 axis=1,
             )
         ]
-        self.sot_not_in_topo = self._build_erroneous_topo2(
-            left_df=self.layer3_sot, right_df=self.layer3_topo
-        )
+        # self.sot_not_in_topo = self._build_erroneous_topo2(
+        #    left_df=self.layer3_sot, right_df=self.layer3_topo
+        # )
 
     def _build_sot(self, source_of_truth: List = None) -> pd.DataFrame:
         """
@@ -164,8 +164,8 @@ class TopoSection(NodeSession):
 
         """
         erroneous_ifaces = pd.merge(
-            left_df,
-            right_df,
+            left_df[["Interface"]],
+            right_df[["Interface"]],
             on="Interface",
             how="left",
             indicator=True,
@@ -188,7 +188,7 @@ class TopoSection(NodeSession):
 
     def get_topo(self):
         """returns topo layer3 interfaces"""
-        return self.layer3_topo, self.actual
+        return self.layer3_topo, self.actual_not_in_topo
 
     def call_method_by_name(self, name, **kwargs):
         """
