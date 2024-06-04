@@ -35,7 +35,7 @@ def exec_topo(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
 
     device = TopoSection(
         bf=bf,
-        sot=ifaces[f"{task.host.name}"],
+        sot=ifaces[task.host.name],
         node=f"{task.host.name}",
         properties="Declared_Names",
     )
