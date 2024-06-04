@@ -180,7 +180,7 @@ class TopoSection(NodeSession):
     def _build_erroneous_topo2(self, left_df: pd.DataFrame, right_df: pd.DataFrame):
         """_summary_"""
         #
-        outer = pd / merge(
+        outer = pd.merge(
             left_df,
             right_df,
             how="outer",
