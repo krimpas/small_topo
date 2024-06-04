@@ -173,7 +173,7 @@ class TopoSection(NodeSession):
 
         return (
             erroneous_ifaces[erroneous_ifaces["_merge"] == "left_only"]
-            .drop(columns=["_merge"], acis=1)
+            .drop(columns=["_merge"])
             .reset_index(drop=True)
         )
 
