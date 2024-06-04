@@ -30,6 +30,16 @@ ifaces = {
 load_dotenv()
 
 
+class nodeiface:
+
+    def __init__(self, node: str, interface: str):
+        self.node = node
+        self.interface = interface
+
+    def __repr__(self):
+        return self.node + "[" + self.interface + "]"
+
+
 def exec_topo(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
     """mplah"""
 
@@ -134,7 +144,7 @@ class TopoSection(NodeSession):
         """
         sot_list = []
         for sot_item in source_of_truth:
-            new_item = f"{self.node}[{sot_item}]"
+            new_item = nodeiface(node=self.node, interface=sot_item)
             sot_list.append(new_item)
         return pd.DataFrame.from_dict({"Interface": sot_list})
 
@@ -187,7 +197,7 @@ class TopoSection(NodeSession):
             right_df,
             how="outer",
             left_on="Interface",
-            right_on="Interface.interface",
+            right_on="Interface",
             indicator=True,
         )
 
