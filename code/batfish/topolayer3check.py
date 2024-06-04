@@ -131,7 +131,7 @@ class TopoSection(NodeSession):
         Dataframe
         The SoT Dataframe for the L3 Interfaces.
         """
-        return pd.DataFrame.from_dict({"Interfaces": source_of_truth})
+        return pd.DataFrame.from_dict({"Interface": source_of_truth})
 
     def topo_layer3_erroneous(self):
         """checks"""
