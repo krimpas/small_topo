@@ -164,9 +164,9 @@ class TopoSection(NodeSession):
 
         """
         erroneous_ifaces = pd.merge(
-            left_df[["Interfaces"]],
-            right_df[["Interfaces"]],
-            on="Interfaces",
+            left_df[["Interface"]],
+            right_df[["Interface"]],
+            on="Interface",
             how="left",
             indicator=True,
         )
@@ -182,7 +182,7 @@ class TopoSection(NodeSession):
         #
         outer = left_df.merge(right_df, how="outer", on="Interface", indicator=True)
 
-        anti_join = outer[(outer._merge == "left_only")].drop("_merge", axis=1)
+        anti_join = outer[outer["_merge"] == "left_only"].drop("_merge", axis=1)
 
         return anti_join
 
