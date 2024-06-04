@@ -93,7 +93,7 @@ class TopoSection(NodeSession):
         )
         self.actual = tmp_actual[
             tmp_actual.apply(
-                lambda row: row["Interface"].hostname == node
+                lambda row: row["Interface"].hostname == self.node
                 and not row["Interface"].interface.startswith("Loop"),
                 axis=1,
             )
