@@ -33,7 +33,12 @@ load_dotenv()
 def exec_topo(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
     """mplah"""
 
-    device = TopoSection(bf=bf, node=f"{task.host.name}", properties="Declared_Names")
+    device = TopoSection(
+        bf=bf,
+        sot=ifaces[f"{task.host.name}"],
+        node=f"{task.host.name}",
+        properties="Declared_Names",
+    )
 
     data, l3 = device.call_method_by_name(func_name, **kwargs)
 
@@ -57,7 +62,11 @@ class TopoSection(NodeSession):
     """
 
     def __init__(
-        self, bf: Session, node: str = None, properties: str = "Declared_Names"
+        self,
+        bf: Session,
+        sot: List,
+        node: str = None,
+        properties: str = "Declared_Names",
     ) -> None:
         """
         Parameters
@@ -96,6 +105,28 @@ class TopoSection(NodeSession):
             left_df=self.actual, right_df=self.layer3_topo
         )
 
+        self.layer3_sot = self._build_sot(source_of_truth=sot)
+
+        self.sot_not_in_topo = self._build_erroneous_topo2(
+            left_df=self.layer3_topo, right_df=self.layer3_sot
+        )
+
+    def _build_sot(self, source_of_truth: List = None) -> pd.DataFrame:
+        """
+        Creates the SoT Dataframe for the L3 Interfaces.
+
+        Parameters
+        ----------
+        source_of_truth: List
+            The source of truth for L3 Interfaces.
+
+        Returns
+        -------
+        Dataframe
+        The SoT Dataframe for the L3 Interfaces.
+        """
+        return pd.DataFrame.from_dict({"Interfaces": source_of_truth})
+
     def topo_layer3_erroneous(self):
         """checks"""
         return self.actual_not_in_topo
@@ -117,9 +148,27 @@ class TopoSection(NodeSession):
             .reset_index(drop=True)
         )
 
+    def _build_erroneous_topo2(self, left_df: pd.DataFrame, right_df: pd.DataFrame):
+        """_summary_"""
+        #
+        erroneous_ifaces = pd.merge(
+            left_df,
+            right_df,
+            left_on="Interface.interface",
+            right_on="Interface",
+            how="left",
+            indicator=True,
+        )
+
+        return (
+            erroneous_ifaces[erroneous_ifaces["_merge"] == "left_only"]
+            .drop(columns=["_merge"])
+            .reset_index(drop=True)
+        )
+
     def get_topo(self):
         """returns topo layer3 interfaces"""
-        return self.layer3_topo, self.actual_not_in_topo
+        return self.layer3_topo, self.sot_not_in_topo
 
     def call_method_by_name(self, name, **kwargs):
         """
