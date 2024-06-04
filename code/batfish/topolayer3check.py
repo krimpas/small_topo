@@ -131,7 +131,11 @@ class TopoSection(NodeSession):
         Dataframe
         The SoT Dataframe for the L3 Interfaces.
         """
-        return pd.DataFrame.from_dict({"Interface": source_of_truth})
+        sot_list = []
+        for sot_item in source_of_truth:
+            new_item = f"{self.node}[{sot_item}]"
+            sot_list.append(new_item)
+        return pd.DataFrame.from_dict({"Interface": sot_list})
 
     def topo_layer3_erroneous(self):
         """checks"""
@@ -160,12 +164,11 @@ class TopoSection(NodeSession):
         erroneous_ifaces = pd.merge(
             left_df[["Interface"]],
             right_df[["Interface"]],
-            left_on="Interface.interface",
+            left_on="Interface",
             right_on="Interface",
             how="left",
             indicator=True,
         )
-        print(erroneous_ifaces)
         return (
             erroneous_ifaces[erroneous_ifaces["_merge"] == "left_only"]
             .drop(columns=["_merge"])
