@@ -150,6 +150,7 @@ class TopoSection(NodeSession):
             on="Interface",
             how="left",
             indicator=True,
+            validate="one_to_many",
         )
 
         return (
