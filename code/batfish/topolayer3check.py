@@ -182,13 +182,13 @@ class TopoSection(NodeSession):
         #
         outer = left_df.merge(right_df, how="outer", on="Interface", indicator=True)
 
-        anti_join = outer[outer["_merge"] == "left_only"].drop("_merge", axis=1)
+        anti_join = outer[(outer["_merge"] == "left_only")].drop("_merge", axis=1)
 
         return anti_join
 
     def get_topo(self):
         """returns topo layer3 interfaces"""
-        return self.layer3_topo, self.sot_not_in_topo
+        return self.layer3_topo, self.actual_not_in_topo
 
     def call_method_by_name(self, name, **kwargs):
         """
