@@ -113,7 +113,7 @@ class TopoSection(NodeSession):
                 axis=1,
             )
         ]
-        self.sot_not_in_topo = self._build_erroneous_topo2(
+        self.sot_not_in_topo = self._build_erroneous_topo(
             left_df=self.layer3_topo, right_df=self.layer3_sot
         )
 
