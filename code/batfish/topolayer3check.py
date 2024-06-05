@@ -124,7 +124,7 @@ class TopoSection(NodeSession):
             )
         ]
 
-        # self.sot_not_in_topo = self._build_erroneous_topo(
+        # self.sot_not_in_topo = self._build_erroneous_topo2(
         #    left_df=self.layer3_sot, right_df=self.layer3_topo
         # )
 
@@ -206,7 +206,7 @@ class TopoSection(NodeSession):
 
     def get_topo(self):
         """returns topo layer3 interfaces"""
-        return self.layer3_topo, self.actual_not_in_topo
+        return self.layer3_topo, self.layer3_sot
 
     def call_method_by_name(self, name, **kwargs):
         """
