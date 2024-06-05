@@ -247,7 +247,7 @@ def main():
     )
     for h, res in topo_result.items():
         print_title(f"Host=[{h}]=>L3 Topology")
-        print(res.result["data"])
+        # print(res.result["data"])
         print_title(f"Host=[{h}]=>L3 Actual L3 interfaces not in L3Topo")
         print(res.result["l3"])
         print(80 * "+")
