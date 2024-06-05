@@ -124,9 +124,9 @@ class TopoSection(NodeSession):
             )
         ]
 
-        # self.sot_not_in_topo = self._build_erroneous_topo2(
-        #    left_df=self.layer3_sot, right_df=self.layer3_topo
-        # )
+        self.sot_not_in_topo = self._build_erroneous_topo(
+            left_df=self.layer3_sot, right_df=self.layer3_topo
+        )
 
     def _build_sot(self, source_of_truth: List = None) -> pd.DataFrame:
         """
@@ -196,8 +196,6 @@ class TopoSection(NodeSession):
             left_df,
             right_df,
             how="outer",
-            left_on="Interface",
-            right_on="Interface",
             indicator=True,
         )
 
