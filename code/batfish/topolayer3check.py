@@ -115,7 +115,7 @@ class TopoSection(NodeSession):
             left_df=self.actual, right_df=self.layer3_topo
         )
 
-        self.layer3_sot = self._build_sot(source_of_truth=sot)
+        # self.layer3_sot = self._build_sot(source_of_truth=sot)
 
         # self.layer3_sot = tmp_layer3_sot[
         #    tmp_layer3_sot.apply(
