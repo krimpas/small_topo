@@ -119,7 +119,7 @@ class TopoSection(NodeSession):
 
         self.layer3_sot = tmp_layer3_sot[
             tmp_layer3_sot.apply(
-                lambda row: "Loop" not in row["Interface"],
+                lambda row: not row["Interface"].interface.startswith("Loop"),
                 axis=1,
             )
         ]
@@ -171,8 +171,8 @@ class TopoSection(NodeSession):
 
         """
         erroneous_ifaces = pd.merge(
-            left_df,
-            right_df,
+            left_df[["Interfaces"]],
+            right_df[["Interfaces"]],
             on="Interface",
             how="left",
             indicator=True,
