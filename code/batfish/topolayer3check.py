@@ -111,7 +111,7 @@ class TopoSection(NodeSession):
 
         self.layer3_topo = self.session_bf.q.layer3Edges(nodes=node).answer().frame()
         #
-        self.actual_not_in_topo = self._build_erroneous_topo(
+        self.actual_not_in_topo = self._build_erroneous_topo2(
             left_df=self.actual, right_df=self.layer3_topo
         )
 
@@ -191,6 +191,7 @@ class TopoSection(NodeSession):
             left_df,
             right_df,
             how="outer",
+            on="Interface",
             indicator=True,
         )
 
