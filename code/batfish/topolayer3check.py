@@ -124,9 +124,9 @@ class TopoSection(NodeSession):
             )
         ]
 
-        self.sot_not_in_topo = self._build_erroneous_topo(
-            left_df=self.layer3_sot, right_df=self.layer3_topo
-        )
+        # self.sot_not_in_topo = self._build_erroneous_topo(
+        #    left_df=self.layer3_sot, right_df=self.layer3_topo
+        # )
 
     def _build_sot(self, source_of_truth: List = None) -> pd.DataFrame:
         """
@@ -147,10 +147,6 @@ class TopoSection(NodeSession):
             new_item = nodeiface(node=self.node, interface=sot_item)
             sot_list.append(new_item)
         return pd.DataFrame.from_dict({"Interface": sot_list})
-
-    def topo_layer3_erroneous(self):
-        """checks"""
-        return self.actual_not_in_topo
 
     def _build_erroneous_topo(self, left_df: pd.DataFrame, right_df: pd.DataFrame):
         """
