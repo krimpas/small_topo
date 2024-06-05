@@ -148,12 +148,12 @@ class TopoSection(NodeSession):
             sot_list.append(new_item)
         return pd.DataFrame.from_dict({"Interface": sot_list})
 
-    def _build_erroneous_topo(self, left_df: pd.DataFrame, right_df: pd.DataFrame):
+    def _build_erroneous_topo2(self, left_df: pd.DataFrame, right_df: pd.DataFrame):
         """
         Used to create the Unexpected L3 Interfaces and Missing L3\n
         Interfaces DataFrame. This is achieved by merging the left_df\n
         and right_df DataFrames on "Interfaces" column by performing\n
-        LEFT JOIN.
+        LEFT ANTI JOIN.
 
         Parameters
         ----------
@@ -170,22 +170,6 @@ class TopoSection(NodeSession):
             returns the Unexpected L3 Interfaces.
 
         """
-        erroneous_ifaces = pd.merge(
-            left_df[["Interface"]],
-            right_df[["Interface"]],
-            on="Interface",
-            how="left",
-            indicator=True,
-        )
-
-        return (
-            erroneous_ifaces[erroneous_ifaces["_merge"] == "left_only"]
-            .drop(columns=["_merge"])
-            .reset_index(drop=True)
-        )
-
-    def _build_erroneous_topo2(self, left_df: pd.DataFrame, right_df: pd.DataFrame):
-        """_summary_"""
         #
         outer = pd.merge(
             left_df[["Interface"]],
