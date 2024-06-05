@@ -191,8 +191,8 @@ class TopoSection(NodeSession):
             left_df[["Interface"]],
             right_df[["Interface"]],
             how="outer",
-            left_on="Interface",
-            right_on="Interface",
+            left_on="Interface.interface",
+            right_on="Interface.interface",
             indicator=True,
         )
 
