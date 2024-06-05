@@ -188,8 +188,8 @@ class TopoSection(NodeSession):
         """_summary_"""
         #
         outer = pd.merge(
-            left_df,
-            right_df,
+            left_df[["Interface"]],
+            right_df[["Interface"]],
             how="outer",
             left_on="Interface",
             right_on="Interface",
@@ -206,7 +206,7 @@ class TopoSection(NodeSession):
 
     def get_topo(self):
         """returns topo layer3 interfaces"""
-        return self.layer3_topo, self.actual
+        return self.layer3_topo, self.actual_not_in_topo
 
     def call_method_by_name(self, name, **kwargs):
         """
