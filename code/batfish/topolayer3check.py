@@ -115,14 +115,14 @@ class TopoSection(NodeSession):
             left_df=self.actual, right_df=self.layer3_topo
         )
 
-        self.layer3_sot = self._build_sot(source_of_truth=sot)
+        tmp_layer3_sot = self._build_sot(source_of_truth=sot)
 
-        # self.layer3_sot = tmp_layer3_sot[
-        #    tmp_layer3_sot.apply(
-        #        lambda row: not row["Interface"].interface.startswith("Loop"),
-        #        axis=1,
-        #    )
-        # ]
+        self.layer3_sot = tmp_layer3_sot[
+            tmp_layer3_sot.apply(
+                lambda row: not row["Interface"].interface.startswith("Loop"),
+                axis=1,
+            )
+        ]
 
         # self.sot_not_in_topo = self._build_erroneous_topo(
         #    left_df=self.layer3_sot, right_df=self.layer3_topo
