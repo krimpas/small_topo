@@ -235,15 +235,11 @@ class TopoSection(NodeSession):
         stats: DataFrame
             The statistical DataFrame of the check.
         """
-        is_actual_not_in_topo = self.actual_not_in_topo.shape[0] == 0
-        is_sot_not_in_topo = self.sot_not_in_topo.shape[0] == 0
-        is_topo_not_in__sot = self.topo_not_in_sot.shape[0] == 0
+        c1 = self.actual_not_in_topo.shape[0] == 0
+        c2 = self.sot_not_in_topo.shape[0] == 0
+        c3 = self.topo_not_in_sot.shape[0] == 0
 
-        error_code, status = (
-            (0, "PASSED")
-            if is_actual_not_in_topo and is_sot_not_in_topo and is_topo_not_in__sot
-            else (-1, "FAILED")
-        )
+        error_code, status = (0, "PASSED") if c1 and c2 and c3 else (-1, "FAILED")
 
         stats = {
             "retcode": [error_code],
