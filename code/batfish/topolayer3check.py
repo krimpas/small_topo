@@ -308,6 +308,7 @@ def main():
         print(res.result["statistics"])
         print(80 * "+")
 
+    print(80 * "#")
     print_title("Total Summary Statistics for all Hosts")
     tmp_df = process_stats(topo_result)
 
