@@ -41,9 +41,9 @@ def exec_topo(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
         properties="Declared_Names",
     )
 
-    data, l3 = device.call_method_by_name(func_name, **kwargs)
+    data, statistics = device.call_method_by_name(func_name, **kwargs)
 
-    return Result(host=task.host, result=dict(data=data, l3=l3))
+    return Result(host=task.host, result=dict(data=data, statistics=statistics))
 
 
 class TopoSection(NodeSession):
@@ -297,8 +297,15 @@ def main():
         print_title(f"Host=[{h}]=>L3 Topology")
         print(res.result["data"])
         print_title(f"Host=[{h}]=>L3 Topo not in SoT")
-        print(res.result["l3"])
+        print(res.result["statistics"])
         print(80 * "+")
+
+    print_title("Total Summary Statistics for all Hosts")
+    tmp_df = process_stats(topo_result)
+
+    tmp_pt = dataframe_to_prettytable(tmp_df, title="Summary Statistics")
+    print(tmp_pt)
+    print_title("END: Total Summary Statistics for all Hosts")
 
 
 if __name__ == "__main__":
