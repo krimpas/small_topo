@@ -200,17 +200,17 @@ class TopoSection(NodeSession):
 
         tmp_actual = self.actual_not_in_topo
         tmp_actual.rename(
-            mapper={"Interfaces": "Actual_Not_in_L3_Topo"}, axis=1, inplace=True
+            mapper={"Interface": "Actual_Not_in_L3_Topo"}, axis=1, inplace=True
         )
 
         tmp_unexpected = self.topo_not_in_sot
         tmp_unexpected.rename(
-            mapper={"Interfaces": "L3_Topo_Not_in_SoT"}, axis=1, inplace=True
+            mapper={"Interface": "L3_Topo_Not_in_SoT"}, axis=1, inplace=True
         )
 
         tmp_missing = self.sot_not_in_topo
         tmp_missing.rename(
-            mapper={"Interfaces": "SoT_Not_in_L3_Topo"}, axis=1, inplace=True
+            mapper={"Interface": "SoT_Not_in_L3_Topo"}, axis=1, inplace=True
         )
 
         tmp_erroneous = pd.concat(
