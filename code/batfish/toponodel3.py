@@ -28,7 +28,6 @@ __author__ = "Krimpas George"
 from typing import List
 import pandas as pd
 from pybatfish.client.session import Session
-from customutils import dataframe_to_prettytable
 
 
 class NodeSession:
