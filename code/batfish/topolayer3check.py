@@ -129,6 +129,10 @@ class TopoSection(NodeSession):
             left_df=self.layer3_sot, right_df=self.layer3_topo
         )
 
+        self.topo_not_in_sot = self._build_erroneous_topo2(
+            left_df=self.layer3_topo, right_df=self.layer3_sot
+        )
+
     def _build_sot(self, source_of_truth: List = None) -> pd.DataFrame:
         """
         Creates the SoT Dataframe for the L3 Interfaces.
@@ -191,7 +195,7 @@ class TopoSection(NodeSession):
 
     def get_topo(self):
         """returns topo layer3 interfaces"""
-        return self.layer3_topo, self.sot_not_in_topo
+        return self.layer3_topo, self.topo_not_in_sot
 
     def call_method_by_name(self, name, **kwargs):
         """
@@ -233,7 +237,7 @@ def main():
     for h, res in topo_result.items():
         print_title(f"Host=[{h}]=>L3 Topology")
         print(res.result["data"])
-        print_title(f"Host=[{h}]=>L3 Actual L3 interfaces not in L3Topo")
+        print_title(f"Host=[{h}]=>L3 Topo not in SoT")
         print(res.result["l3"])
         print(80 * "+")
 
