@@ -18,6 +18,7 @@ from toponodel3 import NodeSession
 from customutils import process_stats, dataframe_to_prettytable, echo_nornir_result
 from typing import List
 from pprint import pprint
+from pybatfish.datamodel.primitives import Interface
 
 ifaces = {
     "r1": ["GigabitEthernet2", "GigabitEthernet4", "Loopback0"],
@@ -144,7 +145,7 @@ class TopoSection(NodeSession):
         """
         sot_list = []
         for sot_item in source_of_truth:
-            new_item = nodeiface(node=self.node, interface=sot_item)
+            new_item = Interface(hostname=self.node, interface=sot_item)
             sot_list.append(new_item)
         return pd.DataFrame.from_dict({"Interface": sot_list})
 
@@ -190,7 +191,7 @@ class TopoSection(NodeSession):
 
     def get_topo(self):
         """returns topo layer3 interfaces"""
-        return self.layer3_topo, self.actual_not_in_topo
+        return self.layer3_topo, self.layer3_sot
 
     def call_method_by_name(self, name, **kwargs):
         """
