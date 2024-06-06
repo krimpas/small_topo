@@ -41,9 +41,11 @@ def exec_topo(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
         properties="Declared_Names",
     )
 
-    data, statistics = device.call_method_by_name(func_name, **kwargs)
+    topo, data, statistics = device.call_method_by_name(func_name, **kwargs)
 
-    return Result(host=task.host, result=dict(data=data, statistics=statistics))
+    return Result(
+        host=task.host, result=dict(topo=topo, data=data, statistics=statistics)
+    )
 
 
 class TopoSection(NodeSession):
@@ -254,7 +256,11 @@ class TopoSection(NodeSession):
 
     def get_topo(self):
         """returns topo layer3 interfaces"""
-        return self.layer3_topo_erroneous(), self.layer3_topo_statistics()
+        return (
+            self.layer3_topo,
+            self.layer3_topo_erroneous(),
+            self.layer3_topo_statistics(),
+        )
 
     def call_method_by_name(self, name, **kwargs):
         """
@@ -295,8 +301,10 @@ def main():
     )
     for h, res in topo_result.items():
         print_title(f"Host=[{h}]=>L3 Topology")
+        print(res.result["topo"])
+        print_title(f"Host=[{h}]=>L3 Topo Errors")
         print(res.result["data"])
-        print_title(f"Host=[{h}]=>L3 Topo not in SoT")
+        print_title(f"Host=[{h}]=>L3 Topo statistics")
         print(res.result["statistics"])
         print(80 * "+")
 
