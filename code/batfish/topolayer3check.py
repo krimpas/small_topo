@@ -222,9 +222,39 @@ class TopoSection(NodeSession):
 
         return tmp_erroneous
 
+    def layer3_topo_statistics(self):
+        """
+        Calculates the status and statistical info of the checks. The
+        status of the check is PASSED if the missing and unexpected
+        DataFrames are empty, otherwise the status is FAILED.
+
+        Returns
+        -------
+        stats: DataFrame
+            The statistical DataFrame of the check.
+        """
+        is_actual_not_in_topo = self.actual_not_in_topo.shape[0] == 0
+        is_sot_not_in_topo = self.sot_not_in_topo.shape[0] == 0
+        is_topo_not_in__sot = self.topo_not_in_sot.shape[0] == 0
+
+        error_code, status = (
+            (0, "PASSED")
+            if is_actual_not_in_topo and is_sot_not_in_topo and is_topo_not_in__sot
+            else (-1, "FAILED")
+        )
+
+        stats = {
+            "retcode": [error_code],
+            "ActualNotInTopo": [self.actual_not_in_topo.shape[0]],
+            "SoTNotInTopo": [self.sot_not_in_topo.shape[0]],
+            "TopoNotInSoT": [self.topo_not_in_sot.shape[0]],
+            "Status": [status],
+        }
+        return pd.DataFrame.from_dict(stats)
+
     def get_topo(self):
         """returns topo layer3 interfaces"""
-        return self.layer3_topo, self.layer3_topo_erroneous()
+        return self.layer3_topo_erroneous(), self.layer3_topo_statistics()
 
     def call_method_by_name(self, name, **kwargs):
         """
