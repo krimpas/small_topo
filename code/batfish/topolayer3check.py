@@ -191,7 +191,7 @@ class TopoSection(NodeSession):
 
     def get_topo(self):
         """returns topo layer3 interfaces"""
-        return self.layer3_topo, self.layer3_sot
+        return self.layer3_topo, self.sot_not_in_topo
 
     def call_method_by_name(self, name, **kwargs):
         """
