@@ -314,10 +314,10 @@ def main():
     tmp_pt = dataframe_to_prettytable(tmp_df, title="Summary Statistics")
     print(tmp_pt)
     print_title("END: Total Summary Statistics for all Hosts")
-    print(80 * "+")
-    print(80 * "+")
-    print_result(topo_result)
-    print(80 * "+")
+    print(80 * "#")
+    # print(80 * "+")
+    # print_result(topo_result)
+    # print(80 * "+")
 
 
 if __name__ == "__main__":
