@@ -31,16 +31,6 @@ ifaces = {
 load_dotenv()
 
 
-class nodeiface:
-
-    def __init__(self, node: str, interface: str):
-        self.node = node
-        self.interface = interface
-
-    def __repr__(self):
-        return self.node + "[" + self.interface + "]"
-
-
 def exec_topo(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
     """mplah"""
 
@@ -193,9 +183,48 @@ class TopoSection(NodeSession):
 
         return anti_join
 
+    def layer3_topo_erroneous(self):
+        """
+        DataFrame contains the erroneous elements. This is done
+        by merging the following DataFrames:
+        1. The Source of Truth elements.
+        2. The actual configured elements.
+        3. The unexpected configured elements.
+        4. the missing elements.
+
+        Returns
+        -------
+        tmp_erroneous: DataFrame
+            The DataFrame containing all the above DataFrames.`
+        """
+
+        tmp_actual = self.actual_not_in_topo
+        tmp_actual.rename(
+            mapper={"Interfaces": "Actual_Not_in_L3_Topo"}, axis=1, inplace=True
+        )
+
+        tmp_unexpected = self.topo_not_in_sot
+        tmp_unexpected.rename(
+            mapper={"Interfaces": "L3_Topo_Not_in_SoT"}, axis=1, inplace=True
+        )
+
+        tmp_missing = self.sot_not_in_topo
+        tmp_missing.rename(
+            mapper={"Interfaces": "SoT_Not_in_L3_Topo"}, axis=1, inplace=True
+        )
+
+        tmp_erroneous = pd.concat(
+            [tmp_actual, tmp_unexpected, tmp_missing], axis=1
+        ).reset_index(drop=True)
+
+        tmp_erroneous.fillna("-", inplace=True)
+        tmp_erroneous.index.name = "#"
+
+        return tmp_erroneous
+
     def get_topo(self):
         """returns topo layer3 interfaces"""
-        return self.layer3_topo, self.topo_not_in_sot
+        return self.layer3_topo, self.layer3_topo_erroneous()
 
     def call_method_by_name(self, name, **kwargs):
         """
