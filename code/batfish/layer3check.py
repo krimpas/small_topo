@@ -42,9 +42,9 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
         bf=bf, sot=ifaces, node=f"{task.host.name}", properties="Interface"
     )
 
-    data, stats = dev.call_method_by_name(func_name, **kwargs)
+    data = dev.call_method_by_name(func_name, **kwargs)
 
-    return Result(host=task.host, result=dict(data=data, statistics=stats))
+    return Result(host=task.host, result=dict(data=data))
 
 
 def main():
@@ -66,17 +66,17 @@ def main():
         print_title(f"Host=[{h}]=>Erroneous L3 Interface Configuration")
         print(res.result["data"])
         print_title(f"Host=[{h}]=>Host Statistics")
-        print(res.result["statistics"])
+        # print(res.result["statistics"])
         print(80 * "+")
 
     # echo_nornir_result(error_result, title="L3 Interfaces Conf")
 
-    print_title("Total Summary Statistics for all Hosts")
-    tmp_df = process_stats(error_result)
+    # print_title("Total Summary Statistics for all Hosts")
+    # tmp_df = process_stats(error_result)
 
-    tmp_pt = dataframe_to_prettytable(tmp_df, title="Summary Statistics")
-    print(tmp_pt)
-    print_title("END: Total Summary Statistics for all Hosts")
+    # tmp_pt = dataframe_to_prettytable(tmp_df, title="Summary Statistics")
+    # print(tmp_pt)
+    # print_title("END: Total Summary Statistics for all Hosts")
 
 
 if __name__ == "__main__":
