@@ -44,7 +44,7 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
 
     data = dev.call_method_by_name(func_name, **kwargs)
 
-    return Result(host=task.host, result=dict(data=data))
+    return Result(host=task.host, result=data)
 
 
 def main():
@@ -62,12 +62,13 @@ def main():
         severity_level=logging.INFO,
     )
     print(80 * "@")
-    for h, res in error_result.items():
-        print_title(f"Host=[{h}]=>Erroneous L3 Interface Configuration")
-        print(res.result["data"])
-        print_title(f"Host=[{h}]=>Host Statistics")
-        # print(res.result["statistics"])
-        print(80 * "+")
+    print_result(error_result)
+    # for h, res in error_result.items():
+    #    print_title(f"Host=[{h}]=>Erroneous L3 Interface Configuration")
+    #    print(res.result["data"])
+    #    print_title(f"Host=[{h}]=>Host Statistics")
+    #    # print(res.result["statistics"])
+    #    print(80 * "+")
 
     # echo_nornir_result(error_result, title="L3 Interfaces Conf")
 
