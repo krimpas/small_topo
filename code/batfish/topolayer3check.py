@@ -139,10 +139,10 @@ class TopoSection(NodeSession):
         Dataframe
         The SoT Dataframe for the L3 Interfaces.
         """
-        sot_list = []
-        for sot_item in source_of_truth:
-            new_item = Interface(hostname=self.node, interface=sot_item)
-            sot_list.append(new_item)
+        sot_list = [
+            Interface(hostname=self.node, interface=sot_item)
+            for sot_item in source_of_truth
+        ]
         return pd.DataFrame.from_dict({"Interface": sot_list})
 
     def _build_erroneous_topo2(self, left_df: pd.DataFrame, right_df: pd.DataFrame):
