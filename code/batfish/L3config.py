@@ -307,7 +307,7 @@ class NodeL3Integrity(NodeL3):
         self, bf: Session, sot: Dict, node: str = None, properties: str = "Interface"
     ) -> None:
 
-        super().__init__(bf=bf, sot=sot, node=self.node, properties=properties)
+        super().__init__(bf=bf, sot=sot, node=node, properties=properties)
 
         self.unexpected = self.left_anti_join(
             left_df=self.actual, right_df=self.sot, properties=properties
