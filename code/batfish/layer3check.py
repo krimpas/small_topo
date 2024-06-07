@@ -58,7 +58,7 @@ def main():
         name="Erroneous L3 Interface Configuration",
         task=exec_checks,
         bf=bf_session,
-        func_name="layer3_check",
+        func_name="send_results",
         severity_level=logging.INFO,
     )
     print(80 * "@")
