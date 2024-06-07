@@ -248,11 +248,12 @@ class NodeL3(NodeSession):
         -------
         The DataFrame containing all the above DataFrames.`
         """
-        return (
-            pd.concat(self.build_labels(), axis=1)
-            .reset_index(drop=True)
-            .fillna("-", inplace=True)
-        )
+        labels = self.build_labels()
+
+        tmp = pd.concat(labels, axis=1).reset_index(drop=True)
+        tmp.fillna("-", inplace=True)
+
+        return tmp
 
     def call_method_by_name(self, name, **kwargs):
         """
@@ -338,7 +339,9 @@ class NodeL3Integrity(NodeL3):
 
     def send_results(self):
         """Returns both erroneous results and statistics"""
-        return self.calculate_results(), self.calculate_statistics()
+        return self.calculate_results()
+
+    # , self.calculate_statistics()
 
 
 class NodeL3Topo(NodeL3):
