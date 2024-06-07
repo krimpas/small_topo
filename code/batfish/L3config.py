@@ -339,7 +339,7 @@ class NodeL3Integrity(NodeL3):
 
     def send_results(self):
         """Returns both erroneous results and statistics"""
-        return self.calculate_results()
+        return self.actual
 
     # , self.calculate_statistics()
 
