@@ -18,6 +18,7 @@ from toponodel3 import NodeSection, NodeL3Interface
 from customutils import process_stats, dataframe_to_prettytable, echo_nornir_result
 from typing import List
 from pprint import pprint
+from L3config import NodeL3Integrity
 
 ifaces = {
     "r1": ["GigabitEthernet2", "GigabitEthernet4", "Loopback0"],
@@ -33,11 +34,15 @@ load_dotenv()
 def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
     """mplah"""
 
-    device = NodeSection(bf=bf, node=f"{task.host.name}", properties="Interfaces")
+    # device = NodeSection(bf=bf, node=f"{task.host.name}", properties="Interfaces")
 
-    dfs = NodeL3Interface(sot=ifaces[device.node], actual_df=device.actual)
+    # dfs = NodeL3Interface(sot=ifaces[device.node], actual_df=device.actual)
 
-    data, stats = dfs.call_method_by_name(func_name, **kwargs)
+    dev = NodeL3Integrity(
+        bf=bf, sot=ifaces, node=f"{task.host.name}", properties="Interfaces"
+    )
+
+    data, stats = dev.call_method_by_name(func_name, **kwargs)
 
     return Result(host=task.host, result=dict(data=data, statistics=stats))
 
