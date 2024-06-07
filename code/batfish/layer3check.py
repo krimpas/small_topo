@@ -39,7 +39,7 @@ def exec_checks(task: Task, bf: Session, func_name: str = "", **kwargs) -> Resul
     # dfs = NodeL3Interface(sot=ifaces[device.node], actual_df=device.actual)
 
     dev = NodeL3Integrity(
-        bf=bf, sot=ifaces, node=f"{task.host.name}", properties="Interface"
+        bf=bf, sot=ifaces, node=f"{task.host.name}", properties="Declared_Names"
     )
 
     data = dev.call_method_by_name(func_name, **kwargs)

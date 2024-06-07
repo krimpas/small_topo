@@ -110,7 +110,11 @@ class NodeL3(NodeSession):
     """
 
     def __init__(
-        self, bf: Session, sot: Dict, node: str = None, properties: str = "Interface"
+        self,
+        bf: Session,
+        sot: Dict,
+        node: str = None,
+        properties: str = "Declared_Names",
     ) -> None:
         """
         Parameters
@@ -179,7 +183,9 @@ class NodeL3(NodeSession):
 
     @staticmethod
     def left_anti_join(
-        left_df: pd.DataFrame, right_df: pd.DataFrame, properties: str = "Interface"
+        left_df: pd.DataFrame,
+        right_df: pd.DataFrame,
+        properties: str = "Declared_Names",
     ):
         """
         Used to create the Unexpected L3 Interfaces and Missing L3
@@ -304,7 +310,11 @@ class NodeL3Integrity(NodeL3):
     """
 
     def __init__(
-        self, bf: Session, sot: Dict, node: str = None, properties: str = "Interface"
+        self,
+        bf: Session,
+        sot: Dict,
+        node: str = None,
+        properties: str = "Declared_Names",
     ) -> None:
 
         super().__init__(bf=bf, sot=sot, node=node, properties=properties)
