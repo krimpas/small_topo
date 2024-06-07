@@ -173,7 +173,7 @@ class NodeL3(NodeSession):
         """
         sot_list = [
             Interface(hostname=self.node, interface=sot_item)
-            for sot_item in source_of_truth[self.node]
+            for sot_item in source_of_truth[f"{self.node}"]
         ]
         return pd.DataFrame.from_dict({"Interface": sot_list})
 
