@@ -64,7 +64,7 @@ def main():
     print(80 * "@")
     for h, res in error_result.items():
         print_title(f"Host=[{h}]=>Erroneous L3 Interface Configuration")
-        print(res.result["data"])
+        print(res["data"])
         print_title(f"Host=[{h}]=>Host Statistics")
         # print(res.result["statistics"])
     #    print(80 * "+")
