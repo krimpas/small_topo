@@ -317,6 +317,8 @@ class NodeL3Integrity(NodeL3):
         properties: str = "Declared_Names",
     ) -> None:
 
+        pd.set_option("display.max_columns", None)
+
         super().__init__(bf=bf, sot=sot, node=node, properties=properties)
 
         self.unexpected = self.left_anti_join(
