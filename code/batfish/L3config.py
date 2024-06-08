@@ -5,7 +5,7 @@ Name:
 
 Description:
 ------------
-    Consists of Batfish related classes used for the offline Validation\n
+    Consists of Batfish related classes used for the offline Validation
     checks of Layer 3 interfaces.
 
 Classes:
@@ -26,7 +26,7 @@ __all__ = ["NodeSession", "NodeL3", "NodeL3Integrity", "NodeL3Topo"]
 __version__ = "0.0.1"
 __author__ = "Krimpas George"
 
-from typing import List, Dict
+from typing import List, Dict, Optional, Tuple
 import pandas as pd
 from pybatfish.client.session import Session
 from pybatfish.datamodel import Interface
@@ -45,23 +45,9 @@ class NodeSession:
     node: str
         The name of the device as Nornir Task Host Name to receive
         (task.host.name)
-
     """
 
-    def __init__(self, bf: Session, node: str = None):
-        """
-        Initializes the actual Dataframe with all interface names as a
-        result of the bf.q.nodeProperties batfish question for the given
-        node. The node parameter derived by the Nornir (task.host.name).
-
-        Parameters
-        ----------
-        bf: Session
-            The already opened batfish Session object used to query the
-            batfish service.
-        node: str
-        The Node or router name used by Nornir (task.host.name).
-        """
+    def __init__(self, bf: Session, node: Optional[str] = None):
         self.session_bf = bf
         self.node = node
 
@@ -72,86 +58,38 @@ class NodeL3(NodeSession):
 
     Attributes
     ----------
-    actual: Batfish DataFrame
-        Dataframe keeps the info of L3 interfaces configured in the node.
+    actual: pd.DataFrame
+        DataFrame that keeps the info of L3 interfaces configured in the node.
         This info is fetched by using the build_actual() method.
 
-    sot: Batfish Dataframe
-        Dataframe keeps the source of truth for the interfaces. This info
-        is fetched  by using the build_sot() method.
+    sot: pd.DataFrame
+        DataFrame that keeps the source of truth for the interfaces. This info
+        is fetched by using the build_sot() method.
 
     properties: str
-        Used to restrict the output info for Batfish question. Defaults to
-        'Interface'.
-
-    Methods
-    -------
-    build_actual()
-        Fetches info of all actual configured interfaces of the node.
-        It uses the session_bf.q.interfaceProperties() question.
-
-    build_sot()
-        Builds a Dataframe representing the Source od Truth for the L3
-        interfaces.
-
-    left_anti_join()
-        Used to perform checks between DataFrames.
-
-    build_labels()
-        Used to build correct labels on various DataFrames. It is used
-        by the calculate_results()
-
-    calculate_results()
-        Concatenates the various DataFrames of the class in order to
-        produce the erroneous results.
-
-    call_method_by_name()
-        Used to call a method with its name as a string.
+        Used to restrict the output info for Batfish questions. Defaults to 'Declared_Names'.
     """
 
     def __init__(
         self,
         bf: Session,
         sot: Dict,
-        node: str = None,
+        node: Optional[str] = None,
         properties: str = "Declared_Names",
     ) -> None:
-        """
-        Parameters
-        ----------
-        bf: Session
-            The already opened batfish Session object used to query the
-            batfish service.
-
-        sot: Dict
-            The Source of Truth for the node L3 Interfaces.
-
-        node: str
-            The  Node or router name used by Nornir (task.host.name).
-
-        properties: str
-            Used to restrict the output info for Batfish questions. Defaults
-            to 'Interface'.
-
-        """
         super().__init__(bf, node)
-
         self.properties = properties
-
         self.actual = self.build_actual()
-
         self.sot = self.build_sot(source_of_truth=sot)
 
     def build_actual(self) -> pd.DataFrame:
         """
-        Queries the Batfish service by issuing the question
-        q.interfaceProperties()
+        Queries the Batfish service by issuing the question q.interfaceProperties()
 
         Returns
         -------
-        Dataframe
-        The Dataframe for the actually configured L3 Interfaces
-        in the node.
+        pd.DataFrame
+            The DataFrame for the actually configured L3 Interfaces in the node.
         """
         return (
             self.session_bf.q.interfaceProperties(
@@ -161,9 +99,9 @@ class NodeL3(NodeSession):
             .frame()
         )
 
-    def build_sot(self, source_of_truth: Dict = None) -> pd.DataFrame:
+    def build_sot(self, source_of_truth: Dict) -> pd.DataFrame:
         """
-        Creates the SoT Dataframe for the node L3 Interfaces.
+        Creates the SoT DataFrame for the node L3 Interfaces.
 
         Parameters
         ----------
@@ -172,8 +110,8 @@ class NodeL3(NodeSession):
 
         Returns
         -------
-        Dataframe
-        The source of truth Dataframe.
+        pd.DataFrame
+            The source of truth DataFrame.
         """
         sot_list = [
             Interface(hostname=self.node, interface=sot_item)
@@ -183,44 +121,30 @@ class NodeL3(NodeSession):
 
     @staticmethod
     def left_anti_join(
-        left_df: pd.DataFrame,
-        right_df: pd.DataFrame,
-        properties: str = "Interface",
-    ):
+        left_df: pd.DataFrame, right_df: pd.DataFrame, properties: str = "Interface"
+    ) -> pd.DataFrame:
         """
-        Used to create the Unexpected L3 Interfaces and Missing L3
-        Interfaces DataFrame. This is achieved by merging the left_df
-        and right_df DataFrames on "Interfaces" column by performing
-        LEFT ANTI JOIN.
+        Performs a left anti join to identify missing and unexpected interfaces.
 
         Parameters
         ----------
         left_df: pd.DataFrame
-            The left dataframe for the LEFT join.
+            The left DataFrame for the join.
         right_df: pd.DataFrame
-            The right dataframe for the LEFT join.
+            The right DataFrame for the join.
         properties: str
-            The common column used for join. Defaults to 'Interface'
+            The column used for the join. Defaults to 'Interface'.
 
         Returns
         -------
-        anti_join: Dataframe
-            If the left DataFrame is sot and the right one is actual
-            then returns the Missing L3 Interfaces. If vice versa
-            returns the Unexpected L3 Interfaces.
-
+        pd.DataFrame
+            DataFrame containing the results of the left anti join.
         """
         outer = pd.merge(
-            left_df[[f"{properties}"]],
-            right_df[[f"{properties}"]],
-            how="outer",
-            left_on=properties,
-            right_on=properties,
-            indicator=True,
+            left_df[[properties]], right_df[[properties]], how="outer", indicator=True
         )
-
         anti_join = (
-            outer[(outer["_merge"] == "left_only")]
+            outer[outer["_merge"] == "left_only"]
             .drop(columns=["_merge"])
             .reset_index(drop=True)
         )
@@ -228,113 +152,103 @@ class NodeL3(NodeSession):
 
     def build_labels(self, excluded: List[str]) -> List[pd.DataFrame]:
         """
-        Builds labels list of DataFrames using the class attribute names.
-        This list will be used to concatenate its items in order to build
-        the erroneous results for each node.
-
-        Returns
-        -------
-        List[str] :
-            The labels list used for the result DataFrames.
-        """
-        labels_list = []
-
-        for attribute_name, attribute_value in self.__dict__.items():
-            if isinstance(attribute_value, pd.DataFrame):
-                if attribute_name not in excluded:
-                    df_copy = attribute_value.copy(deep=True)
-                    df_copy.rename(columns={"Interface": attribute_name}, inplace=True)
-                    labels_list.append(df_copy)
-        return labels_list
-
-    def calculate_results(self):
-        """
-        DataFrame contains the erroneous elements. This is done
-        by merging the attribute DataFrames.
-
-        Returns
-        -------
-        The DataFrame containing all the above DataFrames.`
-        """
-        excluded = ["actual", "Declared_Names"]
-
-        labels = self.build_labels(excluded=excluded)
-
-        tmp = pd.concat(labels, axis=1).reset_index(drop=True)
-        tmp.fillna("-", inplace=True)
-
-        return tmp
-
-    def call_method_by_name(self, name, **kwargs):
-        """
-        Performs dynamic calls to any class method by using the
-        method name and any arguments needed.
+        Builds a list of DataFrames for concatenation.
 
         Parameters
         ----------
-        name: (str, mandatory)
-            The method name as string
-        kwargs: (dict, optional)
-            The method parameters values dict if any.
+        excluded: List[str]
+            List of attributes to exclude.
 
         Returns
         -------
-        res (Dataframe)
+        List[pd.DataFrame]
+            List of DataFrames for concatenation.
         """
-        res = None
+        labels_list = []
+        for attribute_name, attribute_value in self.__dict__.items():
+            if (
+                isinstance(attribute_value, pd.DataFrame)
+                and attribute_name not in excluded
+            ):
+                df_copy = attribute_value.copy(deep=True)
+                df_copy.rename(columns={"Interface": attribute_name}, inplace=True)
+                labels_list.append(df_copy)
+        return labels_list
+
+    def calculate_results(self) -> pd.DataFrame:
+        """
+        Concatenates DataFrames to produce the erroneous results.
+
+        Returns
+        -------
+        pd.DataFrame
+            DataFrame containing the erroneous results.
+        """
+        excluded = ["actual", "Declared_Names"]
+        labels = self.build_labels(excluded=excluded)
+        result_df = pd.concat(labels, axis=1).reset_index(drop=True)
+        result_df.fillna("-", inplace=True)
+        return result_df
+
+    def call_method_by_name(self, name: str, **kwargs) -> Optional[pd.DataFrame]:
+        """
+        Dynamically calls a class method by its name.
+
+        Parameters
+        ----------
+        name: str
+            The method name.
+        kwargs: dict
+            The method parameters.
+
+        Returns
+        -------
+        Optional[pd.DataFrame]
+            The result of the method call.
+        """
         method = getattr(self, name, None)
         if method:
-            res = method(**kwargs)
-        return res
+            return method(**kwargs)
+        return None
 
 
 class NodeL3Integrity(NodeL3):
     """
-    Calculates the erroneous and  mismatches of L3 Interfaces for the node by
-    discovering missing and unexpected interfaces configured on the node.
+    Calculates erroneous and mismatched L3 Interfaces for the node.
 
     Attributes
     ----------
-    unexpected: Batfish DataFrame
-        Keeps the Interface names which actually configured but not contained
-        into SourceOfTruth.
+    unexpected: pd.DataFrame
+        Interfaces actually configured but not in SoT.
 
-    missing: Batfish DataFrame
-        Keeps the Interface names which contained into SourceOfTruth but not
-        actually configured on the node.
-
-    Methods
-    -------
-
-    calculate_statistics()
-        Calculates summary statistics for the node
-
-    send_results()
-        Sends result to the Pipeline.
+    missing: pd.DataFrame
+        Interfaces in SoT but not actually configured on the node.
     """
 
     def __init__(
         self,
         bf: Session,
         sot: Dict,
-        node: str = None,
+        node: Optional[str] = None,
         properties: str = "Declared_Names",
     ) -> None:
-
-        pd.set_option("display.max_columns", None)
-
         super().__init__(bf=bf, sot=sot, node=node, properties=properties)
-
         self.unexpected = self.left_anti_join(
             left_df=self.actual, right_df=self.sot, properties="Interface"
         )
-
         self.missing = self.left_anti_join(
             left_df=self.sot, right_df=self.actual, properties="Interface"
         )
 
-    def calculate_statistics(self):
-        """Calculates statistics"""
+    def calculate_statistics(self) -> pd.DataFrame:
+        """
+        Calculates summary statistics for the node.
+
+        Returns
+        -------
+        pd.DataFrame
+            DataFrame containing the statistics.
+        """
         is_missing_empty = self.missing.shape[0] == 0
         is_unexpected_empty = self.unexpected.shape[0] == 0
 
@@ -353,125 +267,103 @@ class NodeL3Integrity(NodeL3):
         }
         return pd.DataFrame.from_dict(stats)
 
-    def send_results(self):
-        """Returns both erroneous results and statistics"""
+    def send_results(self) -> Tuple[pd.DataFrame, pd.DataFrame]:
+        """
+        Returns both erroneous results and statistics.
+
+        Returns
+        -------
+        Tuple[pd.DataFrame, pd.DataFrame]
+            The results and statistics DataFrames.
+        """
         return self.calculate_results(), self.calculate_statistics()
 
 
 class NodeL3Topo(NodeL3):
     """
-    Calculates the Layer3 Topology by querying the batfish
-    service. This info will be used to check against SoT
-    and the actual configured on the node. The already
-    existing attributes self.sot and self.actual will be
-    filtered to exclude the Loopback interfaces.
+    Calculates the Layer 3 Topology by querying the Batfish service.
 
     Attributes
     ----------
-    layer3_topo: DataFrame
-        Keeps the Layer3 Topology.
+    layer3_topo: pd.DataFrame
+        DataFrame that keeps the Layer 3 Topology.
 
-    actual_not_in_topo: DataFrame
-        Keeps the interfaces configured on the node but not
-        exist in Layer3 Topology (if any).
+    actual_not_in_topo: pd.DataFrame
+        Interfaces configured on the node but not in Layer 3 Topology.
 
-    sot_not_in_topo: DataFrame
-        Keeps the interfaces included in the SoT on but not
-        exist in Layer3 Topology (if any).
+    sot_not_in_topo: pd.DataFrame
+        Interfaces in SoT but not in Layer 3 Topology.
 
-    topo_not_in_sot: DataFrame
-        Keeps the interfaces included in Layer3 Topology but
-        not exist in the SoT (if any).
-
-
-    Methods
-    -------
-    filter_loopback()
-        Filters the Loopback interfaces from self.sot and
-        self.actual.
-
-    build_layer3_topo()
-        Loads the Layer3 Topology DataFrame.
-
-    calculate_statistics()
-        Calculates summary statistics for the node checks.
-
-    get_topo(self)
-        Returns the info needed by pipeline.
-
+    topo_not_in_sot: pd.DataFrame
+        Interfaces in Layer 3 Topology but not in SoT.
     """
 
     def __init__(
-        self, bf: Session, sot: Dict, node: str = None, properties: str = "Interface"
+        self,
+        bf: Session,
+        sot: Dict,
+        node: Optional[str] = None,
+        properties: str = "Interface",
     ) -> None:
-
-        super().__init__(bf=bf, sot=sot, node=self.node, properties=properties)
-
+        super().__init__(bf=bf, sot=sot, node=node, properties=properties)
         self.sot, self.actual = self.filter_loopback()
-
         self.layer3_topo = self.build_layer3_topo()
-
         self.actual_not_in_topo = self.left_anti_join(
             left_df=self.actual, right_df=self.layer3_topo
         )
-
         self.sot_not_in_topo = self.left_anti_join(
             left_df=self.sot, right_df=self.layer3_topo
         )
-
         self.topo_not_in_sot = self.left_anti_join(
             left_df=self.layer3_topo, right_df=self.sot
         )
 
-    @staticmethod
-    def is_not_loopback(interface: Interface) -> bool:
-        """Evaluates if an interface is not a Loopback"""
-        return not interface.interface.startswith("Loop")
-
-    def filter_loopback(self) -> None:
+    def filter_loopback(self) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """
-        Eliminates Loopback interfaces from self.sot, self.actual DataFrames.
+        Eliminates Loopback interfaces from self.sot and self.actual DataFrames.
 
         Returns
         -------
         Tuple[pd.DataFrame, pd.DataFrame]
             DataFrames without Loopback interfaces.
         """
-        sot_filtered = self.sot[self.sot["Interface"].apply(self.is_not_loopback)]
-        actual_filtered = self.actual[
-            self.actual["Interface"].apply(self.is_not_loopback)
-        ]
+
+        def is_not_loopback(interface: Interface) -> bool:
+            return not interface.interface.startswith("Loop")
+
+        sot_filtered = self.sot[self.sot["Interface"].apply(is_not_loopback)]
+        actual_filtered = self.actual[self.actual["Interface"].apply(is_not_loopback)]
         return sot_filtered, actual_filtered
 
     def build_layer3_topo(self) -> pd.DataFrame:
         """
-        Builds the Layer3 Topo for the node by calling the batfish question
-        q.layer3Edges()
+        Builds the Layer 3 Topology for the node by calling the Batfish question q.layer3Edges()
 
         Returns
         -------
-        self.layer3_topo: DataFrame
-        returns the Layer3 info for the node in order to be kept in the attribute
-        self.layer3_topo
+        pd.DataFrame
+            DataFrame containing the Layer 3 Topology.
         """
         return self.session_bf.q.layer3Edges(nodes=self.node).answer().frame()
 
-    def calculate_statistics(self):
+    def calculate_statistics(self) -> pd.DataFrame:
         """
-        Calculates the status and statistical info of the checks. The
-        status of the check is PASSED if the missing and unexpected
-        DataFrames are empty, otherwise the status is FAILED.
+        Calculates the status and statistical info of the checks.
 
         Returns
         -------
-        stats: DataFrame
-            The statistical DataFrame of the check.
+        pd.DataFrame
+            DataFrame containing the statistics.
         """
-        c1 = self.actual_not_in_topo.shape[0] == 0
-        c2 = self.sot_not_in_topo.shape[0] == 0
-        c3 = self.topo_not_in_sot.shape[0] == 0
+        is_actual_in_topo_empty = self.actual_not_in_topo.shape[0] == 0
+        is_sot_in_topo_empty = self.sot_not_in_topo.shape[0] == 0
+        is_topo_in_sot_empty = self.topo_not_in_sot.shape[0] == 0
 
-        error_code, status = (0, "PASSED") if c1 and c2 and c3 else (-1, "FAILED")
+        error_code, status = (
+            (0, "PASSED")
+            if is_actual_in_topo_empty and is_sot_in_topo_empty and is_topo_in_sot_empty
+            else (-1, "FAILED")
+        )
 
         stats = {
             "retcode": [error_code],
@@ -482,10 +374,13 @@ class NodeL3Topo(NodeL3):
         }
         return pd.DataFrame.from_dict(stats)
 
-    def get_topo(self):
-        """returns topo layer3 interfaces"""
-        return (
-            self.layer3_topo,
-            self.calculate_results(),
-            self.calculate_statistics(),
-        )
+    def send_results(self) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+        """
+        Returns Layer 3 topology interfaces.
+
+        Returns
+        -------
+        Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]
+            Layer 3 topology, results, and statistics DataFrames.
+        """
+        return self.layer3_topo, self.calculate_results(), self.calculate_statistics()
