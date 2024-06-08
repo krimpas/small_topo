@@ -177,7 +177,7 @@ class NodeL3(NodeSession):
         """
         sot_list = [
             Interface(hostname=self.node, interface=sot_item)
-            for sot_item in source_of_truth[f"{self.node}"]
+            for sot_item in source_of_truth[self.node]
         ]
         return pd.DataFrame.from_dict({"Interface": sot_list})
 
@@ -185,7 +185,7 @@ class NodeL3(NodeSession):
     def left_anti_join(
         left_df: pd.DataFrame,
         right_df: pd.DataFrame,
-        properties: str = "Declared_Names",
+        properties: str = "Interface",
     ):
         """
         Used to create the Unexpected L3 Interfaces and Missing L3
