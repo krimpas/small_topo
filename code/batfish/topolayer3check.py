@@ -19,6 +19,8 @@ from customutils import process_stats, dataframe_to_prettytable, echo_nornir_res
 from typing import List
 from pprint import pprint
 from pybatfish.datamodel.primitives import Interface
+from L3.nodel3topo import NodeL3Topo
+
 
 ifaces = {
     "r1": ["GigabitEthernet2", "GigabitEthernet4", "Loopback0"],
@@ -34,7 +36,14 @@ load_dotenv()
 def exec_topo(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
     """mplah"""
 
-    device = TopoSection(
+    # device = TopoSection(
+    #    bf=bf,
+    #    sot=ifaces[task.host.name],
+    #    node=f"{task.host.name}",
+    #    properties="Declared_Names",
+    # )
+
+    device = NodeL3Topo(
         bf=bf,
         sot=ifaces[task.host.name],
         node=f"{task.host.name}",
@@ -289,10 +298,10 @@ def main():
     bf_session = bfish_init()
 
     topo_result = nr.run(
-        name="Erroneous L3 Interface Configuration",
+        name="Erroneous L3 Topology Configuration",
         task=exec_topo,
         bf=bf_session,
-        func_name="get_topo",
+        func_name="send_results",
         severity_level=logging.INFO,
     )
     for h, res in topo_result.items():
