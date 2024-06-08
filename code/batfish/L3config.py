@@ -256,7 +256,7 @@ class NodeL3(NodeSession):
         -------
         The DataFrame containing all the above DataFrames.`
         """
-        excluded = ["Declared_Names"]
+        excluded = ["actual", "Declared_Names"]
 
         labels = self.build_labels(excluded=excluded)
 
