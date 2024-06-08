@@ -93,4 +93,7 @@ class NodeL3Integrity(NodeL3):
         Tuple[pd.DataFrame, pd.DataFrame]
             The results and statistics DataFrames.
         """
-        return self.calculate_results(), self.calculate_statistics()
+        return (
+            self.calculate_results(excluded=["actual", "Declared_Names"]),
+            self.calculate_statistics(),
+        )

@@ -155,7 +155,7 @@ class NodeL3(NodeSession):
                 labels_list.append(df_copy)
         return labels_list
 
-    def calculate_results(self) -> pd.DataFrame:
+    def calculate_results(self, excluded: List[str]) -> pd.DataFrame:
         """
         Concatenates DataFrames to produce the erroneous results.
 
@@ -164,7 +164,7 @@ class NodeL3(NodeSession):
         pd.DataFrame
             DataFrame containing the erroneous results.
         """
-        excluded = ["actual", "Declared_Names"]
+
         labels = self.build_labels(excluded=excluded)
         result_df = pd.concat(labels, axis=1).reset_index(drop=True)
         result_df.fillna("-", inplace=True)

@@ -135,4 +135,8 @@ class NodeL3Topo(NodeL3):
         Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]
             Layer 3 topology, results, and statistics DataFrames.
         """
-        return self.layer3_topo, self.calculate_results(), self.calculate_statistics()
+        return (
+            self.layer3_topo,
+            self.calculate_results(excluded=["sot", "actual", "layer3_topo"]),
+            self.calculate_statistics(),
+        )
