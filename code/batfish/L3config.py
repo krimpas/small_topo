@@ -238,11 +238,14 @@ class NodeL3(NodeSession):
             The labels list used for the result DataFrames.
         """
         labels_list = []
+        excluded = ["actual", "Declared_Names"]
+
         for attribute_name, attribute_value in self.__dict__.items():
             if isinstance(attribute_value, pd.DataFrame):
-                df_copy = attribute_value.copy(deep=True)
-                df_copy.rename(columns={"Interface": attribute_name}, inplace=True)
-                labels_list.append(df_copy)
+                if attribute_name not in excluded:
+                    df_copy = attribute_value.copy(deep=True)
+                    df_copy.rename(columns={"Interface": attribute_name}, inplace=True)
+                    labels_list.append(df_copy)
         return labels_list
 
     def calculate_results(self):
