@@ -349,9 +349,7 @@ class NodeL3Integrity(NodeL3):
 
     def send_results(self):
         """Returns both erroneous results and statistics"""
-        return self.actual, self.sot
-
-    # , self.calculate_statistics()
+        return self.calculate_results(), self.calculate_statistics()
 
 
 class NodeL3Topo(NodeL3):
