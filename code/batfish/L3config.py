@@ -320,11 +320,11 @@ class NodeL3Integrity(NodeL3):
         super().__init__(bf=bf, sot=sot, node=node, properties=properties)
 
         self.unexpected = self.left_anti_join(
-            left_df=self.actual, right_df=self.sot, properties=properties
+            left_df=self.actual, right_df=self.sot, properties="Interface"
         )
 
         self.missing = self.left_anti_join(
-            left_df=self.sot, right_df=self.actual, properties=properties
+            left_df=self.sot, right_df=self.actual, properties="Interface"
         )
 
     def calculate_statistics(self):
