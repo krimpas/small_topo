@@ -45,7 +45,7 @@ def exec_topo(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
 
     device = NodeL3Topo(
         bf=bf,
-        sot=ifaces[task.host.name],
+        sot=ifaces,
         node=f"{task.host.name}",
         properties="Declared_Names",
     )
