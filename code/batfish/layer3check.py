@@ -18,7 +18,7 @@ from toponodel3 import NodeSection, NodeL3Interface
 from customutils import process_stats, dataframe_to_prettytable, echo_nornir_result
 from typing import List
 from pprint import pprint
-from L3config import NodeL3Integrity
+from tmp import NodeL3Integrity
 
 ifaces = {
     "r1": ["GigabitEthernet2", "GigabitEthernet4", "Loopback0"],
