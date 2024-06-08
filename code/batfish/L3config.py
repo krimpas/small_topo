@@ -17,9 +17,9 @@ Classes:
 
 Misc variables:
 ---------------
-    __all__\n
-    __version__\n
-    __author__\n
+    __all__
+    __version__
+    __author__
 """
 
 __all__ = ["NodeSession", "NodeL3", "NodeL3Integrity", "NodeL3Topo"]
@@ -423,30 +423,25 @@ class NodeL3Topo(NodeL3):
             left_df=self.layer3_topo, right_df=self.sot
         )
 
+    @staticmethod
+    def is_not_loopback(interface: Interface) -> bool:
+        """Evaluates if an interface is not a Loopback"""
+        return not interface.interface.startswith("Loop")
+
     def filter_loopback(self) -> None:
         """
-        Eliminates the Loopback interface from both self.sot and
-        sot.actual DataFrames
+        Eliminates Loopback interfaces from self.sot, self.actual DataFrames.
 
         Returns
-        self.sot, self.actual  DataFrames
-            Without Loopback interfaces.
+        -------
+        Tuple[pd.DataFrame, pd.DataFrame]
+            DataFrames without Loopback interfaces.
         """
-        sot = self.sot[
-            self.sot.apply(
-                lambda row: not row["Interface"].interface.startswith("Loop"),
-                axis=1,
-            )
+        sot_filtered = self.sot[self.sot["Interface"].apply(self.is_not_loopback)]
+        actual_filtered = self.actual[
+            self.actual["Interface"].apply(self.is_not_loopback)
         ]
-
-        actual = self.actual[
-            self.actual.apply(
-                lambda row: row["Interface"].hostname == self.node
-                and not row["Interface"].interface.startswith("Loop"),
-                axis=1,
-            )
-        ]
-        return sot, actual
+        return sot_filtered, actual_filtered
 
     def build_layer3_topo(self) -> pd.DataFrame:
         """
