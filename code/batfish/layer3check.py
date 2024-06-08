@@ -5,8 +5,6 @@ Nornir tasks.
 
 import os
 import logging
-import pandas as pd
-from l3info import NodeL3InterfaceInfo
 from bfish_L3iface_props import BFISH_L3IFACE_PROPS
 from nornir import InitNornir
 from nornir.core.task import Task, Result
@@ -14,10 +12,7 @@ from nornir_utils.plugins.functions import print_result, print_title
 from dotenv import load_dotenv
 from bfish_init import bfish_init
 from pybatfish.client.session import Session
-from toponodel3 import NodeSection, NodeL3Interface
 from customutils import process_stats, dataframe_to_prettytable, echo_nornir_result
-from typing import List
-from pprint import pprint
 from L3.nodel3integrity import NodeL3Integrity
 
 ifaces = {
