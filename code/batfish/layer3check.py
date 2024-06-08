@@ -23,6 +23,27 @@ ifaces = {
     "r5": ["GigabitEthernet0/1", "GigabitEthernet0/2", "Loopback0", "Loopback5"],
 }
 
+ifaceinfo = {
+    "r1": [
+        {
+            "name": "GigabitEthernet 2",
+            "ipv4": "10.0.0.1",
+            "mask": "255.255.255.240",
+            "mtu": 1500,
+            "description": "towards OSPF area 0",
+            "enabled": true,
+        },
+        {
+            "name": "GigabitEthernet 4",
+            "ipv4": "10.123.34.1",
+            "mask": "255.255.255.224",
+            "mtu": 1500,
+            "description": "towards OSPF area 51",
+            "enabled": true,
+        },
+    ]
+}
+
 load_dotenv()
 
 
