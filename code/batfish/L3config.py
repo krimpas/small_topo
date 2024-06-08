@@ -211,8 +211,8 @@ class NodeL3(NodeSession):
 
         """
         outer = pd.merge(
-            left_df[[properties]],
-            right_df[[properties]],
+            left_df[[f"{properties}"]],
+            right_df[[f"{properties}"]],
             how="outer",
             left_on=properties,
             right_on=properties,
