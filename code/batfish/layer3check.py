@@ -64,7 +64,7 @@ def main():
         print(res.result["statistics"])
         print(80 * "+")
 
-    echo_nornir_result(error_result, title="L3 Interfaces Conf")
+    # echo_nornir_result(error_result, title="L3 Interfaces Conf")
 
     print_title("Total Summary Statistics for all Hosts")
     tmp_df = process_stats(error_result)
