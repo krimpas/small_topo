@@ -226,7 +226,9 @@ class NodeL3(NodeSession):
         )
         return anti_join
 
-    def build_labels(self):
+    def build_labels(
+        self, excluded: List[str] = ["Declared_Names"]
+    ) -> List[pd.DataFrame]:
         """
         Builds labels list of DataFrames using the class attribute names.
         This list will be used to concatenate its items in order to build
@@ -238,7 +240,6 @@ class NodeL3(NodeSession):
             The labels list used for the result DataFrames.
         """
         labels_list = []
-        excluded = ["actual", "Declared_Names"]
 
         for attribute_name, attribute_value in self.__dict__.items():
             if isinstance(attribute_value, pd.DataFrame):
