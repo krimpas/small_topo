@@ -69,14 +69,14 @@ def main():
         print(res.result["statistics"])
         print(80 * "+")
 
-    # echo_nornir_result(error_result, title="L3 Interfaces Conf")
+    echo_nornir_result(error_result, title="L3 Interfaces Conf")
 
-    # print_title("Total Summary Statistics for all Hosts")
-    # tmp_df = process_stats(error_result)
+    print_title("Total Summary Statistics for all Hosts")
+    tmp_df = process_stats(error_result)
 
-    # tmp_pt = dataframe_to_prettytable(tmp_df, title="Summary Statistics")
-    # print(tmp_pt)
-    # print_title("END: Total Summary Statistics for all Hosts")
+    tmp_pt = dataframe_to_prettytable(tmp_df, title="Summary Statistics")
+    print(tmp_pt)
+    print_title("END: Total Summary Statistics for all Hosts")
 
 
 if __name__ == "__main__":
