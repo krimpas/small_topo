@@ -30,6 +30,9 @@ from pybatfish.client.session import Session
 from pybatfish.datamodel import Interface
 from .nodel3 import NodeL3
 
+# Define the default excluded properties
+DEFAULT_EXCLUDED = ["sot", "actual", "layer3_topo"]
+
 
 class NodeL3Topo(NodeL3):
     """
@@ -137,6 +140,6 @@ class NodeL3Topo(NodeL3):
         """
         return (
             self.layer3_topo,
-            self.calculate_results(excluded=["sot", "actual", "layer3_topo"]),
+            self.calculate_results(excluded=DEFAULT_EXCLUDED),
             self.calculate_statistics(),
         )

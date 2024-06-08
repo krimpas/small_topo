@@ -28,6 +28,9 @@ import pandas as pd
 from pybatfish.client.session import Session
 from .nodel3 import NodeL3
 
+# Define the default excluded properties
+DEFAULT_EXCLUDED = ["actual", "Declared_Names"]
+
 
 class NodeL3Integrity(NodeL3):
     """
@@ -94,6 +97,6 @@ class NodeL3Integrity(NodeL3):
             The results and statistics DataFrames.
         """
         return (
-            self.calculate_results(excluded=["actual", "Declared_Names"]),
+            self.calculate_results(excluded=DEFAULT_EXCLUDED),
             self.calculate_statistics(),
         )
