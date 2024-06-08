@@ -5,8 +5,10 @@ Name:
 
 Description:
 ------------
-    Consists of Batfish related classes used for the offline Validation
-    checks of Layer 3 interfaces.
+    Consists of NodeL3 class which queries the batfish service to
+    fetch informationProperties. Based on the results the Class
+    keeps info for the SoT and the actual configured L3 Interfaces
+    on the node.  
 
 Classes:
 --------

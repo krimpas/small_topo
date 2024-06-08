@@ -5,8 +5,8 @@ Name:
 
 Description:
 ------------
-    Consists of Batfish related classes used for the offline Validation
-    checks of Layer 3 interfaces.
+    Consists of the NodeL3Integrity class which calculates all mismatches
+    related to the Layer 3 interfaces on to the node.
 
 Classes:
 --------

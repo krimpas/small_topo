@@ -5,8 +5,8 @@ Name:
 
 Description:
 ------------
-    Consists of Batfish related classes used for the offline Validation
-    checks of Layer 3 interfaces.
+    Consists of the NodeSession class which keeps the Batfish session
+    using to perform queries to the batfish service for a specific node.
 
 Classes:
 --------
