@@ -26,7 +26,7 @@ from typing import Dict, Optional, Tuple
 import pandas as pd
 from pybatfish.client.session import Session
 from .nodel3 import NodeL3
-from .bfilters import BFilter as fltr
+from .bfilters import BatFilter as fltr
 
 DEFAULT_PROPERTIES = (
     "Active,Admin_Up,All_Prefixes,Primary_Address,Primary_Network,VRF,MTU"
