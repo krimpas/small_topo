@@ -25,7 +25,6 @@ __author__ = "Krimpas George"
 
 
 from ipaddress import IPv4Interface, ip_network
-from .nodel3 import NodeL3
 
 
 class BatFilter:
