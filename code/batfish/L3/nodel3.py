@@ -31,6 +31,15 @@ from pybatfish.client.session import Session
 from pybatfish.datamodel import Interface
 from .nodesession import NodeSession
 
+DEFAULT_SOT_EXCLUDED_KEYS = [
+    "description",
+    "enabled",
+    "ipv4",
+    "mask",
+    "mtu",
+    "ospf_config",
+]
+
 
 class NodeL3(NodeSession):
     """
@@ -79,7 +88,15 @@ class NodeL3(NodeSession):
             .frame()
         )
 
-    def build_sot(self, source_of_truth: Dict) -> pd.DataFrame:
+    @staticmethod
+    def exclude_sot_keys(d: Dict, keys: List[str]) -> Dict:
+        """Exclude a set of keys from dictionary"""
+        return {x: d[x] for x in d if x not in keys}
+
+    def build_sot(
+        self,
+        source_of_truth: Dict,
+    ) -> pd.DataFrame:
         """
         Creates the SoT DataFrame for the node L3 Interfaces.
 
@@ -93,9 +110,10 @@ class NodeL3(NodeSession):
         pd.DataFrame
             The source of truth DataFrame.
         """
+
         sot_list = [
-            Interface(hostname=self.node, interface=sot_item)
-            for sot_item in source_of_truth[self.node]
+            Interface(hostname=self.node, interface=iface["name"].replace(" ", ""))
+            for iface in source_of_truth[self.node]["interfaces"]
         ]
         return pd.DataFrame.from_dict({"Interface": sot_list})
 
