@@ -31,14 +31,15 @@ from pybatfish.client.session import Session
 from pybatfish.datamodel import Interface
 from .nodesession import NodeSession
 
-DEFAULT_SOT_EXCLUDED_KEYS = [
+DEFAULT_SOT_KEYS = [
     "description",
     "enabled",
     "ipv4",
     "mask",
     "mtu",
-    "ospf_config",
 ]
+
+DEFAULT_SOT_EXCLUDED_KEYS = ["ospf_config"]
 
 
 class NodeL3(NodeSession):
@@ -87,11 +88,6 @@ class NodeL3(NodeSession):
             .answer()
             .frame()
         )
-
-    @staticmethod
-    def exclude_sot_keys(d: Dict, keys: List[str]) -> Dict:
-        """Exclude a set of keys from dictionary"""
-        return {x: d[x] for x in d if x not in keys}
 
     def build_sot(self, source_of_truth: Dict) -> pd.DataFrame:
         """

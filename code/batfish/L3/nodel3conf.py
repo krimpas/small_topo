@@ -22,9 +22,10 @@ __all__ = ["NodeL3Conf"]
 __version__ = "0.0.1"
 __author__ = "Krimpas George"
 
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional, Tuple, List
 import pandas as pd
 from pybatfish.client.session import Session
+from pybatfish.datamodel import Interface
 from .nodel3 import NodeL3
 from .bfilters import BatFilter as fltr
 
@@ -49,7 +50,21 @@ class NodeL3Conf(NodeL3):
         properties: str = DEFAULT_PROPERTIES,
     ) -> None:
         super().__init__(bf=bf, sot=sot, node=node, properties=properties)
+        self.sot_info = self.compute_interface_df(sot=sot)
+
+    @staticmethod
+    def exclude_sot_keys(d: Dict, keys: List[str]) -> Dict:
+        """Exclude a set of keys from dictionary"""
+        return {x: d[x] for x in d if x not in keys}
+
+    def compute_interface_df(self, sot: Dict) -> pd.DataFrame:
+        """builds a dataframe of interface conf info"""
+
+        interface_info = pd.DataFrame.from_records(sot[self.node]["interfaces"])
+        result_df = pd.concat([self.sot, interface_info], axis=1).reset_index(deep=True)
+        result_df.fillna("-", inplace=True)
+        return result_df
 
     def send_results(self) -> pd.DataFrame:
         """returns actual"""
-        return self.actual
+        return self.compute_interface_df(sot=sot)
