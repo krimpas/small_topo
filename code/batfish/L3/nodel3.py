@@ -93,10 +93,7 @@ class NodeL3(NodeSession):
         """Exclude a set of keys from dictionary"""
         return {x: d[x] for x in d if x not in keys}
 
-    def build_sot(
-        self,
-        source_of_truth: Dict,
-    ) -> pd.DataFrame:
+    def build_sot(self, source_of_truth: Dict) -> pd.DataFrame:
         """
         Creates the SoT DataFrame for the node L3 Interfaces.
 
