@@ -53,7 +53,7 @@ class NodeL3Conf(NodeL3):
         super().__init__(bf=bf, sot=sot, node=node, properties=properties)
 
         self.sot_info = pd.DataFrame.from_dict(
-            {"Interface": self.compute_interface_df(sot=sot[node])}
+            {"Interface": self.compute_interface_df(sot[node])}
         )
 
     def compute_interface_df(self, sot: Dict):
