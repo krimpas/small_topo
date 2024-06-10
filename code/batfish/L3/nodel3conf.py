@@ -30,7 +30,7 @@ from .nodel3 import NodeL3
 from .bfilters import BatFilter as fltr
 
 DEFAULT_PROPERTIES = (
-    "Active,Admin_Up,All_Prefixes,Primary_Address,Primary_Network,VRF,MTU"
+    "Active, Admin_Up, All_Prefixes, Primary_Address, Primary_Network, VRF, MTU"
 )
 DEFAULT_SOT_EXCLUDED_KEYS = ["ospf_config"]
 
@@ -73,4 +73,4 @@ class NodeL3Conf(NodeL3):
 
     def send_results(self) -> pd.DataFrame:
         """returns actual"""
-        return self.actual
+        return self.sot
