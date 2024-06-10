@@ -59,7 +59,7 @@ class NodeL3Conf(NodeL3):
         #    .answer()
         #    .frame()
         # )
-        self.sot_info = self.compute_interface_df(sot=sot[node])
+        # self.sot_info = self.compute_interface_df(sot=sot[node])
 
     def compute_interface_df(self, sot: Dict) -> pd.DataFrame:
         """builds a dataframe of interface conf info"""
