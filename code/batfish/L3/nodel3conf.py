@@ -80,4 +80,4 @@ class NodeL3Conf(NodeL3):
 
     def send_results(self) -> pd.DataFrame:
         """returns actual"""
-        return self.sot_info, self.actual
+        return self.atual, self.actual
