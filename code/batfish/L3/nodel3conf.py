@@ -52,7 +52,7 @@ class NodeL3Conf(NodeL3):
     ) -> None:
         super().__init__(bf=bf, sot=sot, node=node, properties=properties)
 
-        self.sot_info = self.compute_interface_df(sot=sot)
+        # self.sot_info = self.compute_interface_df(sot=sot)
 
     @staticmethod
     def exclude_sot_keys(d: Dict, keys: List[str]) -> Dict:
@@ -69,7 +69,7 @@ class NodeL3Conf(NodeL3):
         result_df = pd.concat([self.sot, interface_info], axis=1).reset_index(deep=True)
 
         result_df.fillna("-", inplace=True)
-        return interface_info
+        self.sot_info = interface_info
 
     def send_results(self) -> pd.DataFrame:
         """returns actual"""
