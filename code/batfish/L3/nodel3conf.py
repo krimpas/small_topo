@@ -69,8 +69,8 @@ class NodeL3Conf(NodeL3):
         result_df = pd.concat([self.sot, interface_info], axis=1).reset_index(deep=True)
 
         result_df.fillna("-", inplace=True)
-        return result_df
+        return interface_info
 
     def send_results(self) -> pd.DataFrame:
         """returns actual"""
-        return self.sot
+        return self.sot_info
