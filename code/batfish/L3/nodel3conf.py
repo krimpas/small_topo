@@ -52,8 +52,12 @@ class NodeL3Conf(NodeL3):
     ) -> None:
         super().__init__(bf=bf, sot=sot, node=node, properties=properties)
 
-        self.sot_info = self.session_bf.q.interfaceProperties(
-            nodes=self.node, properties=properties
+        self.sot_info = (
+            self.session_bf.q.interfaceProperties(
+                nodes=self.node, properties=properties
+            )
+            .answer()
+            .frame()
         )
 
     @staticmethod
