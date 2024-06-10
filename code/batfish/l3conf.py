@@ -239,9 +239,9 @@ def main():
     for h, res in topo_result.items():
         print_title(f"Host=[{h}]=>L3 ACTUAL")
         print(res.result["data"])
-    #    print_title(f"Host=[{h}]=>ACTUAL")
-    #    print(res.result["actual"])
-    #    print(80 * "+")
+        print_title(f"Host=[{h}]=>ACTUAL")
+        print(res.result["actual"])
+        print(80 * "+")
 
     print(80 * "#")
     # print_title("Total Summary Statistics for all Hosts")
