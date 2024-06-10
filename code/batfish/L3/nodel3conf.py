@@ -72,10 +72,10 @@ class NodeL3Conf(NodeL3):
             for iface in new_sot[self.node]["interfaces"]
         ]
         tmp_df = pd.DataFrame({"Interface": tmp_list})
-        interface_info = pd.DataFrame.from_records(new_sot[self.node]["interfaces"])
-        result_df = pd.concat([tmp_df, interface_info], axis=1)
+        # interface_info = pd.DataFrame.from_records(new_sot[self.node]["interfaces"])
+        # result_df = pd.concat([tmp_df, interface_info], axis=1)
 
-        result_df.fillna("-", inplace=True)
+        # result_df.fillna("-", inplace=True)
         return tmp_df
 
     def send_results(self) -> pd.DataFrame:
