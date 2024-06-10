@@ -14,7 +14,7 @@ from bfish_init import bfish_init
 from pybatfish.client.session import Session
 from customutils import process_stats, dataframe_to_prettytable, echo_nornir_result
 from L3.nodel3conf import NodeL3Conf
-
+from typing import Dict
 
 ifaces_list = {
     "r1": ["GigabitEthernet2", "GigabitEthernet4", "Loopback0"],
@@ -201,12 +201,14 @@ ifaces = {
 load_dotenv()
 
 
-def exec_topo(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
+def exec_topo(
+    task: Task, bf: Session, func_name: str = "", sot: Dict = None, **kwargs
+) -> Result:
     """mplah"""
 
     device = NodeL3Conf(
         bf=bf,
-        sot=ifaces,
+        sot=sot,
         node=f"{task.host.name}",
         properties="Active,Admin_Up,All_Prefixes,Primary_Address,Primary_Network,VRF,MTU",
     )
@@ -228,6 +230,7 @@ def main():
         task=exec_topo,
         bf=bf_session,
         func_name="send_results",
+        sot=ifaces,
         severity_level=logging.INFO,
     )
     for h, res in topo_result.items():
