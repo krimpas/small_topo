@@ -62,8 +62,8 @@ class NodeL3(NodeSession):
         self,
         bf: Session,
         sot: Dict,
-        node: Optional[str] = None,
-        properties: str = "Declared_Names",
+        node: str,
+        properties: str,
     ) -> None:
         super().__init__(bf, node)
         self.properties = properties
