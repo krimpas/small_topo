@@ -5,6 +5,7 @@ Nornir tasks.
 
 import os
 import logging
+import pandas as pd
 from bfish_L3iface_props import BFISH_L3IFACE_PROPS
 from nornir import InitNornir
 from nornir.core.task import Task, Result
@@ -234,6 +235,7 @@ def main():
         severity_level=logging.INFO,
     )
     # print(topo_result["r1"].result["data"])
+    pd.set_option("display.max_columns", None)
     for h, res in topo_result.items():
         print_title(f"Host=[{h}]=>L3 ACTUAL")
         print(res.result["data"])
