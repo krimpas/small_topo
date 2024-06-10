@@ -208,6 +208,7 @@ def exec_topo(task: Task, bf: Session, func_name: str = "", **kwargs) -> Result:
         bf=bf,
         sot=ifaces,
         node=f"{task.host.name}",
+        properties="Active,Admin_Up,All_Prefixes,Primary_Address,Primary_Network,VRF,MTU",
     )
 
     data = device.call_method_by_name(func_name, **kwargs)
