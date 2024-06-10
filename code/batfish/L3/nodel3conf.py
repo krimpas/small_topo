@@ -67,11 +67,16 @@ class NodeL3Conf(NodeL3):
         for iface in new_sot[self.node]["interfaces"]:
             iface.pop(DEFAULT_SOT_EXCLUDED_KEYS, None)
 
+        tmp_list = [
+            Interface(self.node, iface["name"].replace(" ", ""))
+            for iface in new_sot[self.node]["interfaces"]
+        ]
+        tmp_df = pd.DataFrame({"Interface": tmp_list})
         interface_info = pd.DataFrame.from_records(new_sot[self.node]["interfaces"])
-        # result_df = pd.concat([self.sot, interface_info], axis=1).reset_index(deep=True)
+        result_df = pd.concat([tmp_df, interface_info], axis=1)
 
-        # result_df.fillna("-", inplace=True)
-        return interface_info
+        result_df.fillna("-", inplace=True)
+        return result_df
 
     def send_results(self) -> pd.DataFrame:
         """returns actual"""
