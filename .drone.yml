@@ -40,3 +40,8 @@ steps:
     image: gkrimpas/small_topo:latest
     commands:
       - make batfishtopo
+
+  - name: Batfishing L3 Conf
+    image: gkrimpas/small_topo:latest
+    commands:
+      - make batfishconf

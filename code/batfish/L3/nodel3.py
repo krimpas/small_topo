@@ -39,8 +39,6 @@ DEFAULT_SOT_KEYS = [
     "mtu",
 ]
 
-DEFAULT_SOT_EXCLUDED_KEYS = ["ospf_config"]
-
 
 class NodeL3(NodeSession):
     """
