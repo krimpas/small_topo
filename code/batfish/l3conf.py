@@ -214,9 +214,7 @@ def exec_topo(
     )
 
     data, actual = device.call_method_by_name(func_name, **kwargs)
-    print(70 * "#")
-    print(data)
-    print(70 * "#")
+
     return Result(host=task.host, result=dict(data=data, actual=actual))
 
 
