@@ -52,7 +52,9 @@ class NodeL3Conf(NodeL3):
     ) -> None:
         super().__init__(bf=bf, sot=sot, node=node, properties=properties)
 
-        # self.sot_info = self.compute_interface_df(sot=sot)
+        self.sot_info = self.session_bf.q.interfaceProperties(
+            nodes=self.node, properties=properties
+        )
 
     @staticmethod
     def exclude_sot_keys(d: Dict, keys: List[str]) -> Dict:
