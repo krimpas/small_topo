@@ -52,25 +52,24 @@ class NodeL3Conf(NodeL3):
     ) -> None:
         super().__init__(bf=bf, sot=sot, node=node, properties=properties)
 
-        self.sot_info = pd.DataFrame.from_dict(
-            {"Interface": self.compute_interface_df(sot[node])}
-        )
+        self.sot_info = self.compute_interface_df(sot=sot[node])
 
     def compute_interface_df(self, sot: Dict):
         """builds a dataframe of interface conf info"""
         for iface in sot["interfaces"]:
-            iface.pop(DEFAULT_SOT_EXCLUDED_KEYS[0], None)
+            for some_key in DEFAULT_SOT_EXCLUDED_KEYS:
+                iface.pop(some_key, None)
 
         tmp_list = [
             Interface(hostname=self.node, interface=iface["name"].replace(" ", ""))
             for iface in sot["interfaces"]
         ]
-        # tmp_df = pd.DataFrame.from_dict({"Interface": tmp_list})
-        # interface_info = pd.DataFrame.from_records(sot["interfaces"])
-        # result_df = pd.concat([tmp_df, interface_info], axis=1)
+        tmp_df = pd.DataFrame.from_dict({"Interface": tmp_list})
+        interface_info = pd.DataFrame.from_records(sot["interfaces"])
+        result_df = pd.concat([tmp_df, interface_info], axis=1)
 
-        # result_df.fillna("-", inplace=True)
-        return tmp_list
+        result_df.fillna("-", inplace=True)
+        return result_df
 
     def send_results(self) -> pd.DataFrame:
         """returns actual"""
