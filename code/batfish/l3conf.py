@@ -235,7 +235,7 @@ def main():
         sot=ifaces,
         severity_level=logging.INFO,
     )
-    print(topo_result)
+    print(topo_result["r1"])
     # for h, res in topo_result.items():
     #    print_title(f"Host=[{h}]=>L3 ACTUAL")
     #    print(res.result["data"])
