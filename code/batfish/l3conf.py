@@ -213,9 +213,8 @@ def exec_topo(
         properties="Active,Admin_Up,All_Prefixes,Primary_Address,Primary_Network,MTU",
     )
 
-    data = device.call_method_by_name(func_name, **kwargs)
-    print(data)
-    return Result(host=task.host, result=dict(data=data))
+    data, actual = device.call_method_by_name(func_name, **kwargs)
+    return Result(host=task.host, result=dict(data=data, actual=actual))
 
 
 def main():
@@ -234,9 +233,10 @@ def main():
         severity_level=logging.INFO,
     )
     for h, res in topo_result.items():
-        print_title(f"Host=[{h}]=>L3 Topo Errors")
+        print_title(f"Host=[{h}]=>L3 ACTUAL")
         print(res.result["data"])
-
+        print_title(f"Host=[{h}]=>ACTUAL")
+        print(res.result["actual"])
         print(80 * "+")
 
     print(80 * "#")
