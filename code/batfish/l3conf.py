@@ -214,6 +214,9 @@ def exec_topo(
     )
 
     data, actual = device.call_method_by_name(func_name, **kwargs)
+    print(70 * "#")
+    print(data)
+    print(70 * "#")
     return Result(host=task.host, result=dict(data=data, actual=actual))
 
 
@@ -232,12 +235,12 @@ def main():
         sot=ifaces,
         severity_level=logging.INFO,
     )
-    for h, res in topo_result.items():
-        print_title(f"Host=[{h}]=>L3 ACTUAL")
-        print(res.result["data"])
-        print_title(f"Host=[{h}]=>ACTUAL")
-        print(res.result["actual"])
-        print(80 * "+")
+    # for h, res in topo_result.items():
+    #    print_title(f"Host=[{h}]=>L3 ACTUAL")
+    #    print(res.result["data"])
+    #    print_title(f"Host=[{h}]=>ACTUAL")
+    #    print(res.result["actual"])
+    #    print(80 * "+")
 
     print(80 * "#")
     # print_title("Total Summary Statistics for all Hosts")
