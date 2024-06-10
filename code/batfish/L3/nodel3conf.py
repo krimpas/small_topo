@@ -61,11 +61,6 @@ class NodeL3Conf(NodeL3):
         # )
         self.sot_info = self.compute_interface_df(sot=sot)
 
-    @staticmethod
-    def exclude_sot_keys(d: Dict, keys: List[str]) -> Dict:
-        """Exclude a set of keys from dictionary"""
-        return {x: d[x] for x in d if x not in keys}
-
     def compute_interface_df(self, sot: Dict) -> pd.DataFrame:
         """builds a dataframe of interface conf info"""
         new_sot = sot.copy()
