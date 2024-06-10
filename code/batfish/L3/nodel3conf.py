@@ -59,7 +59,7 @@ class NodeL3Conf(NodeL3):
     def compute_interface_df(self, sot: Dict):
         """builds a dataframe of interface conf info"""
         for iface in sot["interfaces"]:
-            iface.pop(DEFAULT_SOT_EXCLUDED_KEYS, None)
+            iface.pop(DEFAULT_SOT_EXCLUDED_KEYS[0], None)
 
         tmp_list = [
             Interface(hostname=self.node, interface=iface["name"].replace(" ", ""))
