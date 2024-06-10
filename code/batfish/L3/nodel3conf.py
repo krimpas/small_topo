@@ -52,7 +52,7 @@ class NodeL3Conf(NodeL3):
     ) -> None:
         super().__init__(bf=bf, sot=sot, node=node, properties=properties)
 
-        self.sot_info = self.compute_interface_df(sot=sot[node])
+        # self.sot_info = self.compute_interface_df(sot=sot[node])
 
     def compute_interface_df(self, sot: Dict) -> pd.DataFrame:
         """builds a dataframe of interface conf info"""
@@ -69,7 +69,7 @@ class NodeL3Conf(NodeL3):
         result_df = pd.concat([tmp_df, interface_info], axis=1)
 
         # result_df.fillna("-", inplace=True)
-        return result_df
+        self.sot_info = result_df
 
     def send_results(self) -> pd.DataFrame:
         """returns actual"""
