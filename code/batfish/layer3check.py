@@ -15,13 +15,6 @@ from pybatfish.client.session import Session
 from customutils import process_stats, dataframe_to_prettytable, echo_nornir_result
 from L3.nodel3integrity import NodeL3Integrity
 
-ifaces_list = {
-    "r1": ["GigabitEthernet2", "GigabitEthernet4", "Loopback0"],
-    "r2": ["GigabitEthernet2", "GigabitEthernet3", "GigabitEthernet4", "Loopback0"],
-    "r3": ["GigabitEthernet2", "GigabitEthernet3", "Loopback0"],
-    "r4": ["GigabitEthernet0/1", "GigabitEthernet3", "Loopback0"],
-    "r5": ["GigabitEthernet0/1", "GigabitEthernet0/2", "Loopback0", "Loopback5"],
-}
 
 ifaces = {
     "r1": {

@@ -236,7 +236,7 @@ def main():
     # print(topo_result["r1"].result["data"])
     for h, res in topo_result.items():
         print_title(f"Host=[{h}]=>L3 ACTUAL")
-        print(res.result["data"])
+        print(res.result)
     #    print_title(f"Host=[{h}]=>ACTUAL")
     #    print(res.result["actual"])
     #    print(80 * "+")
