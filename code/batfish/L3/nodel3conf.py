@@ -52,13 +52,14 @@ class NodeL3Conf(NodeL3):
     ) -> None:
         super().__init__(bf=bf, sot=sot, node=node, properties=properties)
 
-        self.sot_info = (
-            self.session_bf.q.interfaceProperties(
-                nodes=self.node, properties=properties
-            )
-            .answer()
-            .frame()
-        )
+        # self.sot_info = (
+        #    self.session_bf.q.interfaceProperties(
+        #        nodes=self.node, properties=properties
+        #    )
+        #    .answer()
+        #    .frame()
+        # )
+        self.sot_info = self.compute_interface_df(sot=sot)
 
     @staticmethod
     def exclude_sot_keys(d: Dict, keys: List[str]) -> Dict:
@@ -72,10 +73,10 @@ class NodeL3Conf(NodeL3):
             iface.pop(DEFAULT_SOT_EXCLUDED_KEYS, None)
 
         interface_info = pd.DataFrame.from_records(new_sot[self.node]["interfaces"])
-        result_df = pd.concat([self.sot, interface_info], axis=1).reset_index(deep=True)
+        # result_df = pd.concat([self.sot, interface_info], axis=1).reset_index(deep=True)
 
-        result_df.fillna("-", inplace=True)
-        self.sot_info = interface_info
+        # result_df.fillna("-", inplace=True)
+        return interface_info
 
     def send_results(self) -> pd.DataFrame:
         """returns actual"""
