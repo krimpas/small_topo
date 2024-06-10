@@ -76,7 +76,7 @@ class NodeL3Conf(NodeL3):
         result_df = pd.concat([tmp_df, interface_info], axis=1)
 
         result_df.fillna("-", inplace=True)
-        return result_df
+        return tmp_df
 
     def send_results(self) -> pd.DataFrame:
         """returns actual"""
