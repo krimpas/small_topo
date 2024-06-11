@@ -96,7 +96,7 @@ class NodeL3Conf(NodeL3):
 
         self.sot_info["Primary_Network"] = self.sot_info.apply(self.get_IPv4net, axis=1)
 
-        self.sot_info["MTU"] = self.sot_info["mtu"].apply(lambda x: int(x), axis=1)
+        self.sot_info["MTU"] = self.sot_info["mtu"].apply(self.get_mtu, axis=1)
 
     @staticmethod
     def get_IPv4(row):
