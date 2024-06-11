@@ -98,11 +98,11 @@ class NodeL3Conf(NodeL3):
 
     @staticmethod
     def get_IPv4(row):
-        return str(ipaddress.IPv4Interface(f"{str(row.ipv4)}/{str(row.mask)}"))
+        return ipaddress.IPv4Interface(f"{str(row['ipv4'])}/{str(row['mask'])}")
 
     @staticmethod
     def get_IPv4net(row):
-        return str(ipaddress.IPv4Interface(f"{str(row.ipv4)}/{str(row.mask)}").network)
+        return ipaddress.IPv4Interface(f"{str(row['ipv4'])}/{str(row['mask'])}").network
 
     @staticmethod
     def get_mtu(row):
