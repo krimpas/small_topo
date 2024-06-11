@@ -54,6 +54,11 @@ class NodeL3Conf(NodeL3):
 
         self.sot_info = self.compute_interface_df(sot=sot[node])
 
+        # keeps all duplicate ip address of the node if any.
+        self.duplicates = self.actual[
+            self.actual.duplicated(["Primary_Address"], kepp=False)
+        ]
+
     def compute_interface_df(self, sot: Dict):
         """builds a dataframe of interface conf info"""
         for iface in sot["interfaces"]:
@@ -73,4 +78,4 @@ class NodeL3Conf(NodeL3):
 
     def send_results(self) -> pd.DataFrame:
         """returns actual"""
-        return self.sot_info, self.actual
+        return self.sot_info, self.duplicates
