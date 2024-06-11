@@ -23,6 +23,7 @@ __version__ = "0.0.1"
 __author__ = "Krimpas George"
 
 from typing import Dict, Optional, Tuple, List
+import ipaddress
 import pandas as pd
 from pybatfish.client.session import Session
 from pybatfish.datamodel import Interface
@@ -83,6 +84,32 @@ class NodeL3Conf(NodeL3):
         """
         any_duplicates = self.actual.duplicated(["Primary_Address"], keep=False)
         return self.actual[any_duplicates]
+
+    def transform(self) -> pd.DataFrame:
+        """
+        Transform SoT into a frame similar to Batfish, in order to
+        make comparisons.
+        """
+        if not self.sot_info:
+            return -1
+        self.sot_info["Primary_Address"] = self.sot.apply(self.get_IPv4, axis=1)
+        self.sot_info["Primary_Network"] = self.sot.apply(self.get_IPv4net, axis=1)
+
+    @staticmethod
+    def get_IPv4(row):
+        return ipaddress.IPv4Interface(f"{str(row.ipv4)}/{str(row.mask)}")
+
+    @staticmethod
+    def get_IPv4net(row):
+        return ipaddress.IPv4Interface(f"{str(row.ipv4)}/{str(row.mask)}").network
+
+    @staticmethod
+    def get_mtu(row):
+        return int(row.MTU)
+
+    @staticmethod
+    def get_vrf(row):
+        return row.VRF
 
     def send_results(self) -> pd.DataFrame:
         """returns actual"""
