@@ -96,6 +96,8 @@ class NodeL3Conf(NodeL3):
 
         self.sot_info["Primary_Network"] = self.sot_info.apply(self.get_IPv4net, axis=1)
 
+        self.sot_info.drop(["ipv4", "mask", "name"], axis=1)
+
     @staticmethod
     def get_IPv4(row):
         return ipaddress.IPv4Interface(f"{str(row['ipv4'])}/{str(row['mask'])}")
