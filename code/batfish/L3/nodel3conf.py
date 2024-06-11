@@ -58,7 +58,7 @@ class NodeL3Conf(NodeL3):
         # keeps all duplicate ip address of the node if any.
         self.duplicates = self.compute_duplicates()
 
-        # self.transform()
+        self.transform()
 
     def compute_interface_df(self, sot: Dict):
         """builds a dataframe of interface conf info"""
@@ -92,8 +92,12 @@ class NodeL3Conf(NodeL3):
         Transform SoT into a frame similar to Batfish, in order to
         make comparisons.
         """
-        self.sot_info["Primary_Address"] = self.sot_info.apply(self.get_IPv4, axis=1)
-        self.sot_info["Primary_Network"] = self.sot_info.apply(self.get_IPv4net, axis=1)
+        self.sot_info["Primary_Address"] = str(
+            self.sot_info.apply(self.get_IPv4, axis=1)
+        )
+        self.sot_info["Primary_Network"] = str(
+            self.sot_info.apply(self.get_IPv4net, axis=1)
+        )
 
     @staticmethod
     def get_IPv4(row):
