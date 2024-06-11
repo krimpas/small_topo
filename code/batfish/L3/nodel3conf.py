@@ -58,7 +58,7 @@ class NodeL3Conf(NodeL3):
         # keeps all duplicate ip address of the node if any.
         self.duplicates = self.compute_duplicates()
 
-        self.sot_info = self.transform()
+        self.transform()
 
     def compute_interface_df(self, sot: Dict):
         """builds a dataframe of interface conf info"""
