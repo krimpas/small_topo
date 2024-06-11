@@ -56,7 +56,7 @@ class NodeL3Conf(NodeL3):
 
         # keeps all duplicate ip address of the node if any.
         self.duplicates = self.actual[
-            self.actual.duplicated(["Primary_Address"], kepp=False)
+            self.actual.duplicated(["Primary_Address"], keep=False)
         ]
 
     def compute_interface_df(self, sot: Dict):
