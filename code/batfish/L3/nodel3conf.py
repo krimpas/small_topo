@@ -96,7 +96,7 @@ class NodeL3Conf(NodeL3):
 
         self.sot_info["Primary_Network"] = self.sot_info.apply(self.get_IPv4net, axis=1)
 
-        self.sot_info["MT"] = self.sot_info.apply(self.get_mtu, axis=1)
+        self.sot_info["MTU"] = self.sot_info.apply(self.get_mtu, axis=1)
 
     @staticmethod
     def get_IPv4(row):
@@ -112,7 +112,7 @@ class NodeL3Conf(NodeL3):
 
     @staticmethod
     def get_mtu(row):
-        return int(row["mtu"])
+        return row["mtu"].astype(int)
 
     def send_results(self) -> pd.DataFrame:
         """returns actual"""
