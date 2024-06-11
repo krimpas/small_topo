@@ -92,20 +92,17 @@ class NodeL3Conf(NodeL3):
         Transform SoT into a frame similar to Batfish, in order to
         make comparisons.
         """
-        self.sot_info["Primary_Address"] = str(
-            self.sot_info.apply(self.get_IPv4, axis=1)
-        )
-        self.sot_info["Primary_Network"] = str(
-            self.sot_info.apply(self.get_IPv4net, axis=1)
-        )
+        self.sot_info["Primary_Address"] = self.sot_info.apply(self.get_IPv4, axis=1)
+
+        self.sot_info["Primary_Network"] = self.sot_info.apply(self.get_IPv4net, axis=1)
 
     @staticmethod
     def get_IPv4(row):
-        return ipaddress.IPv4Interface(f"{str(row.ipv4)}/{str(row.mask)}")
+        return str(ipaddress.IPv4Interface(f"{str(row.ipv4)}/{str(row.mask)}"))
 
     @staticmethod
     def get_IPv4net(row):
-        return ipaddress.IPv4Interface(f"{str(row.ipv4)}/{str(row.mask)}").network
+        return str(ipaddress.IPv4Interface(f"{str(row.ipv4)}/{str(row.mask)}").network)
 
     @staticmethod
     def get_mtu(row):
