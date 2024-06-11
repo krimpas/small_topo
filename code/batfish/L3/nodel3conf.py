@@ -96,8 +96,6 @@ class NodeL3Conf(NodeL3):
 
         self.sot_info["Primary_Network"] = self.sot_info.apply(self.get_IPv4net, axis=1)
 
-        self.sot_info["MTU"] = self.sot_info["mtu"].apply(self.get_mtu, axis=1)
-
     @staticmethod
     def get_IPv4(row):
         return ipaddress.IPv4Interface(f"{str(row['ipv4'])}/{str(row['mask'])}")
@@ -109,10 +107,6 @@ class NodeL3Conf(NodeL3):
     @staticmethod
     def get_vrf(row):
         return row.VRF
-
-    @staticmethod
-    def get_mtu(row):
-        return row["mtu"].round().astype(int)
 
     def send_results(self) -> pd.DataFrame:
         """returns actual"""
