@@ -55,9 +55,7 @@ class NodeL3Conf(NodeL3):
         self.sot_info = self.compute_interface_df(sot=sot[node])
 
         # keeps all duplicate ip address of the node if any.
-        self.duplicates = self.actual[
-            self.actual.duplicated(["Primary_Address"], keep=False)
-        ]
+        self.duplicates = self.compute_duplicates()
 
     def compute_interface_df(self, sot: Dict):
         """builds a dataframe of interface conf info"""
@@ -75,6 +73,16 @@ class NodeL3Conf(NodeL3):
 
         # result_df.fillna("-", inplace=True)
         return result_df
+
+    def compute_duplicates(self) -> pd.DataFrame:
+        """
+        Calculates all L3 interfaces with duplicate ipv4 addresses.
+
+        Returns:
+            pd.DataFrame: Duplicate IPv4 interfaces if any or empty.
+        """
+        any_duplicates = self.actual.duplicated(["Primary_Address"], keep=False)
+        return self.actual[any_duplicates]
 
     def send_results(self) -> pd.DataFrame:
         """returns actual"""
