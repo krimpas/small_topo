@@ -112,7 +112,7 @@ class NodeL3Conf(NodeL3):
 
     @staticmethod
     def get_mtu(row):
-        return row["mtu"].astype(int)
+        return row["mtu"].round().astype(int)
 
     def send_results(self) -> pd.DataFrame:
         """returns actual"""
