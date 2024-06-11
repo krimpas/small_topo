@@ -92,8 +92,6 @@ class NodeL3Conf(NodeL3):
         Transform SoT into a frame similar to Batfish, in order to
         make comparisons.
         """
-        if not self.sot_info:
-            return -1
         self.sot_info["Primary_Address"] = self.sot_info.apply(self.get_IPv4, axis=1)
         self.sot_info["Primary_Network"] = self.sot_info.apply(self.get_IPv4net, axis=1)
 
