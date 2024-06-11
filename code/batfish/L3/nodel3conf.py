@@ -94,8 +94,8 @@ class NodeL3Conf(NodeL3):
         """
         if not self.sot_info:
             return -1
-        self.sot_info["Primary_Address"] = self.sot.apply(self.get_IPv4, axis=1)
-        self.sot_info["Primary_Network"] = self.sot.apply(self.get_IPv4net, axis=1)
+        self.sot_info["Primary_Address"] = self.sot_info.apply(self.get_IPv4, axis=1)
+        self.sot_info["Primary_Network"] = self.sot_info.apply(self.get_IPv4net, axis=1)
 
     @staticmethod
     def get_IPv4(row):
