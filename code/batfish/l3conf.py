@@ -33,7 +33,7 @@ ifaces = {
             {
                 "description": "towards OSPF area 0",
                 "enabled": True,
-                "ipv4": "10.0.0.1",
+                "ipv4": "10.0.0.11",
                 "mask": "255.255.255.240",
                 "mtu": 1500,
                 "name": "GigabitEthernet 2",
