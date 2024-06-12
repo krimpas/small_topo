@@ -60,6 +60,8 @@ class NodeL3Conf(NodeL3):
 
         self.transform()
 
+        self.ipv4_mismatch = self.compute_ipv4_mismatch()
+
     def compute_interface_df(self, sot: Dict):
         """builds a dataframe of interface conf info"""
         for iface in sot["interfaces"]:
@@ -120,6 +122,15 @@ class NodeL3Conf(NodeL3):
     def get_enabled(row):
         return row["enabled"]
 
+    def compute_ipv4_mismatch(self) -> pd.DataFrame:
+        """r seis"""
+        tmp_mismatch = self.left_anti_join(
+            left_df=self.sot_info,
+            right_df=self.actual,
+            properties="'Interface', 'Primary_Address'",
+        )
+        return tmp_mismatch
+
     def send_results(self) -> pd.DataFrame:
         """returns actual"""
-        return self.sot_info, self.duplicates
+        return self.ipv4_mismatch, self.duplicates
