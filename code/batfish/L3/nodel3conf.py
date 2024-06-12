@@ -122,15 +122,46 @@ class NodeL3Conf(NodeL3):
     def get_enabled(row):
         return row["enabled"]
 
+    @staticmethod
+    def left_anti_join2(
+        left_df: pd.DataFrame, right_df: pd.DataFrame, properties=List[str]
+    ) -> pd.DataFrame:
+        """
+        Performs a left anti join to identify missing and unexpected interfaces.
+
+        Parameters
+        ----------
+        left_df: pd.DataFrame
+            The left DataFrame for the join.
+        right_df: pd.DataFrame
+            The right DataFrame for the join.
+        properties: str
+            The column used for the join. Defaults to 'Interface'.
+
+        Returns
+        -------
+        pd.DataFrame
+            DataFrame containing the results of the left anti join.
+        """
+        outer = pd.merge(
+            left_df[properties], right_df[properties], how="outer", indicator=True
+        )
+        anti_join = (
+            outer[outer["_merge"] == "left_only"]
+            .drop(columns=["_merge"])
+            .reset_index(drop=True)
+        )
+        return anti_join
+
     def compute_ipv4_mismatch(self) -> pd.DataFrame:
         """r seis"""
         iface = "Interface"
         pa = "Primary_Address"
 
-        tmp_mismatch = self.left_anti_join(
+        tmp_mismatch = self.left_anti_join2(
             left_df=self.sot_info,
             right_df=self.actual,
-            properties=f"{iface},{pa}",
+            properties=[iface, pa],
         )
         return tmp_mismatch
 
