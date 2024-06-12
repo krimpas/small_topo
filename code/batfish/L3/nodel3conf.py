@@ -96,12 +96,13 @@ class NodeL3Conf(NodeL3):
 
         self.sot_info["Primary_Network"] = self.sot_info.apply(self.get_IPv4net, axis=1)
 
+        self.sot_info["Admin_Up"] = self.sot_info.apply(self.get_enabled, axis=1)
+        self.sot_info["Active"] = self.sot_info.apply(self.get_enabled, axis=1)
+
         self.sot_info.pop("ipv4")
         self.sot_info.pop("mask")
         self.sot_info.pop("name")
-
-        self.sot_info["Admin_Up"] = self.sot_info.apply(self.get_enabled, axis=1)
-        self.sot_info["Active"] = self.sot_info.apply(self.get_enabled, axis=1)
+        self.sot_info.pop("enabled")
 
     @staticmethod
     def get_IPv4(row):
@@ -113,7 +114,7 @@ class NodeL3Conf(NodeL3):
 
     @staticmethod
     def get_vrf(row):
-        return row.VRF
+        return row["VRF"]
 
     @staticmethod
     def get_enabled(row):
