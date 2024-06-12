@@ -167,4 +167,4 @@ class NodeL3Conf(NodeL3):
 
     def send_results(self) -> pd.DataFrame:
         """returns actual"""
-        return self.ipv4_mismatch, self.duplicates
+        return self.ipv4_mismatch, self.actual
