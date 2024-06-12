@@ -124,10 +124,13 @@ class NodeL3Conf(NodeL3):
 
     def compute_ipv4_mismatch(self) -> pd.DataFrame:
         """r seis"""
+        iface = "Interface"
+        pa = "Primary_Address"
+
         tmp_mismatch = self.left_anti_join(
             left_df=self.sot_info,
             right_df=self.actual,
-            properties="'Interface', 'Primary_Address'",
+            properties=f"{iface},{pa}",
         )
         return tmp_mismatch
 
