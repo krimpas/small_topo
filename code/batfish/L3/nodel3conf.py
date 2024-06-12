@@ -144,7 +144,7 @@ class NodeL3Conf(NodeL3):
             DataFrame containing the results of the left anti join.
         """
         outer = pd.merge(
-            left_df[properties], right_df[properties], how="inner", indicator=True
+            left_df[properties], right_df[properties], how="left", indicator=True
         )
         # anti_join = (
         #    outer[outer["_merge"] == "left_only"]
