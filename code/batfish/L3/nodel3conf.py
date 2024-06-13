@@ -5,7 +5,8 @@ Name:
 
 Description:
 ------------
-    Consists of the NodeL3IConf class which calculates all Layer 3 interfaces configuration mismatches.
+    Consists of the NodeL3IConf class which calculates all Layer 3 interfaces
+    configuration mismatches.
 
 Classes:
 --------
@@ -108,18 +109,22 @@ class NodeL3Conf(NodeL3):
 
     @staticmethod
     def get_IPv4(row):
+        """Returns an IPv4 in CIDR form"""
         return ipaddress.IPv4Interface(f"{str(row['ipv4'])}/{str(row['mask'])}")
 
     @staticmethod
     def get_IPv4net(row):
+        """Returns the Network Address of an IPv4 address in a CIDR form."""
         return ipaddress.IPv4Interface(f"{str(row['ipv4'])}/{str(row['mask'])}").network
 
     @staticmethod
     def get_vrf(row):
+        """Returns the VRF of the interface"""
         return row["VRF"]
 
     @staticmethod
     def get_enabled(row):
+        """Returns if the interface is enabled"""
         return row["enabled"]
 
     @staticmethod
@@ -154,7 +159,10 @@ class NodeL3Conf(NodeL3):
         return anti_join
 
     def compute_ipv4_mismatch(self) -> pd.DataFrame:
-        """r seis"""
+        """
+        Computes the configuration mismatches on L3 interfaces
+        on the node.
+        """
         iface = "Interface"
         pa = "Primary_Address"
 
@@ -165,6 +173,6 @@ class NodeL3Conf(NodeL3):
         )
         return tmp_mismatch
 
-    def send_results(self) -> pd.DataFrame:
+    def send_results(self) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """returns actual"""
         return self.ipv4_mismatch, self.actual
