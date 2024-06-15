@@ -156,7 +156,7 @@ class NodeL3Conf(NodeL3):
             .drop(columns=["_merge"])
             .reset_index(drop=True)
         )
-        return anti_join
+        return outer
 
     def compute_ipv4_mismatch(self) -> pd.DataFrame:
         """
