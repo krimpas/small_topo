@@ -167,8 +167,8 @@ class NodeL3Conf(NodeL3):
         pa = "Primary_Address"
 
         tmp_mismatch = self.left_anti_join2(
-            left_df=self.sot_info,
-            right_df=self.actual,
+            left_df=self.actual,
+            right_df=self.sot_info,
             properties=[iface, pa],
         )
         return tmp_mismatch
