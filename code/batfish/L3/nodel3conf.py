@@ -150,12 +150,12 @@ class NodeL3Conf(NodeL3):
         outer = pd.merge(
             left_df[properties], right_df[properties], how="outer", indicator=True
         )
-        # anti_join = (
-        #    outer[outer["_merge"] == "left_only"]
-        #    .drop(columns=["_merge"])
-        #    .reset_index(drop=True)
-        # )
-        return outer
+        anti_join = (
+            outer[outer["_merge"] == "left_only"]
+            .drop(columns=["_merge"])
+            .reset_index(drop=True)
+        )
+        return anti_join
 
     def compute_ipv4_mismatch(self) -> pd.DataFrame:
         """
@@ -174,4 +174,4 @@ class NodeL3Conf(NodeL3):
 
     def send_results(self) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """returns mismatch & actual"""
-        return self.ipv4_mismatch, self.ipv4_mismatch
+        return self.ipv4_mismatch, self.duplicates
