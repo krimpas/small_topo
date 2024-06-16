@@ -29,7 +29,6 @@ import pandas as pd
 from pybatfish.client.session import Session
 from pybatfish.datamodel import Interface
 from .nodel3 import NodeL3
-from .bfilters import BatFilter as fltr
 
 DEFAULT_PROPERTIES = (
     "Active, Admin_Up, All_Prefixes, Primary_Address, Primary_Network, VRF, MTU"
@@ -151,11 +150,11 @@ class NodeL3Conf(NodeL3):
         outer = pd.merge(
             left_df[properties], right_df[properties], how="outer", indicator=True
         )
-        #anti_join = (
+        # anti_join = (
         #    outer[outer["_merge"] == "left_only"]
         #    .drop(columns=["_merge"])
         #    .reset_index(drop=True)
-        #)
+        # )
         return outer
 
     def compute_ipv4_mismatch(self) -> pd.DataFrame:
