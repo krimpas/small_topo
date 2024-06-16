@@ -174,5 +174,5 @@ class NodeL3Conf(NodeL3):
         return tmp_mismatch
 
     def send_results(self) -> Tuple[pd.DataFrame, pd.DataFrame]:
-        """returns actual"""
+        """returns mismatch & actual"""
         return self.ipv4_mismatch, self.actual
