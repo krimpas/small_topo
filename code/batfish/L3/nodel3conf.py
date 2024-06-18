@@ -140,7 +140,7 @@ class NodeL3Conf(NodeL3):
         )
 
         result = merged[
-            merged["Primary_Address_SoT"] != merged["Primary_Address_Actual"]
+            str(merged["Primary_Address_SoT"]) != str(merged["Primary_Address_Actual"])
         ]
 
         # Optional: If you want to keep only relevant columns
