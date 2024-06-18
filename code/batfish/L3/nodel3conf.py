@@ -58,7 +58,7 @@ class NodeL3Conf(NodeL3):
         # keeps all duplicate ip address of the node if any.
         self.duplicates = self.compute_duplicates()
 
-        self.transform()
+        self.sot_info = self.transform()
 
         self.ipv4_mismatch = self.compute_ipv4_mismatch()
 
@@ -105,6 +105,7 @@ class NodeL3Conf(NodeL3):
         self.sot_info.pop("mask")
         self.sot_info.pop("name")
         self.sot_info.pop("enabled")
+        return self.sot_info
 
     @staticmethod
     def get_IPv4(row):
@@ -140,8 +141,8 @@ class NodeL3Conf(NodeL3):
         ]
 
         # Optional: If you want to keep only relevant columns
-        result = result[["Interface", "Primary_Address_SoT", "Primary_Address_Actual"]]
-        return merged
+        result2 = result[["Interface", "Primary_Address_SoT", "Primary_Address_Actual"]]
+        return result
 
     def send_results(self) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """returns mismatch & actual"""
