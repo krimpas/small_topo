@@ -133,8 +133,8 @@ class NodeL3Conf(NodeL3):
         on the node.
         """
         merged = pd.merge(
-            self.sot_info[["Interface, Primary_Address"]],
-            self.actual[["Interface, Primary_Address"]],
+            self.sot_info[["Interface", "Primary_Address"]],
+            self.actual[["Interface", "Primary_Address"]],
             on="Interface",
             suffixes=("_SoT", "_Actual"),
         )
