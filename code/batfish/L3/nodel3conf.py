@@ -141,7 +141,7 @@ class NodeL3Conf(NodeL3):
 
         # Optional: If you want to keep only relevant columns
         result = result[["Interface", "Primary_Address_SoT", "Primary_Address_Actual"]]
-        return result
+        return merged
 
     def send_results(self) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """returns mismatch & actual"""
