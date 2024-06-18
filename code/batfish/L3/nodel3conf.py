@@ -110,7 +110,7 @@ class NodeL3Conf(NodeL3):
     @staticmethod
     def get_IPv4(row):
         """Returns an IPv4 in CIDR form"""
-        return ipaddress.IPv4Interface(f"{str(row['ipv4'])}/{str(row['mask'])}")
+        return str(ipaddress.IPv4Interface(f"{str(row['ipv4'])}/{str(row['mask'])}"))
 
     @staticmethod
     def get_IPv4net(row):
