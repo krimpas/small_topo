@@ -126,52 +126,23 @@ class NodeL3Conf(NodeL3):
         """Returns if the interface is enabled"""
         return row["enabled"]
 
-    @staticmethod
-    def left_anti_join2(
-        left_df: pd.DataFrame, right_df: pd.DataFrame, properties=List[str]
-    ) -> pd.DataFrame:
-        """
-        Performs a left anti join to identify missing and unexpected interfaces.
-
-        Parameters
-        ----------
-        left_df: pd.DataFrame
-            The left DataFrame for the join.
-        right_df: pd.DataFrame
-            The right DataFrame for the join.
-        properties: str
-            The column used for the join. Defaults to 'Interface'.
-
-        Returns
-        -------
-        pd.DataFrame
-            DataFrame containing the results of the left anti join.
-        """
-        outer = pd.merge(
-            left_df[properties], right_df[properties], how="outer", indicator=True
-        )
-        anti_join = (
-            outer[outer["_merge"] == "left_only"]
-            .drop(columns=["_merge"])
-            .reset_index(drop=True)
-        )
-        return anti_join
-
     def compute_ipv4_mismatch(self) -> pd.DataFrame:
         """
         Computes the configuration mismatches on L3 interfaces
         on the node.
         """
-        iface = "Interface"
-        pa = "Primary_Address"
-
-        tmp_mismatch = self.left_anti_join2(
-            left_df=self.actual,
-            right_df=self.sot_info,
-            properties=[iface, pa],
+        merged = pd.merge(
+            self.sot_info, self.actual, on="Interface", suffixes=("_SoT", "_Actual")
         )
-        return tmp_mismatch
+
+        result = merged[
+            merged["Primary_Address_SoT"] != merged["Primary_Address_Actual"]
+        ]
+
+        # Optional: If you want to keep only relevant columns
+        result = result[["Interface", "Primary_Address_SoT", "Primary_Address_Actual"]]
+        return result
 
     def send_results(self) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """returns mismatch & actual"""
-        return self.sot_info, self.actual
+        return self.ipv4_mismatch, self.duplicates
