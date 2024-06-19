@@ -118,7 +118,7 @@ ifaces = {
                 "description": "towards r5/OSPF area 0.0.3.5",
                 "enabled": True,
                 "ipv4": "10.0.35.3",
-                "mask": "255.255.255.248",
+                "mask": "255.255.255.240",
                 "mtu": 1500,
                 "name": "GigabitEthernet 3",
                 "ospf_config": {
