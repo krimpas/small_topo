@@ -145,7 +145,10 @@ class NodeL3Conf(NodeL3):
     @staticmethod
     def get_mtu(row):
         """Returns if the interface is enabled"""
-        return int(row["mtu"])
+        if not row["mtu"]:
+            return 1500
+        else:
+            return int(row["mtu"])
 
     def compute_mismatch(self, columns: List[str], check_column: str) -> pd.DataFrame:
         """
