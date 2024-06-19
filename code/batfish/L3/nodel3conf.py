@@ -70,9 +70,7 @@ class NodeL3Conf(NodeL3):
 
         self.desc_mismatch = None
 
-        self.upactive_mismatch = self.compute_mismatch(
-            columns=["Interface", "Admin_Up", "Active"], check_column="Admin_Up"
-        )
+        self.upactive_mismatch = None
 
     def compute_interface_df(self, sot: Dict):
         """builds a dataframe of interface conf info"""
@@ -158,9 +156,9 @@ class NodeL3Conf(NodeL3):
         ]
 
         # Optional: If you want to keep only relevant columns
-        result2 = result[["Interface", "Primary_Address_SoT", "Primary_Address_Actual"]]
+        result2 = result[["Interface", f"{check_column}_SoT", f"{check_column}_Actual"]]
         return result2
 
     def send_results(self) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """returns mismatch & actual"""
-        return self.upactive_mismatch, self.duplicates
+        return self.ipv4_mismatch, self.duplicates
