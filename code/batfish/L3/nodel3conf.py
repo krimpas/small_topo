@@ -147,8 +147,7 @@ class NodeL3Conf(NodeL3):
         """Returns if the interface is enabled"""
         if not row["mtu"]:
             return 1500
-        else:
-            return int(row["mtu"])
+        return row["mtu"]
 
     def compute_mismatch(self, columns: List[str], check_column: str) -> pd.DataFrame:
         """
