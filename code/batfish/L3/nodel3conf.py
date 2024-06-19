@@ -66,7 +66,9 @@ class NodeL3Conf(NodeL3):
 
         self.vrf_mismatch = None
 
-        self.mtu_mismatch = None
+        self.mtu_mismatch = self.compute_mismatch(
+            columns=["Interface", "MTU"], check_column="MTU"
+        )
 
         self.desc_mismatch = None
 
@@ -113,13 +115,13 @@ class NodeL3Conf(NodeL3):
         self.sot_info["Admin_Up"] = self.sot_info.apply(self.get_enabled, axis=1)
         self.sot_info["Active"] = self.sot_info.apply(self.get_enabled, axis=1)
 
-        # self.sot_info["MTU"] = self.sot_info.apply(self.get_mtu, axis=1)
+        self.sot_info["MTU"] = self.sot_info.apply(self.get_mtu, axis=1)
 
         self.sot_info.pop("ipv4")
         self.sot_info.pop("mask")
         self.sot_info.pop("name")
         self.sot_info.pop("enabled")
-        # self.sot_info.pop("mtu")
+        self.sot_info.pop("mtu")
         return self.sot_info
 
     @staticmethod
@@ -142,6 +144,11 @@ class NodeL3Conf(NodeL3):
         """Returns if the interface is enabled"""
         return row["enabled"]
 
+    @staticmethod
+    def get_mtu(row):
+        """returns mtu"""
+        return row["mtu"]
+
     def compute_mismatch(self, columns: List[str], check_column: str) -> pd.DataFrame:
         """
         Computes the configuration mismatches on L3 interfaces
@@ -163,4 +170,4 @@ class NodeL3Conf(NodeL3):
 
     def send_results(self) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """returns mismatch & actual"""
-        return self.ipv4_mismatch, self.upactive_mismatch
+        return self.mtu_mismatch, self.upactive_mismatch
