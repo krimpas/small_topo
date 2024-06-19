@@ -145,7 +145,7 @@ class NodeL3Conf(NodeL3):
     @staticmethod
     def get_mtu(row):
         """Returns if the interface is enabled"""
-        return int(row["MTU"])
+        return str(row["MTU"])
 
     def compute_mismatch(self, columns: List[str], check_column: str) -> pd.DataFrame:
         """
@@ -168,4 +168,4 @@ class NodeL3Conf(NodeL3):
 
     def send_results(self) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """returns mismatch & actual"""
-        return self.ipv4_mismatch, self.mtu_mismatch
+        return self.mtu_mismatch, self.duplicates
