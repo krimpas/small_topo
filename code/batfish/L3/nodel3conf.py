@@ -170,4 +170,4 @@ class NodeL3Conf(NodeL3):
 
     def send_results(self) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """returns mismatch & actual"""
-        return self.mtu_mismatch, self.upactive_mismatch
+        return self.ipv4_mismatch, self.duplicates
