@@ -106,7 +106,7 @@ ifaces = {
                 "enabled": True,
                 "ipv4": "10.0.0.33",
                 "mask": "255.255.255.240",
-                "mtu": 1500,
+                "mtu": 1490,
                 "name": "GigabitEthernet 2",
                 "ospf_config": {
                     "area": "0.0.0.0",
