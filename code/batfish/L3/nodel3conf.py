@@ -147,7 +147,7 @@ class NodeL3Conf(NodeL3):
     @staticmethod
     def get_mtu(row):
         """returns mtu"""
-        return row["mtu"]
+        return int(row["mtu"])
 
     def compute_mismatch(self, columns: List[str], check_column: str) -> pd.DataFrame:
         """
