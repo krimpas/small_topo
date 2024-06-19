@@ -60,7 +60,17 @@ class NodeL3Conf(NodeL3):
 
         self.sot_info = self.transform()
 
-        self.ipv4_mismatch = self.compute_ipv4_mismatch()
+        self.ipv4_mismatch = self.compute_mismatch(
+            columns=["Interface", "Primary_Address"], check_column="Primary_Address"
+        )
+
+        self.vrf_mismatch = None
+
+        self.mtu_mismatch = None
+
+        self.desc_mismatch = None
+
+        self.upactive_mismatch = None
 
     def compute_interface_df(self, sot: Dict):
         """builds a dataframe of interface conf info"""
@@ -127,20 +137,19 @@ class NodeL3Conf(NodeL3):
         """Returns if the interface is enabled"""
         return row["enabled"]
 
-    def compute_ipv4_mismatch(self) -> pd.DataFrame:
+    def compute_mismatch(self, columns: List[str], check_column: str) -> pd.DataFrame:
         """
         Computes the configuration mismatches on L3 interfaces
         on the node.
         """
         merged = pd.merge(
-            self.sot_info[["Interface", "Primary_Address"]],
-            self.actual[["Interface", "Primary_Address"]],
+            self.sot_info[columns],
+            self.actual[columns],
             on="Interface",
             suffixes=("_SoT", "_Actual"),
         )
-
         result = merged[
-            merged["Primary_Address_SoT"] != merged["Primary_Address_Actual"]
+            merged[f"{check_column}_SoT"] != merged[f"{check_column}_Actual"]
         ]
 
         # Optional: If you want to keep only relevant columns
