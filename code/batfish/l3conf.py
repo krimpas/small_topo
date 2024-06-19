@@ -129,7 +129,7 @@ ifaces = {
             },
             {
                 "enabled": False,
-                "ipv4": "172.16.3.3",
+                "ipv4": "10.0.35.3",
                 "mask": "255.255.255.0",
                 "name": "Loopback 0",
                 "ospf_config": {"area": "0.0.0.3", "net_type": "point-to-point"},
