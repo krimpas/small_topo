@@ -128,7 +128,7 @@ ifaces = {
                 },
             },
             {
-                "enabled": True,
+                "enabled": False,
                 "ipv4": "172.16.3.3",
                 "mask": "255.255.255.0",
                 "name": "Loopback 0",
