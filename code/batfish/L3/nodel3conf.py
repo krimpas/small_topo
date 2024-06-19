@@ -70,7 +70,7 @@ class NodeL3Conf(NodeL3):
 
         self.desc_mismatch = None
 
-        self.upactive_mismatch = self.ipv4_mismatch = self.compute_mismatch(
+        self.upactive_mismatch = self.compute_mismatch(
             columns=["Interface", "Admin_Up", "Active"], check_column="Admin_Up"
         )
 
