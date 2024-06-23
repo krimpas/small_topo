@@ -38,7 +38,8 @@ DEFAULT_SOT_EXCLUDED_KEYS = ["ospf_config"]
 
 class NodeL3Conf(NodeL3):
     """
-    Checks the SoT configuration parameters for L3 interfaces against actually configured on the node.
+    Checks the SoT configuration parameters for L3 interfaces against actually
+    configured on the node.
 
     Attributes
     ----------
