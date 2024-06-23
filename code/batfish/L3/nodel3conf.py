@@ -79,6 +79,7 @@ class NodeL3Conf(NodeL3):
 
     def compute_interface_df(self, sot: Dict):
         """builds a dataframe of interface conf info"""
+
         for iface in sot["interfaces"]:
             for some_key in DEFAULT_SOT_EXCLUDED_KEYS:
                 iface.pop(some_key, None)
