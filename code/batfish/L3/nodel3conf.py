@@ -77,7 +77,7 @@ class NodeL3Conf(NodeL3):
             columns=["Interface", "Admin_Up", "Active"], check_column="Admin_Up"
         )
 
-    def compute_interface_df(self, sot: Dict):
+    def compute_interface_df(self, sot: Dict) -> pd.DataFrame:
         """builds a dataframe of interface conf info"""
 
         for iface in sot["interfaces"]:
