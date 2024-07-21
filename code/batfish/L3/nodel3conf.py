@@ -173,3 +173,7 @@ class NodeL3Conf(NodeL3):
     def send_results(self) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """returns mismatch & actual"""
         return self.ipv4_mismatch, self.duplicates
+
+    @staticmethod
+    def compute_overlapped_nets(adf: pd.DataFrame):
+        """Checks if two IPv4 Networks have overlapped address space"""
